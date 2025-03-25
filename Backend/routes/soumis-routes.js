@@ -1,23 +1,13 @@
-// --- IMPORTS ---
 const express = require("express");
 const soumissionController = require("../controllers/soumissions-controller");
-const checkAuth = require("../middleware/check-auth");
 
-// --- ROUTES ---
 const router = express.Router();
 
-router.get("/", soumissionController.getAllSoumissions);
-router.get("/find/:oId", soumissionController.getSoumissionById);
-router.get("/:employeurId", soumissionController.soumissionUser);
-
-router.post("/find", soumissionController.recherche);
-
-router.get("/employe/:id", soumissionController.soumissionList);
+// ROUTES SPÉCIFIQUES D’ABORD
 router.get("/client/:id", soumissionController.soumissionList);
-
-router.post("/", soumissionController.addSoumission);
-router.put("/:oId", soumissionController.majSoumission);
-router.delete("/:oId", soumissionController.supprimerSoumission);
+router.get("/employe/:id", soumissionController.soumissionList);
+router.get("/find/:oId", soumissionController.getSoumissionById);
+router.post("/find", soumissionController.recherche);
 router.patch("/soumissions/:id/note", async (req, res) => {
     try {
         const { notes } = req.body;
@@ -32,5 +22,11 @@ router.patch("/soumissions/:id/note", async (req, res) => {
     }
 });
 
-// --- EXPORTS ---
+// ENSUITE LES ROUTES GÉNÉRIQUES
+router.get("/", soumissionController.getAllSoumissions);
+router.get("/:employeurId", soumissionController.soumissionUser);
+router.post("/", soumissionController.addSoumission);
+router.put("/:oId", soumissionController.majSoumission);
+router.delete("/:oId", soumissionController.supprimerSoumission);
+
 module.exports = router;

@@ -85,8 +85,8 @@ const getAllSoumissionsEmployeur = async (req, res, next) => {
 };
 
 
-const findSoumissionsByEmail = async (req, res, next, email) => {
-    const { employeurId } = req.body;
+const findSoumissionsByEmail = async (req, res, next) => {
+    const { employeurId, email } = req.body;
     console.log(`EmployeurId: ${employeurId}, Email: ${email}`);
 
     let soumission = [];

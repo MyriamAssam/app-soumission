@@ -52,9 +52,7 @@ const NavLinks = () => {
             </li>
           ) : (
             <>
-              <li>
-                <NavLink to="/listeSoumission">Ma liste</NavLink>
-              </li>
+
               <li>
                 <NavLink to="/connexion" onClick={() => auth.logout()}>
                   Deconnexion

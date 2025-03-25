@@ -82,38 +82,18 @@ const getUserByUsernameOrId = async (req, res, next) => {
 
 // --- INSCRIPTION ---
 const registerUser = async (req, res, next) => {
-  const { username, email, mdp, type } = req.body;
+  const { email, mdp, prenom, adresse, telephone, role, specialite } = req.body;
 
-  let existingUser;
-  try {
-    // Vérifier si l'email est déjà utilisé
-    existingUser = await USERS.findOne({ email: email });
-  } catch (e) {
-    console.log(e);
-    return next(
-      new HttpError(
-        "Erreur lors de la validation du courriel, veuillez réessayer plus tard.",
-        500
-      )
-    );
-  }
-
-  if (existingUser) {
-    return next(
-      new HttpError(
-        "Un utilisateur avec cette adresse courriel existe déjà.",
-        422
-      )
-    );
-  }
-  
-  // Si le email est valide
   const createdUser = new USERS({
-    username,
     email,
     mdp,
-    type,
+    prenom,
+    adresse,
+    telephone,
+    role,
+    specialite: role === "employé" ? specialite : undefined,
   });
+
   console.log("Utilisateur créé: ", createdUser);
 
   try {
@@ -131,22 +111,21 @@ const registerUser = async (req, res, next) => {
   let token;
   try {
     token = jwt.sign(
-      { email: email },
-        "tpsyntheseMelia&Ivan-cours4a5",
+      { userId: createdUser.id, email: email, role: createdUser.role, specialite: createdUser.specialite },
+      "tpsyntheseMelia&Ivan-cours4a5",
       { expiresIn: "24h" }
     );
   } catch (e) {
     console.log(e);
     return next(
-      new HttpError(
-        "La connexion a échouée, veuillez réessayer plus tard.",
-        500
-      )
+      new HttpError("La connexion a échouée, veuillez réessayer plus tard.", 500)
     );
   }
 
-
-  res.status(201).json({ user: createdUser.toObject({ getters: true }), token: token });
+  res.status(201).json({
+    user: createdUser.toObject({ getters: true }),
+    token: token
+  });
 };
 
 // --- CONNEXION ---
@@ -192,6 +171,8 @@ const login = async (req, res, next) => {
     res.status(201).json({
       userId: existingUser.id,
       email: existingUser.email,
+      role: existingUser.role,
+      specialite: existingUser.specialite,
       token: token,
     });
   }

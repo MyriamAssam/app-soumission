@@ -6,17 +6,7 @@ const router = express.Router();
 
 router.post("/register", userController.register);
 
-const { email, mdp, prenom, adresse, telephone, role, specialite } = req.body;
 
-const newUser = new User({
-    email,
-    mdp,
-    prenom,
-    adresse,
-    telephone,
-    role,
-    specialite: role === "employé" ? specialite : undefined,
-});
 
 router.post("/login", userController.login);
 

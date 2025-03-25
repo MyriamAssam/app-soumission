@@ -39,11 +39,11 @@ const AddSoumi = (props) => {
         const travauxSelectionnes = fd.getAll("travaux");
 
         const newSoumi = {
-            phone: data.phone,
+            adresse: data.adresse,
             PrenomClient: data.PrenomClient,
             email: data.email,
-            adresse: data.adresse,
             description: data.description,
+            telephone: data.phone,
             employeurId: auth.user,
             travaux: travauxSelectionnes,
         };

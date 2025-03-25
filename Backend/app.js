@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const usersRoutes = require("./routes/users-routes");
-const soumisRoutes = require("./routes/soumis-routes"); // <-- DÉPLACÉ ICI
+const soumisRoutes = require("./routes/soumis-routes");
 
 const errorHandler = require("./handler/error-handler");
 
@@ -23,8 +23,8 @@ app.options("*", (req, res) => {
 });
 
 // routes
-app.use("/soumis", soumisRoutes);        // facultatif
-app.use("/soumissions", soumisRoutes);   // celui-ci est le vrai
+app.use("/soumis", soumisRoutes);
+app.use("/soumissions", soumisRoutes);
 app.use("/users", usersRoutes);
 
 app.use((req, res, next) => {

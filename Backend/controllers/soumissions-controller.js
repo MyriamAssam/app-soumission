@@ -139,7 +139,7 @@ const findSoumissionsByEmail = async (req, res, next) => {
 
 
 const addSoumission = async (req, res, next) => {
-    const { adresse, nomEmployeur, email, description, telephone, employeurId, published } = req.body;
+    const { adresse, nomEmployeur, email, description, telephone, employeurId } = req.body;
 
     const newSoumission = new SOUMISSIONS({
         adresse,
@@ -148,7 +148,7 @@ const addSoumission = async (req, res, next) => {
         description,
         telephone,
         employeurId,
-        published: published || false
+
     });
 
     try {

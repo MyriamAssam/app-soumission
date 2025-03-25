@@ -134,8 +134,10 @@ export default function Inscription(props) {
             ))}
           </select>
         </div>
-      )}
 
+      )}
+      {/* ✅ Ce champ est essentiel pour le backend */}
+      <input type="hidden" name="role" value={props.type === "Employé" ? "employé" : "client"} />
       <p className="form-actions">
         <button className="boutonLog" type="submit">
           Inscription

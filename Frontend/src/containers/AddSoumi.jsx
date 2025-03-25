@@ -40,7 +40,7 @@ const AddSoumi = (props) => {
 
         const newSoumi = {
             adresse: data.adresse,
-            prenomClient: data.PrenomClient,
+            prenomClient: data.prenomClient,
             email: data.email,
             description: data.description,
             telephone: data.telephone,

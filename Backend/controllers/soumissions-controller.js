@@ -194,15 +194,23 @@ const modifierSoumission = async (req, res, next) => {
 
 
 const soumissionList = async (req, res, next) => {
-    try {
-        const soumissions = await SOUMISSIONS.find({ employeurId: req.params.id });
-        res.json({ soumissions: soumissions.map((s) => s.toObject({ getters: true })) });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Erreur serveur" });
-    }
-};
+    const userId = req.params.id;
+    const user = await require("../models/user").findById(userId);
 
+    if (!user || !user.role || !user.domaine) {
+        return res.status(404).json({ message: "Utilisateur invalide ou sans domaine." });
+    }
+
+    let query = {};
+    if (user.role === "employé") {
+        query.travaux = user.domaine;
+    } else {
+        query.employeurId = userId;
+    }
+
+    const soumissions = await SOUMISSIONS.find(query);
+
+}
 
 const deleteSoumission = async (req, res, next) => {
     const oId = req.params.oId;

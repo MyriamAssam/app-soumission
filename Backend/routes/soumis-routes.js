@@ -8,10 +8,10 @@ router.get("/client/:id", soumissionController.soumissionList);
 router.get("/employe/:id", soumissionController.soumissionList);
 router.get("/find/:oId", soumissionController.getSoumissionById);
 router.post("/find", soumissionController.recherche);
-router.patch("/soumissions/:id/note", async (req, res) => {
+router.patch("/:id/note", async (req, res) => {
     try {
         const { notes } = req.body;
-        const soumission = await Soumission.findByIdAndUpdate(
+        const soumission = await SOUMISSIONS.findByIdAndUpdate(
             req.params.id,
             { notes },
             { new: true }
@@ -22,7 +22,7 @@ router.patch("/soumissions/:id/note", async (req, res) => {
     }
 });
 
-// ENSUITE LES ROUTES GÉNÉRIQUES
+// ROUTES GÉNÉRIQUES
 router.get("/", soumissionController.getAllSoumissions);
 router.get("/:employeurId", soumissionController.soumissionUser);
 router.post("/", soumissionController.addSoumission);

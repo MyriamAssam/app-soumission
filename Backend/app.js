@@ -24,6 +24,8 @@ app.options("*", (req, res) => {
 app.use("/soumis", soumisRoutes);
 app.use("/users", usersRoutes);
 
+const soumisRoutes = require("./routes/soumis-routes");
+app.use("/soumissions", soumisRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Route non trouvée");

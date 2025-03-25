@@ -8,20 +8,20 @@ const AddSoumi = (props) => {
     const { sendRequest } = useHttpClient();
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
-    let PrenomClient, email, adresse, description, travaux, phone
+    let prenomClient, email, adresse, description, travaux, telephone
 
     const location = useLocation();
     if (location.state !== null) {
-        phone = location.state.phone;
-        PrenomClient = location.state.PrenomClient;
+        telephone = location.state.telephone;
+        prenomClient = location.state.prenomClient;
         email = location.state.email;
         adresse = location.state.adresse;
         description = location.state.description;
         travaux = location.state.published;
 
     } else {
-        phone = 0;
-        PrenomClient = "";
+        telephone = 0;
+        prenomClient = "";
         email = "";
         adresse = 0;
         description = "";
@@ -40,7 +40,7 @@ const AddSoumi = (props) => {
 
         const newSoumi = {
             adresse: data.adresse,
-            PrenomClient: data.PrenomClient,
+            prenomClient: data.PrenomClient,
             email: data.email,
             description: data.description,
             telephone: data.telephone,
@@ -94,14 +94,14 @@ const AddSoumi = (props) => {
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>prénom: </label>
-                    <input type="PrenomClient" name="PrenomClient" defaultValue={PrenomClient} />
+                    <input type="prenomClient" name="prenomClient" defaultValue={prenomClient} />
                 </div>
             </div>
 
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Télephone : </label>
-                    <input type="phone" name="phone" defaultValue={phone} />
+                    <input type="telephone" name="telephone" defaultValue={telephone} />
                 </div>
             </div>
             <div className="controles-rows">

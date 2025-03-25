@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const soumissionSchema = new mongoose.Schema({
     adresse: { type: String, required: false },
     nomEmployeur: { type: String },
-    PrenomClient: { type: String, required: true },
+    prenomClient: { type: String, required: true },
     email: { type: String, required: true },
     description: { type: String, required: false },
     telephone: { type: String, required: true },

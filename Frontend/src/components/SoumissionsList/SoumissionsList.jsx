@@ -36,7 +36,7 @@ const ListeSoumissions = () => {
     const handleAddSoumi = () => {
         navigate("/add-soumi", {
             state: {
-                PrenomClient: "", email: "", adresse: "", phone: "", description: "", travaux: false
+                prenomClient: "", email: "", adresse: "", telephone: "", description: "", travaux: false
             }
         });
     };

@@ -31,10 +31,10 @@ const DetailSoumission = () => {
     return (
         <div>
             <h2>Détails de la soumission</h2>
-            <p><strong>Prénom :</strong> {soumi.PrenomClient}</p>
+            <p><strong>Prénom :</strong> {soumi.prenomClient}</p>
             <p><strong>Email :</strong> {soumi.email}</p>
             <p><strong>Adresse :</strong> {soumi.adresse}</p>
-            <p><strong>Téléphone :</strong> {soumi.phone}</p>
+            <p><strong>Téléphone :</strong> {soumi.telephone}</p>
             <p><strong>Description :</strong> {soumi.description}</p>
             <p><strong>Travaux :</strong> {soumi.travaux?.join(", ")}</p>
 

@@ -208,7 +208,13 @@ const soumissionList = async (req, res, next) => {
         query.employeurId = userId;
     }
 
-    const soumissions = await SOUMISSIONS.find(query);
+    try {
+        const soumissions = await SOUMISSIONS.find(query);
+        res.json({ soumissions: soumissions.map((s) => s.toObject({ getters: true })) });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Erreur serveur lors du chargement des soumissions." });
+    }
 
 }
 

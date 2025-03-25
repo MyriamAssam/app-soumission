@@ -43,7 +43,7 @@ const AddSoumi = (props) => {
             PrenomClient: data.PrenomClient,
             email: data.email,
             description: data.description,
-            telephone: data.phone,
+            telephone: data.telephone,
             employeurId: auth.user,
             travaux: travauxSelectionnes,
         };

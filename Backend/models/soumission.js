@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const soumissionSchema = new mongoose.Schema({
     adresse: { type: String, required: false },
     nomEmployeur: { type: String },
-    PrenomClient: { type: String }, // 👈 Ajouté
+    PrenomClient: { type: String, required: false },
     email: { type: String, required: true },
-    description: { type: String, required: false }, // 👈 Corrigé
+    description: { type: String, required: false },
     telephone: { type: String, required: false },
     employeurId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
     notes: { type: String, default: "" },

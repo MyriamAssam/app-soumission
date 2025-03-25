@@ -12,6 +12,8 @@ router.get("/:employeurId", soumissionController.soumissionUser);
 
 router.post("/find", soumissionController.recherche);
 
+router.get("/employe/:id", soumissionController.soumissionList);
+router.get("/client/:id", soumissionController.soumissionList);
 
 router.post("/", soumissionController.addSoumission);
 router.put("/:oId", soumissionController.majSoumission);

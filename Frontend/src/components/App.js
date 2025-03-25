@@ -13,12 +13,15 @@ import SoumissionsList from "../components/SoumissionsList/SoumissionsList";
 import DetailSoumission from "../components/DetailSoumission/DetailSoumission";
 
 const App = () => {
+
+
   const [error, setError] = useState(null);
 
   const routes = createBrowserRouter([
     {
       path: "/",
       element: <RootLayout />,
+
       children: [
         { path: "/", element: <Navigate to="/connexion" /> },
         { path: "/connexion", element: <Connexion /> },

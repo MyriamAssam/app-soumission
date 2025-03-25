@@ -4,6 +4,9 @@ const soumisRoutes = require("./routes/soumis-routes");
 const usersRoutes = require("./routes/users-routes");
 
 const errorHandler = require("./handler/error-handler");
+app.options("*", (req, res) => {
+  res.sendStatus(200);
+});
 
 const app = express();
 app.use(express.json());

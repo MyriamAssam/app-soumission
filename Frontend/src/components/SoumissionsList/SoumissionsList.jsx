@@ -17,7 +17,9 @@ const ListeSoumissions = () => {
 
                 const response = await fetch(process.env.REACT_APP_BACKEND_URL + endpoint);
                 const data = await response.json();
-                setSoumissions(data);
+                setSoumissions(data.soumissions || []);
+
+
             } catch (err) {
                 console.error(err);
             }

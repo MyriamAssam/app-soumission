@@ -4,9 +4,7 @@ const soumisRoutes = require("./routes/soumis-routes");
 const usersRoutes = require("./routes/users-routes");
 
 const errorHandler = require("./handler/error-handler");
-app.options("*", (req, res) => {
-  res.sendStatus(200);
-});
+
 
 const app = express();
 app.use(express.json());
@@ -20,7 +18,9 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   next();
 });
-
+app.options("*", (req, res) => {
+  res.sendStatus(200);
+});
 app.use("/soumis", soumisRoutes);
 app.use("/users", usersRoutes);
 

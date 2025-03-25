@@ -85,9 +85,9 @@ const getAllSoumissionsEmployeur = async (req, res, next) => {
 };
 
 
-const findSoumissionsByEmail = async (req, res, next) => {
-    const { employeurId, titre } = req.body;
-    console.log(`EmployeurId: ${employeurId}, Nom: ${titre}`);
+const findSoumissionsByEmail = async (req, res, next, email) => {
+    const { employeurId, email } = req.body;
+    console.log(`EmployeurId: ${employeurId}, Email: ${email}`);
 
     let soumission = [];
     try {
@@ -167,7 +167,7 @@ const modifierSoumission = async (req, res, next) => {
     const modifications = req.body;
 
     try {
-        const soumissionModifiee = await OFFRES.findByIdAndUpdate(oId, modifications, {
+        const soumissionModifiee = await SOUMISSIONS.findByIdAndUpdate(oId, modifications, {
             new: true,
         });
 
@@ -184,6 +184,20 @@ const modifierSoumission = async (req, res, next) => {
                 500
             )
         );
+    }
+};
+
+
+
+
+
+const soumissionList = async (req, res, next) => {
+    try {
+        const soumissions = await SOUMISSIONS.find({ employeurId: req.params.id });
+        res.json({ soumissions: soumissions.map((s) => s.toObject({ getters: true })) });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Erreur serveur" });
     }
 };
 
@@ -216,7 +230,7 @@ exports.getAllSoumissions = getAllSoumissions;
 exports.getSoumissionById = getSoumissionById;
 exports.soumissionUser = getAllSoumissionsEmployeur;
 exports.recherche = findSoumissionsByEmail;
-
+exports.soumissionList = soumissionList;
 exports.addSoumission = addSoumission;
 exports.majSoumission = modifierSoumission;
 exports.supprimerSoumission = deleteSoumission;

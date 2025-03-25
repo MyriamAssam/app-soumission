@@ -101,13 +101,13 @@ const AddSoumi = (props) => {
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Télephone : </label>
-                    <input type="texte" name="telephone" defaultValue={telephone} />
+                    <input type="telephone" name="telephone" defaultValue={telephone} />
                 </div>
             </div>
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Adresse : </label>
-                    <input type="texte" name="adresse" defaultValue={adresse} />
+                    <input type="adresse" name="adresse" defaultValue={adresse} />
                 </div>
             </div>
             <div className="controles-rows">

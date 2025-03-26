@@ -8,25 +8,23 @@ const ListeSoumissions = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("Rôle :", auth.role, "| ID :", auth.user); // debug
         const fetchSoumissions = async () => {
             try {
-                const endpoint =
-                    auth.role === "employé"
-                        ? `soumissions/employe/${auth.user}`
-                        : `soumissions/client/${auth.user}`;
+                const endpoint = auth.role === "employé"
+                    ? `soumissions/employe/${auth.user}`
+                    : `soumissions/client/${auth.user}`;
 
                 const response = await fetch(process.env.REACT_APP_BACKEND_URL + endpoint);
                 const data = await response.json();
                 setSoumissions(data.soumissions || []);
-
-
             } catch (err) {
                 console.error(err);
             }
         };
-
         fetchSoumissions();
     }, [auth.user, auth.role]);
+
 
 
     const handleDetails = (soumi) => {

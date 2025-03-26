@@ -7,7 +7,22 @@ const DetailSoumission = () => {
     const { soumi } = location.state || {};
     const auth = useContext(AuthContext);
     const [note, setNote] = useState(soumi.notes || "");
-
+    useEffect(() => {
+        const fetchNote = async () => {
+            if (auth.role === "client") {
+                try {
+                    const response = await fetch(
+                        process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
+                    );
+                    const data = await response.json();
+                    setNote(data.soumission.notes || "");
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        };
+        fetchNote();
+    }, [auth.role, soumi._id]);
     const handleSaveNote = async () => {
         try {
             await fetch(
@@ -20,11 +35,22 @@ const DetailSoumission = () => {
                     body: JSON.stringify({ notes: note })
                 }
             );
+
+
+            const response = await fetch(
+                process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
+            );
+            const data = await response.json();
+
+
+            setNote(data.soumission.notes || "");
+
             alert("Note sauvegardée !");
         } catch (err) {
             console.error(err);
         }
     };
+
 
     if (!soumi) return <p>Aucune donnée à afficher.</p>;
 

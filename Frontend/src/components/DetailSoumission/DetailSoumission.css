@@ -3,8 +3,8 @@
     font-size: 1rem;
     border-radius: 4px;
     border: none;
-    background-color: #000000;
-    color: rgb(207, 155, 231);
+    background-color: rgb(207, 155, 231);
+    color: #000000;
     cursor: pointer;
     align-items: center;
 }

@@ -31,7 +31,8 @@ export default function Login(props) {
       console.log("asd", response);
       const responseData = await response.json();
       console.log("1", responseData);
-      auth.login(responseData.userId, responseData.token, responseData.role, responseData.specialite);
+      auth.login(responseData.userId, responseData.token, responseData.role);
+
 
       // A RE-VERIFIER
       if (responseData.userId !== undefined) {

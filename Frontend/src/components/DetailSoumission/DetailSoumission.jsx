@@ -40,10 +40,10 @@ const DetailSoumission = () => {
 
             {auth.role === "employé" ? (
                 <>
-                    <label>Notes :</label><br />
+                    <label><strong>Notes :</strong></label><br />
                     <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={5} cols={50}></textarea>
                     <br />
-                    <button onClick={handleSaveNote}>Sauvegarder la note</button>
+                    <button className="bouton" type="submit" onClick={handleSaveNote}>Sauvegarder la note</button>
                 </>
             ) : (
                 <>

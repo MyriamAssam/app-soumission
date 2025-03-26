@@ -24,7 +24,7 @@ router.patch("/:id/note", async (req, res) => {
 
 // ROUTES GÉNÉRIQUES
 router.get("/", soumissionController.getAllSoumissions);
-router.get("/:employeurId", soumissionController.soumissionUser);
+
 router.post("/", soumissionController.addSoumission);
 router.put("/:oId", soumissionController.majSoumission);
 router.delete("/:oId", soumissionController.supprimerSoumission);

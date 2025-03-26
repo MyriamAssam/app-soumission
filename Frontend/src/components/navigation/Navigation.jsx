@@ -20,7 +20,7 @@ const logoContainer = {
   flex: 1,
   display: "flex",
   justifyContent: "flex-start",
-  marginLeft: "400px"
+  marginLeft: "200px"
 };
 
 const logoStyle = {

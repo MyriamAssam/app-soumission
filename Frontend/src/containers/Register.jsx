@@ -7,6 +7,7 @@ export default function Register() {
 
   return (
     <div>
+      <h2>Inscrivez-vous ou connectez-vous pour demander ou voir vos soumissions!</h2>
       <Inscription type={typeCompte} />
       <div className="typeCompte">
 

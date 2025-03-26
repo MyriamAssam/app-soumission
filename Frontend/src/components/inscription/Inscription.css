@@ -71,6 +71,20 @@ fieldset {
   color: #d9e2f1;
 }
 
+.typeCompte {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 4em;
+  padding-top: 0em;
+}
+
+.typeCompte a {
+  background-color: #d9e2f1;
+  padding: 1em;
+  cursor: pointer;
+}
+
 .controles-error {
   color: #ffca99;
   font-size: 0.8rem;

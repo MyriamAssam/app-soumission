@@ -1,13 +1,3 @@
-.typeCompte {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    gap: 4em;
-    padding-top: 0em;
-}
-
-.typeCompte a {
-    background-color: rgb(204, 157, 243);
-    padding: 1em;
-    cursor: pointer;
+.texte h2 {
+    text-align: center;
 }

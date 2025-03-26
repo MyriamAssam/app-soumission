@@ -136,13 +136,18 @@ export default function Inscription(props) {
         </div>
 
       )}
-      {/* ✅ Ce champ est essentiel pour le backend */}
+      { }
       <input type="hidden" name="role" value={props.type === "Employé" ? "employé" : "client"} />
       <p className="form-actions">
         <button className="boutonLog" type="submit">
           Inscription
         </button>
       </p>
+      <div className="typeCompte">
+
+        <a onClick={() => setTypeCompte("Client")}>Client</a>
+        <a onClick={() => setTypeCompte("Employé")}>Employé</a>
+      </div>
     </form>
   );
 }

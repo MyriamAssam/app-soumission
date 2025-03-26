@@ -79,6 +79,12 @@ export default function Login(props) {
           Connexion
         </button>
       </p>
+      <div className="typeCompte">
+
+        <a onClick={() => setTypeCompte("Client")}>Client</a>
+        <a onClick={() => setTypeCompte("Employé")}>Employé</a>
+      </div>
+
     </form>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Login from "../components/login/Login";
-
+import "./Register.css";
 import axios from "axios";
 
 export default function Connexion() {
@@ -39,13 +39,10 @@ export default function Connexion() {
   }, [isAuthenticated, typeCompte]);
 
   return (
-    <div>
-      <Login type={typeCompte} onLogin={handleLogin} />
-      <div className="typeCompte">
+    <div className="texte">
+      <h2>Inscrivez-vous ou connectez-vous pour demander ou voir vos soumissions!</h2>
 
-        <a onClick={() => setTypeCompte("Client")}>Client</a>
-        <a onClick={() => setTypeCompte("Employé")}>Employé</a>
-      </div>
+      <Login type={typeCompte} onLogin={handleLogin} />
 
 
 

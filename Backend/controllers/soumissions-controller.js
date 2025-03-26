@@ -198,9 +198,14 @@ const soumissionList = async (req, res, next) => {
     const userId = req.params.id;
     const user = await require("../models/user").findById(userId);
 
-    if (!user || !user.role || !user.specialite) {
-        return res.status(404).json({ message: "Utilisateur invalide ou sans domaine." });
+    if (!user || !user.role) {
+        return res.status(404).json({ message: "Utilisateur invalide." });
     }
+
+    if (user.role === "employé" && !user.specialite) {
+        return res.status(404).json({ message: "Employé sans spécialité." });
+    }
+
 
     let query = {};
     if (user.role === "employé") {
@@ -216,8 +221,8 @@ const soumissionList = async (req, res, next) => {
         console.error(err);
         res.status(500).json({ message: "Erreur serveur lors du chargement des soumissions." });
     }
-
 }
+
 
 const deleteSoumission = async (req, res, next) => {
     const oId = req.params.oId;

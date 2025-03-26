@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Login from "../components/login/Login";
-//import OffersList from "../components/OffersList/OffersList";
+
 import axios from "axios";
 
 export default function Connexion() {
-  const [typeCompte, setTypeCompte] = useState("Candidat");
+  const [typeCompte, setTypeCompte] = useState("Client");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [offers, setOffers] = useState([]);
   const [error, setError] = useState(null);
@@ -18,11 +18,11 @@ export default function Connexion() {
       if (isAuthenticated) {
         try {
           let response;
-          if (typeCompte === "Candidat") {
+          if (typeCompte === "Client") {
             response = await axios.get(
-              process.env.REACT_APP_BACKEND_URL + "offres/"
+              process.env.REACT_APP_BACKEND_URL + "soumissions/"
             );
-          } else if (typeCompte === "Employeur") {
+          } else if (typeCompte === "Employé") {
             const employeurId = "66f1d6d0dbe127215621f263";
             response = await axios.get(
               process.env.REACT_APP_BACKEND_URL + `offers-Entrp/${employeurId}/`
@@ -30,7 +30,7 @@ export default function Connexion() {
           }
           setOffers(response.data.offres);
         } catch (err) {
-          setError("Erreur lors de la récupération des offres.");
+          setError("Erreur lors de la récupération des soumissions.");
         }
       }
     };
@@ -40,13 +40,14 @@ export default function Connexion() {
 
   return (
     <div>
+      <Login type={typeCompte} onLogin={handleLogin} />
       <div className="typeCompte">
 
         <a onClick={() => setTypeCompte("Client")}>Client</a>
         <a onClick={() => setTypeCompte("Employé")}>Employé</a>
       </div>
 
-      <Login type={typeCompte} onLogin={handleLogin} />
+
 
       {error && <div>{error}</div>}
 

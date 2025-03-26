@@ -7,13 +7,14 @@ export default function Register() {
 
   return (
     <div>
+      <Inscription type={typeCompte} />
       <div className="typeCompte">
 
         <a onClick={() => setTypeCompte("Client")}>Client</a>
         <a onClick={() => setTypeCompte("Employé")}>Employé</a>
       </div>
 
-      <Inscription type={typeCompte} />
+
     </div>
   );
 }

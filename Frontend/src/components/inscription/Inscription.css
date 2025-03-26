@@ -6,6 +6,7 @@ form {
   background: rgb(15, 180, 158);
   border-radius: 8px;
   box-shadow: 0 0 16px 1px rgba(0, 0, 0, 0.5);
+  align-items: center;
 }
 
 .controles,
@@ -110,6 +111,7 @@ fieldset {
   justify-content: flex-end;
   gap: 1rem;
   align-items: center;
+  justify-content: center;
 }
 
 .boutonLog {

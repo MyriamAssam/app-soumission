@@ -74,17 +74,17 @@ export default function Login(props) {
       </div>
 
 
-      <p className="form-actions">
-        <button className="boutonLog" type="submit">
-          Connexion
-        </button>
-      </p>
+
       <div className="typeCompte">
 
         <a onClick={() => setTypeCompte("Client")}>Client</a>
         <a onClick={() => setTypeCompte("Employé")}>Employé</a>
       </div>
-
+      <p className="form-actions">
+        <button className="boutonLog" type="submit">
+          Connexion
+        </button>
+      </p>
     </form>
   );
 }

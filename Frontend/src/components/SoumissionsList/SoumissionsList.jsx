@@ -54,6 +54,17 @@ const ListeSoumissions = () => {
                     </li>
                 ))}
             </ul>
+
+            {auth.role === "employé" && (
+                <ul>
+                    {soumissions.map((soumi) => (
+                        <li key={soumi.id} onClick={() => handleDetails(soumi)} style={{ cursor: "pointer", padding: "10px", borderBottom: "1px solid #ccc" }}>
+                            {soumi.description || "(Aucune description)"}
+                        </li>
+                    ))}
+                </ul>
+            )}
+
         </div>
     );
 };

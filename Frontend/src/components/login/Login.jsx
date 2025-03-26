@@ -34,7 +34,7 @@ export default function Login(props) {
       auth.login(responseData.userId, responseData.token, responseData.role);
 
 
-      // A RE-VERIFIER
+
       if (responseData.userId !== undefined) {
         navigate("/soumissions");
       }
@@ -44,7 +44,7 @@ export default function Login(props) {
       console.log(err);
     }
   }
-
+  <h2>Inscrivez vous ou connectez-vous pour demander ou voir vos soumissions</h2>
   return (
     <form onSubmit={authSubmitHandler}>
       <h2>Connexion</h2>

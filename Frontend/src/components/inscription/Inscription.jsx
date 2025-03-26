@@ -141,12 +141,12 @@ export default function Inscription(props) {
 
       <div className="typeCompte">
 
-        <a onClick={() => setTypeCompte("Client")}>Client</a>
-        <a onClick={() => setTypeCompte("Employé")}>Employé</a>
+        <a onClick={() => setTypeCompte("Client")}><strong>Client</strong></a>
+        <a onClick={() => setTypeCompte("Employé")}><strong>Employé</strong></a>
       </div>
       <p className="form-actions">
         <button className="boutonLog" type="submit">
-          Inscription
+          <strong>Inscription</strong>
         </button>
       </p>
     </form>

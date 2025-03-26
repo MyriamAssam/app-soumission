@@ -149,6 +149,7 @@ const addSoumission = async (req, res, next) => {
         telephone,
         employeurId,
         prenomClient,
+        clientId: req.body.clientId,
         travaux
 
     });
@@ -205,7 +206,7 @@ const soumissionList = async (req, res, next) => {
     if (user.role === "employé") {
         query.travaux = user.specialite;
     } else {
-        query.employeurId = userId;
+        query.clientId = userId;
     }
 
     try {

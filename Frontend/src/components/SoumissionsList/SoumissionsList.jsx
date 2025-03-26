@@ -44,9 +44,9 @@ const ListeSoumissions = () => {
     return (
         <div>
             <h2>Mes Soumissions</h2>
-
-            <button onClick={handleAddSoumi}>Créer une nouvelle soumission</button>
-
+            {auth.role === "client" && (
+                <button onClick={handleAddSoumi}>Créer une nouvelle soumission</button>
+            )}
             <ul>
                 {soumissions.map((soumi) => (
                     <li key={soumi.id} onClick={() => handleDetails(soumi)} style={{ cursor: "pointer", padding: "10px", borderBottom: "1px solid #ccc" }}>

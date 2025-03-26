@@ -9,6 +9,7 @@ const soumissionSchema = new mongoose.Schema({
     telephone: { type: String, required: false },
     employeurId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
     notes: { type: String, default: "" },
+    clientId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
     travaux: [{ type: String }]
 });
 

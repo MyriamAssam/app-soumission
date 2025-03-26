@@ -45,6 +45,7 @@ const AddSoumi = (props) => {
             description: data.description,
             telephone: data.telephone,
             employeurId: auth.user,
+            clientId: auth.user,
             travaux: travauxSelectionnes,
         };
 

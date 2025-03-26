@@ -20,6 +20,14 @@ fieldset {
   align-items: center;
 }
 
+.controles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+}
+
 .controles label {
   display: block;
   font-size: 0.8rem;
@@ -85,11 +93,10 @@ fieldset {
 }
 
 .typeCompte {
-  position: relative;
   display: flex;
   justify-content: center;
-  gap: 4em;
-  padding-top: 0em;
+  gap: 1rem;
+  width: 100%;
 }
 
 .typeCompte a {
@@ -100,10 +107,9 @@ fieldset {
 
 .controles-row {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 1rem;
+  flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .form-actions {

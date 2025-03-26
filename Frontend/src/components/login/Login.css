@@ -16,6 +16,7 @@ fieldset {
 .controles.no-margin {
   margin-bottom: 0;
   padding-right: 1rem;
+  align-items: center;
 }
 
 .controles label {
@@ -101,12 +102,14 @@ fieldset {
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 1rem;
+  align-items: center;
 }
 
 .form-actions {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+  align-items: center;
 }
 
 .boutonLog {
@@ -117,6 +120,7 @@ fieldset {
   background-color: #e7dfdf;
   color: #000000;
   cursor: pointer;
+  align-items: center;
 }
 
 .boutonLog:hover,

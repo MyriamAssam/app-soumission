@@ -7,7 +7,7 @@ export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
-
+  const [typeCompte, setTypeCompte] = useState("Client");
   const navigate = useNavigate();
 
   const auth = useContext(AuthContext);

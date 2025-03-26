@@ -15,7 +15,7 @@ export default function Inscription(props) {
   const { user, token } = useAuthContext();
   const auth = useContext(AuthContext);
   const [error, SetError] = useState(null);
-
+  const [typeCompte, setTypeCompte] = useState("Client");
   async function authSubmitHandler(event) {
     event.preventDefault();
     const inputs = new FormData(event.target);

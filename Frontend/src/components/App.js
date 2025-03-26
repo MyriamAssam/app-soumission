@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import Register from "../containers/Register";
-import Connexion from "../containers/Connexion";
+
 import AddSoumi from "../containers/AddSoumi";
 import RootLayout from "../containers/Roots";
 import SoumissionsList from "../components/SoumissionsList/SoumissionsList";
@@ -24,7 +24,7 @@ const App = () => {
 
       children: [
         { path: "/", element: <Navigate to="/connexion" /> },
-        { path: "/connexion", element: <Connexion /> },
+
         { path: "/register", element: <Register /> },
         { path: "/soumissions", element: <SoumissionsList /> },
         { path: "/soumission/:id", element: <DetailSoumission /> },

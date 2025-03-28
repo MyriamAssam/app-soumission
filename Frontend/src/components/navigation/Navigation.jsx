@@ -9,7 +9,7 @@ const Navigation = () => {
         <nav className="main-navigation_entete-nav">
           <NavLinks />
           <div style={logoContainer}>
-            <img src={require("../navigation/images/logomenu.png")} alt="Logo" style={logoStyle} />
+            <img src={require("./navigation/images/logomenu.png")} alt="Logo" style={logoStyle} />
           </div>
         </nav>
       </header>

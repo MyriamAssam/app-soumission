@@ -72,6 +72,7 @@ const DetailSoumission = () => {
         }
     };
 
+
     const handleEdit = () => {
         navigate("/add-soumi", {
             state: {
@@ -85,6 +86,7 @@ const DetailSoumission = () => {
             }
         });
     };
+
 
     if (!soumi) return <p>Aucune donnée à afficher.</p>;
 
@@ -110,15 +112,14 @@ const DetailSoumission = () => {
             )}
 
             {auth.role === "client" && (
-                <>
-                    <br />
-                    <button className="boutonSupp" type="button" onClick={handleDelete}>Supprimer</button>
-                    <br />
+                <div className="boutons-actions">
+                    <button className="boutonSupp" type="button" onClick={handleDelete}><strong>Supprimer</strong></button>
                     <button className="boutonModi" type="button" onClick={handleEdit}><strong>Modifier</strong></button>
-                </>
+                </div>
             )}
+
+
         </div>
     );
 };
-
 export default DetailSoumission;

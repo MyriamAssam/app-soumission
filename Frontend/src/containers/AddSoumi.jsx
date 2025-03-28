@@ -38,6 +38,8 @@ const AddSoumi = (props) => {
 
         const travauxSelectionnes = fd.getAll("travaux");
 
+        const isEdit = location.state?.soumissionId;
+
         const newSoumi = {
             adresse: data.adresse,
             prenomClient: data.prenomClient,
@@ -50,25 +52,27 @@ const AddSoumi = (props) => {
         };
 
         try {
-            await sendRequest(
-                process.env.REACT_APP_BACKEND_URL + "soumissions/",
-                "POST",
-                JSON.stringify(newSoumi),
-                { "Content-Type": "application/json" }
-            );
+            const url = isEdit
+                ? process.env.REACT_APP_BACKEND_URL + `soumissions/${location.state.soumissionId}`
+                : process.env.REACT_APP_BACKEND_URL + `soumissions/`;
+            const method = isEdit ? "PUT" : "POST";
+
+            await sendRequest(url, method, JSON.stringify(newSoumi), {
+                "Content-Type": "application/json",
+            });
+
+            navigate("/soumissions?refresh=true");
         } catch (err) {
             console.error(err);
         }
-        event.target.reset();
-        navigate("/soumissions?refresh=true");
     }
-
 
 
 
     return (
         <form onSubmit={addSoumiSubmitHandler}>
-            <h2>Créer nouvelle Soumission</h2>
+            <h2>{location.state?.soumissionId ? "Modifier la soumission" : "Créer nouvelle Soumission"}</h2>
+
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Types de travaux :</label>
@@ -120,8 +124,9 @@ const AddSoumi = (props) => {
 
             <p className="form-actions">
                 <button className="boutonLog" type="submit">
-                    Créer
+                    {location.state?.soumissionId ? "Modifier" : "Créer"}
                 </button>
+
 
             </p>
         </form>

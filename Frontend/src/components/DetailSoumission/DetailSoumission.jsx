@@ -113,7 +113,8 @@ const DetailSoumission = () => {
                 <>
                     <br />
                     <button className="boutonSupp" type="button" onClick={handleDelete}>Supprimer</button>
-                    <button className="boutonModi" type="button" onClick={handleEdit}>Modifier</button>
+                    <br />
+                    <button className="boutonModi" type="button" onClick={handleEdit}><strong>Modifier</strong></button>
                 </>
             )}
         </div>

@@ -8,3 +8,25 @@
     cursor: pointer;
     align-items: center;
 }
+
+.boutonSupp {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: none;
+    background-color: rgb(245, 52, 52);
+    color: #000000;
+    cursor: pointer;
+    align-items: center;
+}
+
+.boutonModi {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: none;
+    background-color: rgb(55, 240, 101);
+    color: #000000;
+    cursor: pointer;
+    align-items: center;
+}

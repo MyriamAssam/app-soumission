@@ -1,13 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "./DetailSoumission.css";
 
 const DetailSoumission = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const { soumi } = location.state || {};
     const auth = useContext(AuthContext);
     const [note, setNote] = useState(soumi.notes || "");
+
     useEffect(() => {
         const fetchNote = async () => {
             if (auth.role === "client") {
@@ -24,6 +26,7 @@ const DetailSoumission = () => {
         };
         fetchNote();
     }, [auth.role, soumi._id]);
+
     const handleSaveNote = async () => {
         try {
             await fetch(
@@ -37,13 +40,10 @@ const DetailSoumission = () => {
                 }
             );
 
-
             const response = await fetch(
                 process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
             );
             const data = await response.json();
-
-
             setNote(data.soumission.notes || "");
 
             alert("Note sauvegardée !");
@@ -52,6 +52,39 @@ const DetailSoumission = () => {
         }
     };
 
+    const handleDelete = async () => {
+        const confirmation = window.confirm("Es-tu sûr(e) de vouloir supprimer cette soumission ?");
+        if (!confirmation) return;
+
+        try {
+            await fetch(process.env.REACT_APP_BACKEND_URL + `soumissions/${soumi._id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            alert("Soumission supprimée !");
+            navigate("/soumissions");
+        } catch (err) {
+            console.error(err);
+            alert("Une erreur est survenue lors de la suppression.");
+        }
+    };
+
+    const handleEdit = () => {
+        navigate("/add-soumi", {
+            state: {
+                prenomClient: soumi.prenomClient,
+                email: soumi.email,
+                adresse: soumi.adresse,
+                telephone: soumi.telephone,
+                description: soumi.description,
+                travaux: soumi.travaux,
+                soumissionId: soumi._id,
+            }
+        });
+    };
 
     if (!soumi) return <p>Aucune donnée à afficher.</p>;
 
@@ -70,11 +103,17 @@ const DetailSoumission = () => {
                     <label><strong>Notes :</strong></label><br />
                     <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={5} cols={50}></textarea>
                     <br />
-                    <button className="bouton" type="submit" onClick={handleSaveNote}>Sauvegarder la note</button>
+                    <button className="bouton" type="button" onClick={handleSaveNote}>Sauvegarder la note</button>
                 </>
             ) : (
+                <p><strong>Note de l’employé :</strong> {note || "Aucune note encore"}</p>
+            )}
+
+            {auth.role === "client" && (
                 <>
-                    <p><strong>Note de l’employé :</strong> {soumi.notes || "Aucune note encore"}</p>
+                    <br />
+                    <button className="boutonSupp" type="button" onClick={handleDelete}>Supprimer</button>
+                    <button className="boutonModi" type="button" onClick={handleEdit}>Modifier</button>
                 </>
             )}
         </div>
@@ -82,4 +121,3 @@ const DetailSoumission = () => {
 };
 
 export default DetailSoumission;
-

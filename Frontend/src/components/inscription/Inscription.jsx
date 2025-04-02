@@ -124,7 +124,7 @@ export default function Inscription(props) {
           />
         </div>
       </div>
-      {props.type === "Employé" && (
+      {typeCompte === "Employé" && (
         <div className="controles no-margin">
           <label>Domaine de spécialité :</label>
           <select name="specialite" required>
@@ -162,7 +162,11 @@ export default function Inscription(props) {
           <strong>Employé</strong>
         </a>
       </div>
-
+      {message && (
+        <div className={`message ${message.type}`}>
+          {message.text}
+        </div>
+      )}
       <p className="form-actions">
         <button className="boutonLog" type="submit">
           <strong>Inscription</strong>

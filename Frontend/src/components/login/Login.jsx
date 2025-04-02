@@ -76,11 +76,7 @@ export default function Login(props) {
 
 
       <div className="typeCompte">
-        {message && (
-          <div className={`message ${message.type}`}>
-            {message.text}
-          </div>
-        )}
+
 
         <a onClick={() => {
           setTypeCompte("Client");
@@ -96,7 +92,11 @@ export default function Login(props) {
           <strong>Employé</strong>
         </a>
       </div>
-
+      {message && (
+        <div className={`message ${message.type}`}>
+          {message.text}
+        </div>
+      )}
       <p className="form-actions">
         <button className="boutonLog" type="submit">
           <strong>Connexion</strong>

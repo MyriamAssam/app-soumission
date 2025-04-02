@@ -53,16 +53,6 @@ const DetailSoumission = () => {
     };
 
     const handleDelete = async () => {
-        const confirmation = setMessage({ type: "info", text: "Es-tu sûr(e) de vouloir supprimer cette soumission ?" });
-        {
-            message && (
-                <div className={`message ${message.type}`}>
-                    {message.text}
-                </div>
-            )
-        }
-        if (!confirmation) return;
-
         try {
             await fetch(process.env.REACT_APP_BACKEND_URL + `soumissions/${soumi._id}`, {
                 method: "DELETE",
@@ -71,21 +61,18 @@ const DetailSoumission = () => {
                 }
             });
 
-            setMessage({ type: "info", text: "❌ Soumission supprimée !" });
+            setMessage({ type: "info", text: "✅ Soumission supprimée !" });
 
-            navigate("/soumissions");
+            // Attendre un peu pour que l’utilisateur voie le message
+            setTimeout(() => {
+                navigate("/soumissions");
+            }, 1500);
         } catch (err) {
             console.error(err);
-            {
-                message && (
-                    <div className={`message ${message.type}`}>
-                        {message.text}
-                    </div>
-                )
-            }
             setMessage({ type: "info", text: "❌ Une erreur est survenue lors de la suppression." });
         }
     };
+
 
 
     const handleEdit = () => {

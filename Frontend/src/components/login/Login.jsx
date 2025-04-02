@@ -38,7 +38,7 @@ export default function Login(props) {
         responseData.user.email,
         responseData.user.adresse,
         responseData.user.telephone,
-        responseData.user.role.toLowerCase()
+        responseData.role.toLowerCase()
       );
 
 

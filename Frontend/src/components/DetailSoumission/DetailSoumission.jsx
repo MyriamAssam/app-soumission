@@ -70,13 +70,7 @@ const DetailSoumission = () => {
                     "Content-Type": "application/json"
                 }
             });
-            {
-                message && (
-                    <div className={`message ${message.type}`}>
-                        {message.text}
-                    </div>
-                )
-            }
+
             setMessage({ type: "info", text: "❌ Soumission supprimée !" });
 
             navigate("/soumissions");
@@ -135,7 +129,21 @@ const DetailSoumission = () => {
             {auth.role === "client" && (
                 <div className="boutons-actions">
                     <button className="boutonSupp" type="button" onClick={handleDelete}><strong>Supprimer</strong></button>
+                    {
+                        message && (
+                            <div className={`message ${message.type}`}>
+                                {message.text}
+                            </div>
+                        )
+                    }
                     <button className="boutonModi" type="button" onClick={handleEdit}><strong>Modifier</strong></button>
+                    {
+                        message && (
+                            <div className={`message ${message.type}`}>
+                                {message.text}
+                            </div>
+                        )
+                    }
                 </div>
             )}
 

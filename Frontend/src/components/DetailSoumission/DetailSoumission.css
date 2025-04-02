@@ -35,3 +35,15 @@
     background-color: #2ff360;
     color: white;
 }
+
+.message {
+    margin-bottom: 0.4rem;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.message.info {
+    background-color: #e0f3ff;
+    color: #0077b6;
+    margin-bottom: 0.4rem;
+}

@@ -9,7 +9,7 @@ const DetailSoumission = () => {
     const { soumi } = location.state || {};
     const auth = useContext(AuthContext);
     const [note, setNote] = useState(soumi.notes || "");
-    const [message, setMessage] = useState(null);
+
     useEffect(() => {
         const fetchNote = async () => {
             if (auth.role === "client") {
@@ -45,14 +45,17 @@ const DetailSoumission = () => {
             );
             const data = await response.json();
             setNote(data.soumission.notes || "");
-            setMessage({ type: "info", text: "Note sauvegardée !" });
 
+            alert("Note sauvegardée !");
         } catch (err) {
             console.error(err);
         }
     };
 
     const handleDelete = async () => {
+        const confirmation = window.confirm("Es-tu sûr(e) de vouloir supprimer cette soumission ?");
+        if (!confirmation) return;
+
         try {
             await fetch(process.env.REACT_APP_BACKEND_URL + `soumissions/${soumi._id}`, {
                 method: "DELETE",
@@ -61,17 +64,13 @@ const DetailSoumission = () => {
                 }
             });
 
-            setMessage({ type: "info", text: "✅ Soumission supprimée !" });
-
-            setTimeout(() => {
-                navigate("/soumissions");
-            }, 1500);
+            alert("Soumission supprimée !");
+            navigate("/soumissions");
         } catch (err) {
             console.error(err);
-            setMessage({ type: "info", text: "❌ Une erreur est survenue lors de la suppression." });
+            alert("Une erreur est survenue lors de la suppression.");
         }
     };
-
 
 
     const handleEdit = () => {
@@ -106,6 +105,7 @@ const DetailSoumission = () => {
                     <label><strong>Notes :</strong></label><br />
                     <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={5} cols={50}></textarea>
                     <br />
+                    <button className="bouton" type="button" onClick={handleSaveNote}>Sauvegarder la note</button>
                     <button className="bouton" type="button" onClick={handleSaveNote}><strong>Sauvegarder la note</strong></button>
                 </>
             ) : (
@@ -115,19 +115,10 @@ const DetailSoumission = () => {
             {auth.role === "client" && (
                 <div className="boutons-actions">
                     <button className="boutonSupp" type="button" onClick={handleDelete}><strong>Supprimer</strong></button>
-
                     <button className="boutonModi" type="button" onClick={handleEdit}><strong>Modifier</strong></button>
-
                 </div>
-
             )}
-            {
-                message && (
-                    <div className={`message ${message.type}`}>
-                        {message.text}
-                    </div>
-                )
-            }
+
 
         </div>
     );

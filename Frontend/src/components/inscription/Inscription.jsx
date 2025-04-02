@@ -48,7 +48,7 @@ export default function Inscription(props) {
             travaux: false,
           },
         });
-      } else {
+      } else if (responseData.user.role === "employé") {
         navigate("/soumissions");
       }
 
@@ -142,11 +142,7 @@ export default function Inscription(props) {
       <input type="hidden" name="role" value={props.type === "Employé" ? "employé" : "client"} />
 
       <div className="typeCompte">
-        {message && (
-          <div className={`message ${message.type}`}>
-            {message.text}
-          </div>
-        )}
+
 
         <a onClick={() => {
           setTypeCompte("Client");

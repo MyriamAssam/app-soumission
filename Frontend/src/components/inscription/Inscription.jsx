@@ -139,7 +139,8 @@ export default function Inscription(props) {
 
       )}
       { }
-      <input type="hidden" name="role" value={props.type === "Employé" ? "employé" : "client"} />
+      <input type="hidden" name="role" value={typeCompte === "Employé" ? "employé" : "client"} />
+
 
       <div className="typeCompte">
 

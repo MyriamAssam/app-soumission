@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { useHttpClient } from "../hooks/http-hook";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../components/context/AuthContext";
-const auth = useContext(AuthContext);
+
 
 const AddSoumi = (props) => {
     const { sendRequest } = useHttpClient();

@@ -9,7 +9,7 @@ const DetailSoumission = () => {
     const { soumi } = location.state || {};
     const auth = useContext(AuthContext);
     const [note, setNote] = useState(soumi.notes || "");
-
+    const [message, setMessage] = useState(null);
     useEffect(() => {
         const fetchNote = async () => {
             if (auth.role === "client") {
@@ -45,15 +45,22 @@ const DetailSoumission = () => {
             );
             const data = await response.json();
             setNote(data.soumission.notes || "");
+            setMessage({ type: "info", text: "Note sauvegardée !" });
 
-            alert("Note sauvegardée !");
         } catch (err) {
             console.error(err);
         }
     };
 
     const handleDelete = async () => {
-        const confirmation = window.confirm("Es-tu sûr(e) de vouloir supprimer cette soumission ?");
+        const confirmation = setMessage({ type: "info", text: "Es-tu sûr(e) de vouloir supprimer cette soumission ?" });
+        {
+            message && (
+                <div className={`message ${message.type}`}>
+                    {message.text}
+                </div>
+            )
+        }
         if (!confirmation) return;
 
         try {
@@ -63,12 +70,26 @@ const DetailSoumission = () => {
                     "Content-Type": "application/json"
                 }
             });
+            {
+                message && (
+                    <div className={`message ${message.type}`}>
+                        {message.text}
+                    </div>
+                )
+            }
+            setMessage({ type: "info", text: "❌ Soumission supprimée !" });
 
-            alert("Soumission supprimée !");
             navigate("/soumissions");
         } catch (err) {
             console.error(err);
-            alert("Une erreur est survenue lors de la suppression.");
+            {
+                message && (
+                    <div className={`message ${message.type}`}>
+                        {message.text}
+                    </div>
+                )
+            }
+            setMessage({ type: "info", text: "❌ Une erreur est survenue lors de la suppression." });
         }
     };
 

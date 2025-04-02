@@ -125,18 +125,19 @@ export default function Inscription(props) {
         </div>
       </div>
       {typeCompte === "Employé" && (
-        <div className="controles no-margin">
-          <label>Domaine de spécialité :</label>
-          <select name="specialite" required>
-            {[
-              "portes et fenêtres", "extérieur", "salle de bain", "toiture",
-              "plancher", "climatisation", "éléctricité", "plomberie", "cuisine", "peinture"
-            ].map((sp) => (
-              <option key={sp} value={sp}>{sp}</option>
-            ))}
-          </select>
+        <div className="controles-rows">
+          <div className="controles no-margin">
+            <label>Domaine de spécialité :</label>
+            <select name="specialite" required>
+              {[
+                "portes et fenêtres", "extérieur", "salle de bain", "toiture",
+                "plancher", "climatisation", "éléctricité", "plomberie", "cuisine", "peinture"
+              ].map((sp) => (
+                <option key={sp} value={sp}>{sp}</option>
+              ))}
+            </select>
+          </div>
         </div>
-
       )}
       { }
       <input type="hidden" name="role" value={typeCompte === "Employé" ? "employé" : "client"} />

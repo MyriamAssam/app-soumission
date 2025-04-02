@@ -76,6 +76,7 @@ const AddSoumi = (props) => {
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Types de travaux :</label>
+
                     <div className="checkbox-group">
                         {["portes et fenêtres", "extérieur", "salle de bain", "toiture", "plancher", "climatisation", "éléctricité", "plomberie", "cuisine", "peinture"].map((item) => (
                             <div key={item}>

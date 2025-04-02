@@ -36,7 +36,16 @@ export default function Inscription(props) {
 
       const responseData = await response.json();
       console.log("2", responseData);
-      auth.login(responseData.user.id, responseData.token);
+      auth.login(
+        responseData.user.id,
+        responseData.token,
+        responseData.user.prenom,
+        responseData.user.email,
+        responseData.user.adresse,
+        responseData.user.telephone,
+        responseData.user.role
+      );
+
 
       if (responseData.user.role === "client") {
         navigate("/add-soumi", {

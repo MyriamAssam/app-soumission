@@ -94,12 +94,12 @@ const DetailSoumission = () => {
     return (
         <div>
             <h2>Détails de la soumission</h2>
-            <p><strong>Prénom :</strong> {prenomClient}</p>
-            <p><strong>Email :</strong> {email}</p>
-            <p><strong>Adresse :</strong> {adresse}</p>
-            <p><strong>Téléphone :</strong> {telephone}</p>
-            <p><strong>Description :</strong> {description}</p>
-            <p><strong>Travaux :</strong> {travaux?.join(", ")}</p>
+            <p><strong>Prénom :</strong> {soumi.prenomClient}</p>
+            <p><strong>Email :</strong> {soumi.email}</p>
+            <p><strong>Adresse :</strong> {soumi.adresse}</p>
+            <p><strong>Téléphone :</strong> {soumi.telephone}</p>
+            <p><strong>Description :</strong> {soumi.description}</p>
+            <p><strong>Travaux :</strong> {soumi.travaux?.join(", ")}</p>
 
             {auth.role === "employé" ? (
                 <>

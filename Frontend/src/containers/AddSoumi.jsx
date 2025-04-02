@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { useHttpClient } from "../hooks/http-hook";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../components/context/AuthContext";
+const auth = useContext(AuthContext);
 
 const AddSoumi = (props) => {
     const { sendRequest } = useHttpClient();
@@ -41,15 +42,16 @@ const AddSoumi = (props) => {
         const isEdit = location.state?.soumissionId;
 
         const newSoumi = {
-            adresse: data.adresse,
-            prenomClient: data.prenomClient,
-            email: data.email,
-            description: data.description,
-            telephone: data.telephone,
+            adresse: auth.adresse,
+            prenomClient: auth.prenom,
+            email: auth.email,
+            telephone: auth.telephone,
             employeurId: auth.user,
             clientId: auth.user,
+            description: data.description,
             travaux: travauxSelectionnes,
         };
+
 
         try {
             const url = isEdit

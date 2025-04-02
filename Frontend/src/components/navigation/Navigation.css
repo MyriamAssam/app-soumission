@@ -30,6 +30,12 @@ main {
   display: none;
 }
 
+.soumission-lien {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 @media (min-width: 768px) {
   .main-navigation_entete-nav {
     display: block;

@@ -8,7 +8,7 @@ const ListeSoumissions = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Rôle :", auth.role, "| ID :", auth.user); // debug
+        console.log("Rôle :", auth.role, "| ID :", auth.user);
         const fetchSoumissions = async () => {
             try {
                 const endpoint = auth.role === "employé"

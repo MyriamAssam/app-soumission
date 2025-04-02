@@ -137,13 +137,7 @@ const DetailSoumission = () => {
                         )
                     }
                     <button className="boutonModi" type="button" onClick={handleEdit}><strong>Modifier</strong></button>
-                    {
-                        message && (
-                            <div className={`message ${message.type}`}>
-                                {message.text}
-                            </div>
-                        )
-                    }
+
                 </div>
             )}
 

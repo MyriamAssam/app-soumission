@@ -10,6 +10,8 @@ export default function Inscription(props) {
   const [prenom, setPrenom] = useState("");
   const [adresse, setAdresse] = useState("");
   const [telephone, setTelephone] = useState("");
+  const [message, setMessage] = useState(null);
+
   const navigate = useNavigate();
 
   const { user, token } = useAuthContext();
@@ -140,10 +142,27 @@ export default function Inscription(props) {
       <input type="hidden" name="role" value={props.type === "Employé" ? "employé" : "client"} />
 
       <div className="typeCompte">
+        {message && (
+          <div className={`message ${message.type}`}>
+            {message.text}
+          </div>
+        )}
 
-        <a onClick={() => setTypeCompte("Client")}><strong>Client</strong></a>
-        <a onClick={() => setTypeCompte("Employé")}><strong>Employé</strong></a>
+        <a onClick={() => {
+          setTypeCompte("Client");
+          setMessage({ type: "info", text: "Client sélectionné." });
+        }}>
+          <strong>Client</strong>
+        </a>
+
+        <a onClick={() => {
+          setTypeCompte("Employé");
+          setMessage({ type: "info", text: "Employé sélectionné." });
+        }}>
+          <strong>Employé</strong>
+        </a>
       </div>
+
       <p className="form-actions">
         <button className="boutonLog" type="submit">
           <strong>Inscription</strong>

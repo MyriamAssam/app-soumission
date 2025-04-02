@@ -31,7 +31,16 @@ export default function Login(props) {
       console.log("asd", response);
       const responseData = await response.json();
       console.log("1", responseData);
-      auth.login(responseData.userId, responseData.token, responseData.role);
+      auth.login(
+        responseData.user.id,
+        responseData.token,
+        responseData.user.prenom,
+        responseData.user.email,
+        responseData.user.adresse,
+        responseData.user.telephone,
+        responseData.user.role.toLowerCase()
+      );
+
 
 
 

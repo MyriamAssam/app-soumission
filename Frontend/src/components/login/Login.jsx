@@ -32,12 +32,12 @@ export default function Login(props) {
       const responseData = await response.json();
       console.log("1", responseData);
       auth.login(
-        responseData.user.id,
+        responseData.userId,
         responseData.token,
-        responseData.user.prenom,
-        responseData.user.email,
-        responseData.user.adresse,
-        responseData.user.telephone,
+        responseData.prenom,
+        responseData.email,
+        responseData.adresse,
+        responseData.telephone,
         responseData.role.toLowerCase()
       );
 

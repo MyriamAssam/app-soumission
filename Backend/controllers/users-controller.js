@@ -170,11 +170,15 @@ const login = async (req, res, next) => {
 
     res.status(201).json({
       userId: existingUser.id,
+      prenom: existingUser.prenom,
       email: existingUser.email,
+      adresse: existingUser.adresse,
+      telephone: existingUser.telephone,
       role: existingUser.role,
       specialite: existingUser.specialite,
       token: token,
     });
+
   }
 };
 

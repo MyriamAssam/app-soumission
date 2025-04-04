@@ -96,6 +96,20 @@ const AddSoumi = (props) => {
 
             </div>
 
+            <div className="controles-rows">
+                <div className="controles no-margin">
+                    <label>Email :</label>
+                    <input type="email" value={auth.email} readOnly />
+                </div>
+                <div className="controles no-margin">
+                    <label>Adresse :</label>
+                    <input type="text" value={auth.adresse} readOnly />
+                </div>
+                <div className="controles no-margin">
+                    <label>Téléphone :</label>
+                    <input type="text" value={auth.telephone} readOnly />
+                </div>
+            </div>
 
 
             <div className="controles-rows">

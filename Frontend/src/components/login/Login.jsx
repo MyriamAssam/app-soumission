@@ -11,7 +11,7 @@ export default function Login(props) {
   const navigate = useNavigate();
   const [message, setMessage] = useState(null);
   const auth = useContext(AuthContext);
-
+  const [error, SetError] = useState(null);
   const { user, token } = useAuthContext();
 
 

@@ -51,7 +51,7 @@ const ListeSoumissions = () => {
             <ul>
                 {soumissions.map((soumi) => (
                     <li key={soumi.id} onClick={() => handleDetails(soumi)} style={{ cursor: "pointer", padding: "10px", borderBottom: "1px solid #ccc" }}>
-                        {soumi.description + " - " + moment(soumi.date).format("DD MMM YYYY") || "(Aucune description)"}
+                        {soumi.description + " - " + moment(soumi.date).format("DD MMM YYYY HH:mm") || "(Aucune description)"}
                     </li>
                 ))}
             </ul>

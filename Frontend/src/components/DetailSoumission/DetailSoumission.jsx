@@ -101,7 +101,8 @@ const DetailSoumission = () => {
             <p><strong>Téléphone :</strong> {soumi.telephone}</p>
             <p><strong>Description :</strong> {soumi.description}</p>
             <p><strong>Travaux :</strong> {soumi.travaux?.join(", ")}</p>
-            <p><strong>Date de publication :</strong> {moment(soumi.date).format("DD MMMM YYYY")}</p>
+            <p><strong>Date et heure :</strong> {moment(soumi.date).format("DD MMMM YYYY [à] HH:mm")}</p>
+
 
 
             {auth.role === "employé" ? (

@@ -1,5 +1,6 @@
 import "./AddSoumi.css";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+
 import { useHttpClient } from "../hooks/http-hook";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../components/context/AuthContext";
@@ -10,6 +11,14 @@ const AddSoumi = (props) => {
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
     let prenomClient, email, adresse, description, travaux, telephone
+    const [emailField, setEmailField] = useState(auth.email || "");
+    const [adresseField, setAdresseField] = useState(auth.adresse || "");
+    const [telephoneField, setTelephoneField] = useState(auth.telephone || "");
+    useEffect(() => {
+        setEmailField(auth.email || "");
+        setAdresseField(auth.adresse || "");
+        setTelephoneField(auth.telephone || "");
+    }, [auth.email, auth.adresse, auth.telephone]);
 
     const location = useLocation();
     if (location.state !== null) {
@@ -99,15 +108,15 @@ const AddSoumi = (props) => {
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Email :</label>
-                    <input type="email" value={auth.email} readOnly />
+                    <input type="email" value={emailField} readOnly />
                 </div>
                 <div className="controles no-margin">
                     <label>Adresse :</label>
-                    <input type="text" value={auth.adresse} readOnly />
+                    <input type="text" value={adresseField} readOnly />
                 </div>
                 <div className="controles no-margin">
                     <label>Téléphone :</label>
-                    <input type="text" value={auth.telephone} readOnly />
+                    <input type="text" value={telephoneField} readOnly />
                 </div>
             </div>
 

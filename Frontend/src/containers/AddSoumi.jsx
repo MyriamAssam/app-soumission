@@ -96,12 +96,6 @@ const AddSoumi = (props) => {
 
             </div>
 
-            <div className="controles-rows">
-                <div className="controles no-margin">
-                    <label>prénom: </label>
-                    <input type="prenomClient" name="prenomClient" defaultValue={prenomClient} />
-                </div>
-            </div>
 
 
             <div className="controles-rows">

@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "./DetailSoumission.css";
+import moment from "moment";
 
 const DetailSoumission = () => {
     const navigate = useNavigate();
@@ -83,6 +84,7 @@ const DetailSoumission = () => {
                 description: soumi.description,
                 travaux: soumi.travaux,
                 soumissionId: soumi._id,
+
             }
         });
     };
@@ -99,6 +101,8 @@ const DetailSoumission = () => {
             <p><strong>Téléphone :</strong> {soumi.telephone}</p>
             <p><strong>Description :</strong> {soumi.description}</p>
             <p><strong>Travaux :</strong> {soumi.travaux?.join(", ")}</p>
+            <p><strong>Date de publication :</strong> {moment(soumi.date).format("DD MMMM YYYY")}</p>
+
 
             {auth.role === "employé" ? (
                 <>

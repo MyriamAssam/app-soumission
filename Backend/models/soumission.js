@@ -10,7 +10,9 @@ const soumissionSchema = new mongoose.Schema({
     employeurId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
     notes: { type: String, default: "" },
     clientId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
-    travaux: [{ type: String }]
+    travaux: [{ type: String }],
+    date: { type: Date, default: Date.now }
+
 });
 
 module.exports = mongoose.model("Soumission", soumissionSchema);

@@ -53,11 +53,7 @@ const NavLinks = () => {
 
           <>
 
-            <li>
-              <NavLink to="/connexion" onClick={() => auth.logout()}>
-                Deconnexion
-              </NavLink>
-            </li>
+
           </>
 
         </ul>

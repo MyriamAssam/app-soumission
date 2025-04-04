@@ -44,22 +44,22 @@ const NavLinks = () => {
         </>
       ) : (
         <ul className="navi-links">
-          {type === "Employé" ? (
+
+          <li>
+            <NavLink to="/connexion" onClick={() => auth.logout()}>
+              Deconnexion
+            </NavLink>
+          </li>
+
+          <>
+
             <li>
               <NavLink to="/connexion" onClick={() => auth.logout()}>
                 Deconnexion
               </NavLink>
             </li>
-          ) : (
-            <>
+          </>
 
-              <li>
-                <NavLink to="/connexion" onClick={() => auth.logout()}>
-                  Deconnexion
-                </NavLink>
-              </li>
-            </>
-          )}
         </ul>
       )}
     </ul>

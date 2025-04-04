@@ -44,7 +44,7 @@ const NavLinks = () => {
         </>
       ) : (
         <ul className="navi-links">
-          {type === "Employeur" ? (
+          {type === "Employé" ? (
             <li>
               <NavLink to="/connexion" onClick={() => auth.logout()}>
                 Deconnexion
@@ -53,7 +53,11 @@ const NavLinks = () => {
           ) : (
             <>
 
-
+              <li>
+                <NavLink to="/connexion" onClick={() => auth.logout()}>
+                  Deconnexion
+                </NavLink>
+              </li>
             </>
           )}
         </ul>

@@ -125,12 +125,20 @@ export default function Inscription(props) {
         <div className="controles no-margin">
           <label>Téléphone</label>
           <input
-            type="telephone"
+            type="tel"
             name="telephone"
             value={telephone}
-            onChange={(e) => setTelephone(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d{0,10}$/.test(value)) {
+                setTelephone(value);
+              }
+            }}
+            maxLength="10"
+            pattern="\d{10}"
             required
           />
+
         </div>
       </div>
       {typeCompte === "Employé" && (

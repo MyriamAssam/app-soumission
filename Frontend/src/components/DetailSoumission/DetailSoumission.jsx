@@ -45,7 +45,13 @@ const DetailSoumission = () => {
                 process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
             );
             const data = await response.json();
-            setNote(data.soumission.notes || "");
+
+            const noteFromServer = auth.role === "employé"
+                ? data.soumission.notesEmployes
+                : data.soumission.notesClients;
+
+            setNote(noteFromServer || "");
+
 
             alert("Note sauvegardée !");
         } catch (err) {
@@ -112,7 +118,7 @@ const DetailSoumission = () => {
                 <strong>Sauvegarder la note</strong>
             </button>
 
-            <button className="boutonSupp" type="button" onClick={handleDelete}><strong>Supprimer</strong></button>
+
             {auth.role === "client" && (
                 <div className="boutons-actions">
 
@@ -122,9 +128,10 @@ const DetailSoumission = () => {
                     </button>
 
                 </div>
+
             )
             }
-
+            <button className="boutonSupp" type="button" onClick={handleDelete}><strong>Supprimer</strong></button>
 
         </div >
     );

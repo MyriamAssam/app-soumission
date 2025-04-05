@@ -9,24 +9,25 @@ const DetailSoumission = () => {
     const location = useLocation();
     const { soumi } = location.state || {};
     const auth = useContext(AuthContext);
-    const [note, setNote] = useState(soumi.notes || "");
+    const [note, setNote] = useState("");
+
 
     useEffect(() => {
         const fetchNote = async () => {
-            if (auth.role === "client") {
-                try {
-                    const response = await fetch(
-                        process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
-                    );
-                    const data = await response.json();
-                    setNote(data.soumission.notes || "");
-                } catch (err) {
-                    console.error(err);
-                }
+            try {
+                const response = await fetch(
+                    process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
+                );
+                const data = await response.json();
+                const noteFromServer = auth.role === "employé" ? data.soumission.notesEmployes : data.soumission.notesClients;
+                setNote(noteFromServer || "");
+            } catch (err) {
+                console.error(err);
             }
         };
         fetchNote();
     }, [auth.role, soumi._id]);
+
 
     const handleSaveNote = async () => {
         try {
@@ -34,12 +35,11 @@ const DetailSoumission = () => {
                 process.env.REACT_APP_BACKEND_URL + `soumissions/${soumi._id}/note`,
                 {
                     method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ notes: note })
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ notes: note, role: auth.role }),
                 }
             );
+
 
             const response = await fetch(
                 process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
@@ -105,17 +105,13 @@ const DetailSoumission = () => {
 
 
 
-            {auth.role === "employé" ? (
-                <>
-                    <label><strong>Notes :</strong></label><br />
-                    <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={5} cols={50}></textarea>
-                    <br />
-                    <button className="bouton" type="button" onClick={handleSaveNote}>Sauvegarder la note</button>
-                    <button className="bouton" type="button" onClick={handleSaveNote}><strong>Sauvegarder la note</strong></button>
-                </>
-            ) : (
-                <p><strong>Note de l’employé :</strong> {note || "Aucune note encore"}</p>
-            )}
+            <label><strong>Note :</strong></label><br />
+            <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={5} cols={50}></textarea>
+            <br />
+            <button className="bouton" type="button" onClick={handleSaveNote}>
+                <strong>Sauvegarder la note</strong>
+            </button>
+
             <button className="boutonSupp" type="button" onClick={handleDelete}><strong>Supprimer</strong></button>
             {auth.role === "client" && (
                 <div className="boutons-actions">

@@ -43,7 +43,8 @@ const ListeSoumissions = () => {
 
     return (
         <div>
-            <h2>Mes Soumissions</h2>
+            <h2>{auth.role === "client" ? "Mes Soumissions" : "Soumissions à traiter"}</h2>
+
             {auth.role === "client" && (
                 <button onClick={handleAddSoumi}>Créer une nouvelle soumission</button>
             )}

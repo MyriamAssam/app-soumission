@@ -9,19 +9,29 @@ router.get("/client/:id", soumissionController.soumissionList);
 router.get("/employe/:id", soumissionController.soumissionList);
 router.get("/find/:oId", soumissionController.getSoumissionById);
 router.post("/find", soumissionController.recherche);
+
 router.patch("/:id/note", async (req, res) => {
     try {
-        const { notes } = req.body;
+        const { notes, role } = req.body;
+        const champNote = role === "employé" ? "notesEmployes" : "notesClients";
+
         const soumission = await SOUMISSIONS.findByIdAndUpdate(
-            req.params.id,
-            { notes },
+            req.params.id, // 👈 CORRECTION ICI
+            { [champNote]: notes },
             { new: true }
         );
-        res.json(soumission);
+
+        if (!soumission) {
+            return res.status(404).json({ msg: "Soumission introuvable." });
+        }
+
+        res.json({ message: "Note mise à jour", soumission });
     } catch (err) {
+        console.error(err);
         res.status(500).json({ msg: "Erreur serveur" });
     }
 });
+
 
 // ROUTES GÉNÉRIQUES
 router.get("/", soumissionController.getAllSoumissions);

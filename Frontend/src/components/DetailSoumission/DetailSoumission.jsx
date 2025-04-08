@@ -144,12 +144,20 @@ const DetailSoumission = () => {
                     <button className="boutonAjout" type="button" onClick={() => navigate("/add-soumi")}>
                         <strong>Créer une autre soumission</strong>
                     </button>
-
+                    <button className="boutonSupp" type="button" onClick={handleDelete}><strong>Supprimer</strong></button>
                 </div>
 
             )
             }
-            <button className="boutonSupp" type="button" onClick={handleDelete}><strong>Supprimer</strong></button>
+            {auth.role === "employé" && (
+                <div className="boutons-actions">
+
+
+                    <button className="boutonSupp" type="button" onClick={handleDelete}><strong>Supprimer</strong></button>
+                </div>
+
+            )
+            }
 
         </div >
     );

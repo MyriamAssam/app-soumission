@@ -33,6 +33,15 @@ const DetailSoumission = () => {
     }, [auth.role, soumi._id]);
 
 
+    useEffect(() => {
+        if (message) {
+            const timer = setTimeout(() => {
+                setMessage(null);
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [message]);
 
     const handleSaveNote = async () => {
         try {
@@ -72,8 +81,7 @@ const DetailSoumission = () => {
     };
 
     const handleClearNotes = async () => {
-        const confirmation = window.confirm("Supprimer tout l'historique des notes ?");
-        if (!confirmation) return;
+
 
         try {
             const response = await fetch(
@@ -97,8 +105,7 @@ const DetailSoumission = () => {
     };
 
     const handleDelete = async () => {
-        const confirmation = window.confirm("Es-tu sûr(e) de vouloir supprimer cette soumission ?");
-        if (!confirmation) return;
+
 
         try {
             await fetch(process.env.REACT_APP_BACKEND_URL + `soumissions/${soumi._id}`, {
@@ -189,6 +196,7 @@ const DetailSoumission = () => {
                 </div>
             )}
 
+
             {auth.role === "employé" && (
                 <div className="boutons-actions">
 
@@ -200,11 +208,7 @@ const DetailSoumission = () => {
             }
 
 
-            {message && (
-                <div className={`message ${message.type}`}>
-                    {message.text}
-                </div>
-            )}
+
         </div >
     );
 };

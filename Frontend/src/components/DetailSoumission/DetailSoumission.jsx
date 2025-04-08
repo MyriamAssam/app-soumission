@@ -9,8 +9,8 @@ const DetailSoumission = () => {
     const location = useLocation();
     const { soumi } = location.state || {};
     const auth = useContext(AuthContext);
+    const [note, setNote] = useState("");
     const [listeNotes, setListeNotes] = useState([]);
-
 
 
     useEffect(() => {
@@ -20,12 +20,8 @@ const DetailSoumission = () => {
                     process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
                 );
                 const data = await response.json();
-                const notes = auth.role === "employé"
-                    ? data.soumission.notesEmployes
-                    : data.soumission.notesClients;
-
-                setListeNotes(notes || []);
-
+                const noteFromServer = auth.role === "employé" ? data.soumission.notesEmployes : data.soumission.notesClients;
+                setNote(noteFromServer || "");
             } catch (err) {
                 console.error(err);
             }
@@ -56,11 +52,12 @@ const DetailSoumission = () => {
             );
             const data = await response.json();
 
-            const noteFromServer = auth.role === "employé"
+            const notes = auth.role === "employé"
                 ? data.soumission.notesEmployes
                 : data.soumission.notesClients;
 
-            setNote(noteFromServer || "");
+            setListeNotes(notes || []);
+
 
 
             alert("Note sauvegardée !");

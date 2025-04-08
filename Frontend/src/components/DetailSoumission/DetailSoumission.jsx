@@ -181,6 +181,7 @@ const DetailSoumission = () => {
 
             )
             }
+            <br />
             {message && (
                 <div className={`message ${message.type}`}>
                     {message.text}

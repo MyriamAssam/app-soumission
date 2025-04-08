@@ -21,12 +21,11 @@ router.patch("/:id/note", async (req, res) => {
             date: new Date()
         };
 
-        await SOUMISSIONS.findByIdAndUpdate(
+        const soumission = await SOUMISSIONS.findByIdAndUpdate(
             req.params.id,
             { $push: { [champNote]: nouvelleNote } },
             { new: true }
         );
-
 
         if (!soumission) {
             return res.status(404).json({ msg: "Soumission introuvable." });
@@ -38,6 +37,7 @@ router.patch("/:id/note", async (req, res) => {
         res.status(500).json({ msg: "Erreur serveur" });
     }
 });
+
 
 
 // ROUTES GÉNÉRIQUES

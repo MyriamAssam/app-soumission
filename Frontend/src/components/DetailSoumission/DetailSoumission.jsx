@@ -14,20 +14,24 @@ const DetailSoumission = () => {
 
 
     useEffect(() => {
-        const fetchNote = async () => {
+        const fetchNoteList = async () => {
             try {
                 const response = await fetch(
                     process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
                 );
                 const data = await response.json();
-                const noteFromServer = auth.role === "employé" ? data.soumission.notesEmployes : data.soumission.notesClients;
-                setNote(noteFromServer || "");
+                const notes = auth.role === "employé"
+                    ? data.soumission.notesEmployes
+                    : data.soumission.notesClients;
+                setListeNotes(notes || []);
             } catch (err) {
                 console.error(err);
             }
         };
-        fetchNote();
+
+        fetchNoteList();
     }, [auth.role, soumi._id]);
+
 
 
     const handleSaveNote = async () => {

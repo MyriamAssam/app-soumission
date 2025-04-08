@@ -12,7 +12,15 @@ const DetailSoumission = () => {
     const [note, setNote] = useState("");
     const [listeNotes, setListeNotes] = useState([]);
     const [message, setMessage] = useState(null);
+    useEffect(() => {
+        if (message) {
+            const timer = setTimeout(() => {
+                setMessage(null);
+            }, 3000);
 
+            return () => clearTimeout(timer);
+        }
+    }, [message]);
     useEffect(() => {
         const fetchNoteList = async () => {
             try {
@@ -31,6 +39,7 @@ const DetailSoumission = () => {
 
         fetchNoteList();
     }, [auth.role, soumi._id]);
+
 
 
     const handleSaveNote = async () => {
@@ -62,29 +71,12 @@ const DetailSoumission = () => {
             setListeNotes(notes || []);
             setNote("");
             setMessage({ type: "info", text: "Note sauvegardée !" });
-            useEffect(() => {
-                if (message) {
-                    const timer = setTimeout(() => {
-                        setMessage(null);
-                    }, 3000);
-
-                    return () => clearTimeout(timer);
-                }
-            }, [message]);
 
         } catch (err) {
             console.error(err);
 
             setMessage({ type: "info", text: "Erreur lors de la sauvegarde de la note." });
-            useEffect(() => {
-                if (message) {
-                    const timer = setTimeout(() => {
-                        setMessage(null);
-                    }, 3000);
 
-                    return () => clearTimeout(timer);
-                }
-            }, [message]);
 
         }
     };
@@ -106,29 +98,13 @@ const DetailSoumission = () => {
             setListeNotes([]);
 
             setMessage({ type: "info", text: "Historique des notes supprimé !" });
-            useEffect(() => {
-                if (message) {
-                    const timer = setTimeout(() => {
-                        setMessage(null);
-                    }, 3000);
 
-                    return () => clearTimeout(timer);
-                }
-            }, [message]);
 
         } catch (err) {
             console.error(err);
 
             setMessage({ type: "info", text: "Erreur lors de la suppression de l'historique." });
-            useEffect(() => {
-                if (message) {
-                    const timer = setTimeout(() => {
-                        setMessage(null);
-                    }, 3000);
 
-                    return () => clearTimeout(timer);
-                }
-            }, [message]);
 
         }
     };

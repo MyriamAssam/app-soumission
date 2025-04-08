@@ -11,7 +11,6 @@ router.get("/find/:oId", soumissionController.getSoumissionById);
 router.post("/find", soumissionController.recherche);
 
 router.patch("/:oId/note", async (req, res) => {
-
     try {
         const { notes, role, auteur } = req.body;
 
@@ -28,7 +27,7 @@ router.patch("/:oId/note", async (req, res) => {
         };
 
         const soumission = await SOUMISSIONS.findByIdAndUpdate(
-            req.params.id,
+            req.params.oId, // ✅ correction ici
             { $push: { [champNote]: nouvelleNote } },
             { new: true }
         );
@@ -43,6 +42,7 @@ router.patch("/:oId/note", async (req, res) => {
         res.status(500).json({ msg: "Erreur serveur" });
     }
 });
+
 
 
 

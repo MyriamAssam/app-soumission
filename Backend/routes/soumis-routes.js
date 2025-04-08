@@ -13,6 +13,11 @@ router.post("/find", soumissionController.recherche);
 router.patch("/:id/note", async (req, res) => {
     try {
         const { notes, role, auteur } = req.body;
+
+        if (!notes || !role || !auteur) {
+            return res.status(400).json({ msg: "Champs manquants" });
+        }
+
         const champNote = role === "employé" ? "notesEmployes" : "notesClients";
 
         const nouvelleNote = {
@@ -31,12 +36,13 @@ router.patch("/:id/note", async (req, res) => {
             return res.status(404).json({ msg: "Soumission introuvable." });
         }
 
-        res.json({ message: "Note mise à jour", soumission });
+        res.status(200).json({ message: "Note ajoutée avec succès", soumission });
     } catch (err) {
-        console.error(err);
+        console.error("Erreur serveur:", err);
         res.status(500).json({ msg: "Erreur serveur" });
     }
 });
+
 
 
 

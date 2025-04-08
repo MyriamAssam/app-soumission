@@ -44,13 +44,12 @@ const DetailSoumission = () => {
                     body: JSON.stringify({
                         notes: note,
                         role: auth.role,
-                        auteur: auth.prenom
+                        auteur: auth.prenom,
                     }),
                 }
             );
 
-
-
+            // Recharge les notes mises à jour
             const response = await fetch(
                 process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
             );
@@ -61,14 +60,15 @@ const DetailSoumission = () => {
                 : data.soumission.notesClients;
 
             setListeNotes(notes || []);
-
-
+            setNote(""); // Vide le champ après sauvegarde
 
             alert("Note sauvegardée !");
         } catch (err) {
             console.error(err);
+            alert("Erreur lors de la sauvegarde de la note.");
         }
     };
+
 
     const handleDelete = async () => {
         const confirmation = window.confirm("Es-tu sûr(e) de vouloir supprimer cette soumission ?");

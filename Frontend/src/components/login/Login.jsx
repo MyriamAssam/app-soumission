@@ -34,6 +34,10 @@ export default function Login(props) {
       console.log("asd", response);
       const responseData = await response.json();
       console.log("1", responseData);
+      if (responseData.role.toLowerCase() !== typeCompte.toLowerCase()) {
+        SetError("Rôle incorrect sélectionné. Veuillez choisir le bon rôle.");
+        return;
+      }
       auth.login(
         responseData.userId,
         responseData.token,
@@ -56,10 +60,7 @@ export default function Login(props) {
       console.log(err);
     }
   }
-  if (responseData.role.toLowerCase() !== typeCompte.toLowerCase()) {
-    SetError("Rôle incorrect sélectionné. Veuillez choisir le bon rôle.");
-    return;
-  }
+
   return (
     <form onSubmit={authSubmitHandler}>
       <h2>Connexion</h2>

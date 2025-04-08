@@ -43,14 +43,13 @@
 }
 
 .message {
-    margin-bottom: 0.6rem;
-    padding: 5px;
+    margin-bottom: 0.4rem;
+    padding: 8px;
     border-radius: 5px;
-    align-items: center;
 }
 
 .message.info {
     background-color: #e0f3ff;
     color: #0077b6;
-    margin-bottom: 0.6rem;
+
 }

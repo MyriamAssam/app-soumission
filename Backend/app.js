@@ -1,15 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bodyParser = require("body-parser"); // ✅ AJOUT ICI
+const bodyParser = require("body-parser");
 
 const usersRoutes = require("./routes/users-routes");
 const soumisRoutes = require("./routes/soumis-routes");
 const errorHandler = require("./handler/error-handler");
 
 const app = express();
+app.use(express.json());
 
-// ✅ Middleware CORS AVANT TOUT
 app.use(cors({
   origin: "https://app-soumission.onrender.com",
   methods: "GET,POST,PUT,PATCH,DELETE",
@@ -19,22 +19,22 @@ app.use(cors({
 app.use(bodyParser.json());
 app.options("*", (req, res) => res.sendStatus(200));
 
-// Routes
+
 app.use("/soumis", soumisRoutes);
 app.use("/soumissions", soumisRoutes);
 app.use("/users", usersRoutes);
 
-// Gestion des routes non trouvées
+
 app.use((req, res, next) => {
   const error = new Error("Route non trouvée");
   error.code = 404;
   next(error);
 });
 
-// Gestion des erreurs
+
 app.use(errorHandler);
 
-// Connexion MongoDB
+
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGO_URI;
 

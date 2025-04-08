@@ -1,20 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const bodyParser = require("body-parser"); // ✅ AJOUT ICI
 
 const usersRoutes = require("./routes/users-routes");
 const soumisRoutes = require("./routes/soumis-routes");
 const errorHandler = require("./handler/error-handler");
 
 const app = express();
-app.use(express.json());
 
-// CORS autorisé uniquement pour ton frontend déployé
+// ✅ Middleware CORS AVANT TOUT
 app.use(cors({
   origin: "https://app-soumission.onrender.com",
+  methods: "GET,POST,PUT,PATCH,DELETE",
   credentials: true
 }));
 
+app.use(bodyParser.json());
 app.options("*", (req, res) => res.sendStatus(200));
 
 // Routes

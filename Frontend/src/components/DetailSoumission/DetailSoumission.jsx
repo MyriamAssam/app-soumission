@@ -183,9 +183,9 @@ const DetailSoumission = () => {
 
             )
             }
-            {error && (
-                <div className="message">
-                    {error}
+            {message && (
+                <div className={`message ${message.type}`}>
+                    {message.text}
                 </div>
             )}
 
@@ -200,9 +200,9 @@ const DetailSoumission = () => {
             }
 
 
-            {error && (
-                <div className="message">
-                    {error}
+            {message && (
+                <div className={`message ${message.type}`}>
+                    {message.text}
                 </div>
             )}
         </div >

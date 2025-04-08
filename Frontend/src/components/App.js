@@ -11,6 +11,7 @@ import AddSoumi from "../containers/AddSoumi";
 import RootLayout from "../containers/Roots";
 import SoumissionsList from "../components/SoumissionsList/SoumissionsList";
 import DetailSoumission from "../components/DetailSoumission/DetailSoumission";
+import AllSoumissions from "../containers/AllSoumissions";
 
 const App = () => {
 

@@ -44,8 +44,8 @@
 
 .message {
     margin-bottom: 0.4rem;
-    padding: 8px;
-    border-radius: 5px;
+    /*padding: 8px;
+    border-radius: 5px;*/
 }
 
 .message.info {

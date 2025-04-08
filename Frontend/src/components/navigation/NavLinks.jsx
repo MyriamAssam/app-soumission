@@ -53,7 +53,9 @@ const NavLinks = () => {
               Deconnexion
             </NavLink>
           </li>
-
+          <li>
+            <NavLink to="/all">Toutes les soumissions</NavLink>
+          </li>
           <>
 
 

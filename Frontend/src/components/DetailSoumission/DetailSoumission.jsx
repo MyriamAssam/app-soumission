@@ -38,6 +38,7 @@ const DetailSoumission = () => {
         try {
             await fetch(
                 process.env.REACT_APP_BACKEND_URL + `soumissions/${soumi._id}/note`,
+
                 {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
@@ -49,7 +50,7 @@ const DetailSoumission = () => {
                 }
             );
 
-            // Recharge les notes mises à jour
+
             const response = await fetch(
                 process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`
             );
@@ -60,7 +61,7 @@ const DetailSoumission = () => {
                 : data.soumission.notesClients;
 
             setListeNotes(notes || []);
-            setNote(""); // Vide le champ après sauvegarde
+            setNote("");
 
             alert("Note sauvegardée !");
         } catch (err) {

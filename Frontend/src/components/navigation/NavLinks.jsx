@@ -41,6 +41,9 @@ const NavLinks = () => {
           <li>
             <NavLink to="/register">Inscription</NavLink>
           </li>
+          <li>
+            <NavLink to="/all">Toutes les soumissions</NavLink>
+          </li>
         </>
       ) : (
         <ul className="navi-links">

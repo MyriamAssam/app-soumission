@@ -29,6 +29,8 @@ const App = () => {
         { path: "/soumissions", element: <SoumissionsList /> },
         { path: "/soumission/:id", element: <DetailSoumission /> },
         { path: "/add-soumi", element: <AddSoumi /> },
+        { path: "/all", element: <AllSoumissions /> },
+
       ],
     },
   ]);

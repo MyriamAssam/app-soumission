@@ -8,9 +8,22 @@ const soumissionSchema = new mongoose.Schema({
     description: { type: String, required: false },
     telephone: { type: String, required: false },
     employeurId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
-    notesClients: { type: String, default: "" },
-    notesEmployes: { type: String, default: "" },
-
+    notesClients: [
+        {
+            auteur: { type: String },
+            texte: { type: String },
+            date: { type: Date, default: Date.now }
+        }
+    ],
+    notesEmployes: [
+        {
+            auteur: { type: String },
+            texte: { type: String },
+            date: { type: Date, default: Date.now }
+        }
+    ]
+    
+    
     clientId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
     travaux: [{ type: String }],
     date: { type: Date, default: Date.now }

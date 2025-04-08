@@ -12,14 +12,21 @@ router.post("/find", soumissionController.recherche);
 
 router.patch("/:id/note", async (req, res) => {
     try {
-        const { notes, role } = req.body;
+        const { notes, role, auteur } = req.body;
         const champNote = role === "employé" ? "notesEmployes" : "notesClients";
 
-        const soumission = await SOUMISSIONS.findByIdAndUpdate(
-            req.params.id, // 👈 CORRECTION ICI
-            { [champNote]: notes },
+        const nouvelleNote = {
+            auteur,
+            texte: notes,
+            date: new Date()
+        };
+
+        await SOUMISSIONS.findByIdAndUpdate(
+            req.params.id,
+            { $push: { [champNote]: nouvelleNote } },
             { new: true }
         );
+
 
         if (!soumission) {
             return res.status(404).json({ msg: "Soumission introuvable." });

@@ -25,6 +25,12 @@ form {
   margin-bottom: 0.4rem;
 }
 
+.message.erreur {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
 .controles,
 fieldset {
   margin-bottom: 1rem;

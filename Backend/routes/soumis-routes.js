@@ -43,6 +43,32 @@ router.patch("/:oId/note", async (req, res) => {
     }
 });
 
+router.patch("/:oId/notes/clear", async (req, res) => {
+    const { role } = req.body;
+
+    if (!role) {
+        return res.status(400).json({ msg: "Le rôle est requis." });
+    }
+
+    const champNote = role === "employé" ? "notesEmployes" : "notesClients";
+
+    try {
+        const soumission = await SOUMISSIONS.findByIdAndUpdate(
+            req.params.oId,
+            { [champNote]: [] },
+            { new: true }
+        );
+
+        if (!soumission) {
+            return res.status(404).json({ msg: "Soumission introuvable." });
+        }
+
+        res.status(200).json({ msg: "Historique des notes supprimé", soumission });
+    } catch (err) {
+        console.error("Erreur suppression notes:", err);
+        res.status(500).json({ msg: "Erreur serveur" });
+    }
+});
 
 
 

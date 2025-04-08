@@ -11,7 +11,7 @@ const DetailSoumission = () => {
     const auth = useContext(AuthContext);
     const [note, setNote] = useState("");
     const [listeNotes, setListeNotes] = useState([]);
-
+    const [message, setMessage] = useState(null);
 
     useEffect(() => {
         const fetchNoteList = async () => {
@@ -62,14 +62,39 @@ const DetailSoumission = () => {
 
             setListeNotes(notes || []);
             setNote("");
+            setMessage({ type: "info", text: "Note sauvegardée !" });
 
-            alert("Note sauvegardée !");
         } catch (err) {
             console.error(err);
-            alert("Erreur lors de la sauvegarde de la note.");
+
+            setMessage({ type: "info", text: "Erreur lors de la sauvegarde de la note." });
         }
     };
 
+    const handleClearNotes = async () => {
+        const confirmation = window.confirm("Supprimer tout l'historique des notes ?");
+        if (!confirmation) return;
+
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}/notes/clear`,
+                {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ role: auth.role }),
+                }
+            );
+
+            const data = await response.json();
+            setListeNotes([]);
+
+            setMessage({ type: "info", text: "Historique des notes supprimé !" });
+        } catch (err) {
+            console.error(err);
+
+            setMessage({ type: "info", text: "Erreur lors de la suppression de l'historique." });
+        }
+    };
 
     const handleDelete = async () => {
         const confirmation = window.confirm("Es-tu sûr(e) de vouloir supprimer cette soumission ?");
@@ -83,11 +108,12 @@ const DetailSoumission = () => {
                 }
             });
 
-            alert("Soumission supprimée !");
+
+            setMessage({ type: "info", text: "Soumission supprimée." });
             navigate("/soumissions");
         } catch (err) {
             console.error(err);
-            alert("Une erreur est survenue lors de la suppression.");
+            setMessage({ type: "info", text: "Erreur lors de la suppression." });
         }
     };
 
@@ -141,6 +167,9 @@ const DetailSoumission = () => {
                 ))}
             </ul>
 
+            <button className="boutonSupp" type="button" onClick={handleClearNotes}>
+                <strong>Supprimer l'historique</strong>
+            </button>
 
             {auth.role === "client" && (
                 <div className="boutons-actions">
@@ -154,6 +183,12 @@ const DetailSoumission = () => {
 
             )
             }
+            {error && (
+                <div className="message">
+                    {error}
+                </div>
+            )}
+
             {auth.role === "employé" && (
                 <div className="boutons-actions">
 
@@ -164,6 +199,12 @@ const DetailSoumission = () => {
             )
             }
 
+
+            {error && (
+                <div className="message">
+                    {error}
+                </div>
+            )}
         </div >
     );
 };

@@ -56,7 +56,10 @@ export default function Login(props) {
       console.log(err);
     }
   }
-
+  if (responseData.role.toLowerCase() !== typeCompte.toLowerCase()) {
+    SetError("Rôle incorrect sélectionné. Veuillez choisir le bon rôle.");
+    return;
+  }
   return (
     <form onSubmit={authSubmitHandler}>
       <h2>Connexion</h2>
@@ -104,6 +107,12 @@ export default function Login(props) {
           <strong>Employé</strong>
         </a>
       </div>
+      {error && (
+        <div className="message erreur">
+          {error}
+        </div>
+      )}
+
       {message && (
         <div className={`message ${message.type}`}>
           {message.text}

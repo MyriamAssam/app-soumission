@@ -8,6 +8,12 @@ const soumissionSchema = new mongoose.Schema({
     description: { type: String, required: false },
     telephone: { type: String, required: false },
     employeurId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
+
+
+
+    clientId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
+    travaux: [{ type: String }],
+    date: { type: Date, default: Date.now },
     notesClients: [
         {
             auteur: { type: String },
@@ -22,12 +28,6 @@ const soumissionSchema = new mongoose.Schema({
             date: { type: Date, default: Date.now }
         }
     ]
-    
-    
-    clientId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
-    travaux: [{ type: String }],
-    date: { type: Date, default: Date.now }
-
 });
 
 module.exports = mongoose.model("Soumission", soumissionSchema);

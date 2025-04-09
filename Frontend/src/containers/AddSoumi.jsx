@@ -108,15 +108,21 @@ const AddSoumi = (props) => {
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Email :</label>
+                    <br />
                     <input type="email" value={emailField} readOnly />
+                    <br />
                 </div>
                 <div className="controles no-margin">
                     <label>Adresse :</label>
+                    <br />
                     <input type="text" value={adresseField} readOnly />
+                    <br />
                 </div>
                 <div className="controles no-margin">
                     <label>Téléphone :</label>
+                    <br />
                     <input type="text" value={telephoneField} readOnly />
+                    <br />
                 </div>
             </div>
 
@@ -124,6 +130,7 @@ const AddSoumi = (props) => {
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Description : </label>
+                    <br />
                     <textarea name="description" cols="60" rows="5" defaultValue={description}></textarea>
                 </div>
             </div>

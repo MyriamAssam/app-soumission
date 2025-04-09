@@ -44,10 +44,10 @@
 
 .message {
     margin: 1rem auto;
-    padding: 8px;
+    padding: 4px;
     border-radius: 5px;
-    max-width: 300px;
-    width: 90%;
+    max-width: 100px;
+    width: 50%;
 }
 
 

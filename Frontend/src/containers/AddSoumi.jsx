@@ -129,7 +129,7 @@ const AddSoumi = (props) => {
 
             <div className="controles-rows">
                 <div className="controles no-margin">
-                    <label>Description : </label>
+                    <label><br />Description : </label>
                     <br />
                     <textarea name="description" cols="60" rows="5" defaultValue={description}></textarea>
                 </div>

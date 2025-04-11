@@ -67,6 +67,15 @@ export default function Inscription(props) {
       console.log(err);
     }
   }
+  const formatPhoneInput = (value) => {
+
+    const cleaned = value.replace(/\D/g, "").slice(0, 10);
+    const len = cleaned.length;
+
+    if (len < 4) return cleaned;
+    if (len < 7) return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
+    return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+  };
 
   return (
     <form onSubmit={authSubmitHandler}>
@@ -129,15 +138,13 @@ export default function Inscription(props) {
             name="telephone"
             value={telephone}
             onChange={(e) => {
-              const value = e.target.value;
-              if (/^\d{0,10}$/.test(value)) {
-                setTelephone(value);
-              }
+              const formatted = formatPhoneInput(e.target.value);
+              setTelephone(formatted);
             }}
             maxLength="10"
-            pattern="\d{10}"
             required
           />
+
 
         </div>
       </div>

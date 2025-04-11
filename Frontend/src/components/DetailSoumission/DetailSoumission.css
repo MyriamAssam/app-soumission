@@ -13,8 +13,10 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 0rem;
+    margin: 2rem auto;
+    max-width: 500px;
 }
+
 
 .boutonSupp,
 .boutonModi,

@@ -150,7 +150,7 @@ const DetailSoumission = () => {
     if (!soumi) return <p>Aucune donnée à afficher.</p>;
 
     return (
-        <div>
+        <div className="container-detail">
             <h2>Détails de la soumission</h2>
             <p><strong>Prénom :</strong> {soumi.prenomClient}</p>
             <p><strong>Email :</strong> {soumi.email}</p>

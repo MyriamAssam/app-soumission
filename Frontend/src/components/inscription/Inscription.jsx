@@ -141,7 +141,7 @@ export default function Inscription(props) {
               const formatted = formatPhoneInput(e.target.value);
               setTelephone(formatted);
             }}
-            maxLength="10"
+            maxLength="12"
             required
           />
 

@@ -146,6 +146,15 @@ const DetailSoumission = () => {
         });
     };
 
+    const formatPhoneNumber = (number) => {
+        if (!number) return "";
+        const cleaned = ("" + number).replace(/\D/g, "");
+        const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+        if (match) {
+            return `${match[1]}-${match[2]}-${match[3]}`;
+        }
+        return number;
+    };
 
     if (!soumi) return <p>Aucune donnée à afficher.</p>;
 
@@ -155,7 +164,7 @@ const DetailSoumission = () => {
             <p><strong>Prénom :</strong> {soumi.prenomClient}</p>
             <p><strong>Email :</strong> {soumi.email}</p>
             <p><strong>Adresse :</strong> {soumi.adresse}</p>
-            <p><strong>Téléphone :</strong> {soumi.telephone}</p>
+            <p><strong>Téléphone :</strong> {formatPhoneNumber(soumi.telephone)}</p>
             <p><strong>Description :</strong> {soumi.description}</p>
             <p><strong>Travaux :</strong> {soumi.travaux?.join(", ")}</p>
             <p><strong>Date et heure :</strong> {moment(soumi.date).format("DD MMMM YYYY [à] HH:mm")}</p>

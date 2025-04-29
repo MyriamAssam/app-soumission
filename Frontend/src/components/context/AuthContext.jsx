@@ -25,28 +25,19 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
-    const storedRole = localStorage.getItem("role");
-    const storedPrenom = localStorage.getItem("prenom");
-    const storedEmail = localStorage.getItem("email");
-    const storedAdresse = localStorage.getItem("adresse");
-    const storedTelephone = localStorage.getItem("telephone");
 
-    if (storedUser && storedToken && storedRole) {
+    if (storedUser && storedToken) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        setUser(JSON.parse(storedUser));
+        setUser(parsedUser);  // 👈 user.id sera bien une string
         setToken(storedToken);
-        setRole(storedRole);
-        setPrenom(storedPrenom);
-        setEmail(storedEmail);
-        setAdresse(storedAdresse);
-        setTelephone(storedTelephone);
       } catch (err) {
         console.error("Erreur de parsing du user depuis localStorage", err);
         localStorage.clear();
       }
     }
   }, []);
+
 
   const login = (userId, token, prenom, email, adresse, telephone, role, specialite = "") => {
     const userObject = {
@@ -85,10 +76,15 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("adresse");
     localStorage.removeItem("telephone");
   };
+  const updateUser = (updatedFields) => {
+    const updatedUser = { ...user, ...updatedFields };
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+  };
 
   return (
     <AuthContext.Provider
-      value={{ user, token, role, prenom, email, adresse, telephone, login, logout }}
+      value={{ user, token, role, prenom, email, adresse, telephone, login, logout, updateUser }}
     >
       {children}
     </AuthContext.Provider>

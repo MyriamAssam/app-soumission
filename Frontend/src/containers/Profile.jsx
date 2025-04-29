@@ -3,7 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 export default function Profile() {
-    const { user, token } = useAuthContext();
+    const { user, token, updateUser } = useAuthContext();
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -70,6 +70,7 @@ export default function Profile() {
             }
 
             const updatedUser = await response.json();
+            updateUser(updatedUser.user); // 👈 met à jour le contexte et localStorage
             console.log(updatedUser);
             setMessage({ type: "success", text: "Profil mis à jour avec succès!" });
             // Optionnel : navigate("/soumissions"); pour retourner à une autre page

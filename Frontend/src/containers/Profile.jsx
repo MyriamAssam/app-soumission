@@ -54,7 +54,8 @@ export default function Profile() {
         if (!user) return;
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}users/${user.id}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}users/${user.userId}`, {
+
 
 
                 method: "PATCH",
@@ -80,7 +81,7 @@ export default function Profile() {
             setMessage({ type: "error", text: "Échec de la mise à jour du profil." });
         }
     };
-
+    <br />
     return (
         <form onSubmit={handleSubmit}>
             <h2>Modifier mon profil</h2>

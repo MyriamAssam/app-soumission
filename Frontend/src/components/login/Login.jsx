@@ -20,6 +20,7 @@ export default function Login(props) {
     event.preventDefault();
     const inputs = new FormData(event.target);
     const data = Object.fromEntries(inputs.entries());
+    data.type = typeCompte.toLowerCase();
     console.log("data ", data);
     event.target.reset();
 

@@ -54,7 +54,7 @@ export default function Profile() {
         if (!user) return;
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}users/${user.userId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}users/${user.id}`, {
 
 
 

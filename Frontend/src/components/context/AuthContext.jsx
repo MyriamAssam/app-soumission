@@ -32,24 +32,31 @@ export const AuthProvider = ({ children }) => {
     const storedTelephone = localStorage.getItem("telephone");
 
     if (storedUser && storedToken && storedRole) {
-      setUser(JSON.parse(storedUser));
-      setToken(storedToken);
-      setRole(storedRole);
-      setPrenom(storedPrenom);
-      setEmail(storedEmail);
-      setAdresse(storedAdresse);
-      setTelephone(storedTelephone);
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(JSON.parse(storedUser));
+        setToken(storedToken);
+        setRole(storedRole);
+        setPrenom(storedPrenom);
+        setEmail(storedEmail);
+        setAdresse(storedAdresse);
+        setTelephone(storedTelephone);
+      } catch (err) {
+        console.error("Erreur de parsing du user depuis localStorage", err);
+        localStorage.clear();
+      }
     }
   }, []);
 
-  const login = (userId, token, prenom, email, adresse, telephone, role) => {
+  const login = (userId, token, prenom, email, adresse, telephone, role, specialite = "") => {
     const userObject = {
       id: userId,
       prenom,
       email,
       adresse,
       telephone,
-      role
+      role,
+      specialite
     };
 
     setUser(userObject);

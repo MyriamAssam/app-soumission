@@ -103,42 +103,45 @@ const registerUser = async (req, res, next) => {
     specialite: role === "employé" ? specialite : undefined,
   });
 
-  // (reste identique)
+  console.log("Utilisateur créé: ", createdUser);
+
+  try {
+    await createdUser.save();
+  } catch (e) {
+    console.log(e);
+    return next(
+      new HttpError(
+        "Échec lors de l'inscription du nouvel utilisateur, veuillez réessayer plus tard",
+        500
+      )
+    );
+  }
+
+  let token;
+  try {
+    token = jwt.sign(
+      {
+        userId: createdUser.id,
+        email: createdUser.email,
+        role: createdUser.role,
+        specialite: createdUser.specialite,
+      },
+      "tpsyntheseMelia&Ivan-cours4a5",
+      { expiresIn: "24h" }
+    );
+  } catch (e) {
+    console.log(e);
+    return next(
+      new HttpError("La connexion a échouée, veuillez réessayer plus tard.", 500)
+    );
+  }
+
+  res.status(201).json({
+    user: createdUser.toObject({ getters: true }),
+    token: token
+  });
 };
 
-
-console.log("Utilisateur créé: ", createdUser);
-
-try {
-  await createdUser.save();
-} catch (e) {
-  console.log(e);
-  return next(
-    new HttpError(
-      "Échec lors de l'inscription du nouvel utilisateur, veuillez réessayer plus tard",
-      500
-    )
-  );
-}
-
-let token;
-try {
-  token = jwt.sign(
-    { userId: createdUser.id, email: email, role: createdUser.role, specialite: createdUser.specialite },
-    "tpsyntheseMelia&Ivan-cours4a5",
-    { expiresIn: "24h" }
-  );
-} catch (e) {
-  console.log(e);
-  return next(
-    new HttpError("La connexion a échouée, veuillez réessayer plus tard.", 500)
-  );
-}
-
-res.status(201).json({
-  user: createdUser.toObject({ getters: true }),
-  token: token
-});
 
 
 

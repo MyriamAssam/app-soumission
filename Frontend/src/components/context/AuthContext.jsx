@@ -43,22 +43,23 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userId, token, prenom, email, adresse, telephone, role) => {
-    setUser(userId);
+    const userObject = {
+      id: userId,
+      prenom,
+      email,
+      adresse,
+      telephone,
+      role
+    };
+
+    setUser(userObject);
     setToken(token);
     setRole(role);
-    setPrenom(prenom);
-    setEmail(email);
-    setAdresse(adresse);
-    setTelephone(telephone);
 
-    localStorage.setItem("user", JSON.stringify(userId));
+    localStorage.setItem("user", JSON.stringify(userObject));
     localStorage.setItem("token", token);
-    localStorage.setItem("role", role);
-    localStorage.setItem("prenom", prenom);
-    localStorage.setItem("email", email);
-    localStorage.setItem("adresse", adresse);
-    localStorage.setItem("telephone", telephone);
   };
+
 
   const logout = () => {
     setUser(null);

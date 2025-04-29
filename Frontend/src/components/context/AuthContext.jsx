@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userId, token, prenom, email, adresse, telephone, role, specialite = "") => {
     const userObject = {
-      userId,
+      userId: userId.toString(),
       prenom,
       email,
       adresse,

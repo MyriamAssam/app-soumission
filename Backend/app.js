@@ -12,12 +12,14 @@ app.use(express.json());
 
 app.use(cors({
   origin: "https://app-soumission.onrender.com",
-  methods: "GET,POST,PUT,PATCH,DELETE",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
+
 app.use(bodyParser.json());
-app.options("*", (req, res) => res.sendStatus(200));
+
 
 
 app.use("/soumis", soumisRoutes);

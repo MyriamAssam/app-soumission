@@ -44,6 +44,9 @@ const NavLinks = () => {
           <li>
             <NavLink to="/all">Toutes les soumissions</NavLink>
           </li>
+          <li>
+            <NavLink to="/profile">Modifier un profil</NavLink>
+          </li>
         </>
       ) : (
         <ul className="navi-links">

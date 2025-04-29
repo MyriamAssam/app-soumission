@@ -25,7 +25,7 @@ const AllSoumissions = () => {
         navigate(`/soumission/${soumi.id}`, { state: { soumi } });
     };
     if (!auth.user) {
-        return <p>Veuillez vous connecter pour voir les détails.</p>;
+        return <p><strong>Veuillez vous connecter pour voir les détails.</strong></p>;
     }
 
     return (

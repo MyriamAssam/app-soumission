@@ -12,6 +12,7 @@ import RootLayout from "../containers/Roots";
 import SoumissionsList from "../components/SoumissionsList/SoumissionsList";
 import DetailSoumission from "../components/DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
+import Profile from "../containers/Profile";
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
         { path: "/soumission/:id", element: <DetailSoumission /> },
         { path: "/add-soumi", element: <AddSoumi /> },
         { path: "/all", element: <AllSoumissions /> },
+        { path: "/profil", element: <Profile /> }
 
       ],
     },

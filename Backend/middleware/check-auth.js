@@ -2,28 +2,23 @@ const jwt = require("jsonwebtoken");
 const HttpError = require("../util/http-error");
 
 module.exports = (req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
   try {
-    if (req.method === "OPTIONS") {
-      return next();
-    }
-
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.headers.authorization.split(" ")[1]; // Authorization: Bearer TOKEN
     if (!token) {
-      throw new Error("L'authentification a échoué.");
+      throw new Error("Authentification échouée !");
     }
+    const decodedToken = jwt.verify(token, "tpsyntheseMelia&Ivan-cours4a5");
 
-    const tokenDecode = jwt.verify(token, "ProjetDeveloppment2024");
-    req.userData = { userId: tokenDecode.userId };
-    console.log("Validation de l'authentification: ", req.userData);
-
+    req.userData = { userId: decodedToken.userId, role: decodedToken.role };
     next();
-  } catch (e) {
-    console.log(e);
-    return next(
-      new HttpError(
-        "Échec lors de l'authentification, veuillez réessayer plus tard.",
-        401
-      )
-    );
+  } catch (err) {
+    console.log(err);
+    const error = new HttpError("Authentification échouée, veuillez vous reconnecter.", 403);
+    return next(error);
+
   }
 };

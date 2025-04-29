@@ -1,24 +1,43 @@
 const express = require("express");
 const userController = require("../controllers/users-controller");
 const checkAuth = require("../middleware/check-auth");
+const HttpError = require("../util/http-error");
+
+const USERS = require("../models/user");
+const SOUMISSIONS = require("../models/soumission");
 
 const router = express.Router();
 
+
 router.post("/register", userController.register);
-
-
-
 router.post("/login", userController.login);
-
 router.get("/find/:chaine", userController.findUser);
 router.get("/allUsers", userController.getAllUsers);
 
+router.use(checkAuth);
+
+
+router.patch("/:userId", async (req, res, next) => {
+    const userIdFromParams = req.params.userId;
+    const userIdFromToken = req.userData.userId;
+
+    if (userIdFromParams !== userIdFromToken) {
+        const error = new HttpError("Non autorisé à modifier ce profil.", 403);
+        return next(error);
+    }
+
+    userController.majUser(req, res, next);
+});
+
+
 router.get("/soumissions/employe/:id", async (req, res) => {
     try {
-        const employe = await User.findById(req.params.id);
-        if (!employe || employe.role !== "employé") return res.status(403).json({ msg: "Accès refusé" });
+        const employe = await USERS.findById(req.params.id);
+        if (!employe || employe.role !== "employé") {
+            return res.status(403).json({ msg: "Accès refusé" });
+        }
 
-        const soumissions = await Soumission.find({
+        const soumissions = await SOUMISSIONS.find({
             travaux: employe.specialite
         });
 
@@ -28,8 +47,7 @@ router.get("/soumissions/employe/:id", async (req, res) => {
     }
 });
 
-router.get("/:userId", userController.getUserById);
-router.put("/:userId", userController.majUser);
 
-// --- EXPORTS ---
+router.get("/:userId", userController.getUserById);
+
 module.exports = router;

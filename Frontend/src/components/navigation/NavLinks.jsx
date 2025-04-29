@@ -45,7 +45,7 @@ const NavLinks = () => {
             <NavLink to="/all">Toutes les soumissions</NavLink>
           </li>
           <li>
-            <NavLink to="/profile">Modifier un profil</NavLink>
+            <NavLink to="/profil">Modifier un profil</NavLink>
           </li>
         </>
       ) : (

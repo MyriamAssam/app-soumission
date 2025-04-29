@@ -44,9 +44,7 @@ const NavLinks = () => {
           <li>
             <NavLink to="/all">Toutes les soumissions</NavLink>
           </li>
-          <li>
-            <NavLink to="/profil">Modifier un profil</NavLink>
-          </li>
+
         </>
       ) : (
         <ul className="navi-links">
@@ -55,6 +53,9 @@ const NavLinks = () => {
             <NavLink to="/connexion" onClick={() => auth.logout()}>
               Deconnexion
             </NavLink>
+          </li>
+          <li>
+            <NavLink to="/profil">Modifier un profil</NavLink>
           </li>
           <li>
             <NavLink to="/all">Toutes les soumissions</NavLink>

@@ -81,12 +81,21 @@ const getUserByUsernameOrId = async (req, res, next) => {
 };
 
 // --- INSCRIPTION ---
+const bcrypt = require("bcryptjs");
+
 const registerUser = async (req, res, next) => {
   const { email, mdp, prenom, adresse, telephone, role, specialite } = req.body;
 
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hash(mdp, 12);
+  } catch (err) {
+    return next(new HttpError("Erreur lors du hash du mot de passe", 500));
+  }
+
   const createdUser = new USERS({
     email,
-    mdp,
+    mdp: hashedPassword,
     prenom,
     adresse,
     telephone,
@@ -94,39 +103,44 @@ const registerUser = async (req, res, next) => {
     specialite: role === "employé" ? specialite : undefined,
   });
 
-  console.log("Utilisateur créé: ", createdUser);
-
-  try {
-    await createdUser.save();
-  } catch (e) {
-    console.log(e);
-    return next(
-      new HttpError(
-        "Échec lors de l'inscription du nouvel utilisateur, veuillez réessayer plus tard",
-        500
-      )
-    );
-  }
-
-  let token;
-  try {
-    token = jwt.sign(
-      { userId: createdUser.id, email: email, role: createdUser.role, specialite: createdUser.specialite },
-      "tpsyntheseMelia&Ivan-cours4a5",
-      { expiresIn: "24h" }
-    );
-  } catch (e) {
-    console.log(e);
-    return next(
-      new HttpError("La connexion a échouée, veuillez réessayer plus tard.", 500)
-    );
-  }
-
-  res.status(201).json({
-    user: createdUser.toObject({ getters: true }),
-    token: token
-  });
+  // (reste identique)
 };
+
+
+console.log("Utilisateur créé: ", createdUser);
+
+try {
+  await createdUser.save();
+} catch (e) {
+  console.log(e);
+  return next(
+    new HttpError(
+      "Échec lors de l'inscription du nouvel utilisateur, veuillez réessayer plus tard",
+      500
+    )
+  );
+}
+
+let token;
+try {
+  token = jwt.sign(
+    { userId: createdUser.id, email: email, role: createdUser.role, specialite: createdUser.specialite },
+    "tpsyntheseMelia&Ivan-cours4a5",
+    { expiresIn: "24h" }
+  );
+} catch (e) {
+  console.log(e);
+  return next(
+    new HttpError("La connexion a échouée, veuillez réessayer plus tard.", 500)
+  );
+}
+
+res.status(201).json({
+  user: createdUser.toObject({ getters: true }),
+  token: token
+});
+
+
 
 // --- CONNEXION ---
 const login = async (req, res, next) => {
@@ -185,32 +199,37 @@ const login = async (req, res, next) => {
 // --- MAJ USER ---
 const updateUser = async (req, res, next) => {
   const userId = req.params.userId;
-  const updates = req.body;
+  const updates = {};
+
+  const allowedFields = ["prenom", "adresse", "telephone", "email", "mdp", "specialite"];
+  for (const field of allowedFields) {
+    if (req.body[field]) {
+      updates[field] = req.body[field];
+    }
+  }
+
+  // Si un nouveau mot de passe est fourni, on le hash
+  if (updates.mdp) {
+    try {
+      updates.mdp = await bcrypt.hash(updates.mdp, 12);
+    } catch (e) {
+      return next(new HttpError("Erreur lors du hash du mot de passe.", 500));
+    }
+  }
 
   try {
-    const userMaj = await USERS.findByIdAndUpdate(userId, updates, {
-      new: true,
-    });
-
+    const userMaj = await USERS.findByIdAndUpdate(userId, updates, { new: true });
     if (!userMaj) {
-      return next(
-        new HttpError(
-          "Utilisateur non trouvé, impossible de faire la mise à jour",
-          404
-        )
-      );
+      return next(new HttpError("Utilisateur non trouvé", 404));
     }
 
     res.status(200).json({ user: userMaj.toObject({ getters: true }) });
   } catch (e) {
-    return next(
-      new HttpError(
-        "Échec de la maj de l'utilisateur, veuillez réessayer plus tard",
-        500
-      )
-    );
+    console.error(e);
+    return next(new HttpError("Erreur serveur lors de la mise à jour", 500));
   }
 };
+
 
 // --- EXPORTS ---
 exports.getAllUsers = getAllUsers;

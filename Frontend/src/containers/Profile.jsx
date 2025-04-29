@@ -24,7 +24,7 @@ export default function Profile() {
                 adresse: user.adresse || "",
                 telephone: user.telephone || "",
                 email: user.email || "",
-                mdp: "", // Mot de passe vide pour des raisons de sécurité
+                mdp: "",
                 role: user.role || "",
                 specialite: user.specialite || ""
             });

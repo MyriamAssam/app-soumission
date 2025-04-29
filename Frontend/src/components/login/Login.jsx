@@ -22,6 +22,7 @@ export default function Login(props) {
     const data = Object.fromEntries(inputs.entries());
     console.log("data ", data);
     event.target.reset();
+
     try {
       const response = await fetch(
         process.env.REACT_APP_BACKEND_URL + "users/login/",
@@ -31,13 +32,20 @@ export default function Login(props) {
           body: JSON.stringify(data),
         }
       );
-      console.log("asd", response);
+
       const responseData = await response.json();
       console.log("1", responseData);
-      if (responseData.role.toLowerCase() !== typeCompte.toLowerCase()) {
-        SetError("Rôle incorrect sélectionné. Veuillez choisir le bon rôle.");
+
+      if (!response.ok) {
+        SetError(responseData.message || "Connexion échouée.");
         return;
       }
+
+      if (!responseData.role || responseData.role.toLowerCase() !== typeCompte.toLowerCase()) {
+        SetError("Rôle incorrect sélectionné ou informations invalides.");
+        return;
+      }
+
       auth.login(
         responseData.userId,
         responseData.token,
@@ -48,18 +56,15 @@ export default function Login(props) {
         responseData.role.toLowerCase()
       );
 
-
-
-
       if (responseData.userId !== undefined) {
         navigate("/soumissions");
       }
-      console.log("a");
     } catch (err) {
-      SetError(err.message || "une erreur");
-      console.log(err);
+      SetError(err.message || "Une erreur est survenue.");
+      console.error(err);
     }
   }
+
 
   return (
     <form onSubmit={authSubmitHandler}>

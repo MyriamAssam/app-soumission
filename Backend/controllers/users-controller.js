@@ -158,46 +158,54 @@ const login = async (req, res, next) => {
     return next(new HttpError("Échec lors de la validation du courriel.", 500));
   }
 
-  // Vérification des identifiants
-  if (!existingUser || existingUser.mdp !== mdp || existingUser.type !== type) {
-    return next(
-      new HttpError(
-        "Connexion échouée, veuillez vérifier vos identifiants.",
-        401
-      )
-    );
-  } else {
-    // Si les identifiants sont bons
-    let token;
-    try {
-      token = jwt.sign(
-        { userId: existingUser.id, email: existingUser.email },
-        "tpsyntheseMelia&Ivan-cours4a5",
-        { expiresIn: "24h" }
-      );
-    } catch (e) {
-      console.log(e);
-      return next(
-        new HttpError(
-          "La connexion a échouée, veuillez réessayer plus tard.",
-          500
-        )
-      );
-    }
-
-    res.status(201).json({
-      userId: existingUser.id,
-      prenom: existingUser.prenom,
-      email: existingUser.email,
-      adresse: existingUser.adresse,
-      telephone: existingUser.telephone,
-      role: existingUser.role,
-      specialite: existingUser.specialite,
-      token: token,
-    });
-
+  if (!existingUser) {
+    return next(new HttpError("Utilisateur introuvable.", 401));
   }
+
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(mdp, existingUser.mdp);
+  } catch (err) {
+    return next(new HttpError("Erreur lors de la vérification du mot de passe.", 500));
+  }
+
+  if (!isValidPassword || existingUser.role !== type) {
+    return next(
+      new HttpError("Identifiants incorrects ou mauvais type de compte.", 401)
+    );
+  }
+
+  let token;
+  try {
+    token = jwt.sign(
+      {
+        userId: existingUser.id,
+        email: existingUser.email,
+        role: existingUser.role,
+        specialite: existingUser.specialite,
+      },
+      "tpsyntheseMelia&Ivan-cours4a5",
+      { expiresIn: "24h" }
+    );
+  } catch (e) {
+    console.log(e);
+    return next(
+      new HttpError("La connexion a échoué, veuillez réessayer plus tard.", 500)
+    );
+  }
+
+  res.status(201).json({
+    userId: existingUser.id,
+    prenom: existingUser.prenom,
+    email: existingUser.email,
+    adresse: existingUser.adresse,
+    telephone: existingUser.telephone,
+    role: existingUser.role,
+    specialite: existingUser.specialite,
+    token: token,
+  });
 };
+
 
 // --- MAJ USER ---
 const updateUser = async (req, res, next) => {

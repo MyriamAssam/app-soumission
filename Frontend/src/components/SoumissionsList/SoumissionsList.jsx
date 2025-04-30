@@ -14,8 +14,9 @@ const ListeSoumissions = () => {
         const fetchSoumissions = async () => {
             try {
                 const endpoint = auth.role === "employé"
-                    ? `soumissions/employe/${auth.user}`
-                    : `soumissions/client/${auth.user}`;
+                    ? `soumissions/employe/${auth.user.id}`
+                    : `soumissions/client/${auth.user.id}`;
+
 
                 const response = await fetch(process.env.REACT_APP_BACKEND_URL + endpoint);
                 const data = await response.json();

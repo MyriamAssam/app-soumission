@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const parsedUser = JSON.parse(storedUser);
         console.log("USER RESTAURÉ DU LOCALSTORAGE", parsedUser);
-        setUser(parsedUser);  // ← ici, tu dois avoir "id", pas "userId"
+        setUser(parsedUser);
         setToken(storedToken);
       } catch (err) {
         console.error("Erreur parsing user", err);

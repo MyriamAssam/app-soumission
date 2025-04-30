@@ -29,14 +29,16 @@ export const AuthProvider = ({ children }) => {
     if (storedUser && storedToken) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);  // 👈 user.id sera bien une string
+        console.log("USER RESTAURÉ DU LOCALSTORAGE", parsedUser);
+        setUser(parsedUser);  // ← ici, tu dois avoir "id", pas "userId"
         setToken(storedToken);
       } catch (err) {
-        console.error("Erreur de parsing du user depuis localStorage", err);
+        console.error("Erreur parsing user", err);
         localStorage.clear();
       }
     }
   }, []);
+
 
 
   const login = (userId, token, prenom, email, adresse, telephone, role, specialite = "") => {

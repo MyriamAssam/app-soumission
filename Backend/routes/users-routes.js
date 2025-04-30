@@ -9,17 +9,8 @@ const SOUMISSIONS = require("../models/soumission");
 const router = express.Router();
 
 
-router.post("/register", async (req, res) => {
-    try {
-        const newUser = new User(req.body);
-        await newUser.save();
+router.post("/register", userController.register);
 
-        res.status(201).json(newUser);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Erreur serveur." });
-    }
-});
 
 
 router.post("/login", userController.login);

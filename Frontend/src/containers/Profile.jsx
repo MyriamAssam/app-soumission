@@ -72,10 +72,9 @@ export default function Profile() {
             }
 
             const updatedUser = await response.json();
-            updateUser(updatedUser.user); // 👈 met à jour le contexte et localStorage
+            updateUser(updatedUser.user);
             console.log(updatedUser);
             setMessage({ type: "success", text: "Profil mis à jour avec succès!" });
-            // Optionnel : navigate("/soumissions"); pour retourner à une autre page
 
         } catch (error) {
             console.error(error);

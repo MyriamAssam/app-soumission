@@ -210,7 +210,11 @@ const getEmployeBySpecialite = async (req, res, next) => {
   const specialite = req.params.specialite;
 
   try {
-    const employe = await USERS.findOne({ role: "employé", specialite: specialite });
+    const employe = await USERS.findOne({
+      role: "employé",
+      specialite: { $regex: new RegExp("^" + specialite + "$", "i") }
+    });
+
     if (!employe) {
       return next(new HttpError("Aucun employé trouvé pour cette spécialité", 404));
     }

@@ -8,17 +8,16 @@ const SOUMISSIONS = require("../models/soumission");
 
 const router = express.Router();
 
-
 router.post("/register", userController.register);
-
-
-
 router.post("/login", userController.login);
 router.get("/find/:chaine", userController.findUser);
 router.get("/allUsers", userController.getAllUsers);
 
-router.use(checkAuth);
+// ✅ Cette route est accessible sans authentification
+router.get("/employe/specialite/:specialite", userController.getEmployeBySpecialite);
 
+// ✅ À partir d’ici, on protège les routes
+router.use(checkAuth);
 
 router.patch("/:userId", async (req, res, next) => {
     const userIdFromParams = req.params.userId;
@@ -31,7 +30,6 @@ router.patch("/:userId", async (req, res, next) => {
 
     userController.majUser(req, res, next);
 });
-
 
 router.get("/soumissions/employe/:id", async (req, res) => {
     try {
@@ -50,8 +48,7 @@ router.get("/soumissions/employe/:id", async (req, res) => {
     }
 });
 
-router.get("/employe/specialite/:specialite", userController.getEmployeBySpecialite);
-
+// ✅ reste des routes protégées
 router.get("/:userId", userController.getUserById);
 
 module.exports = router;

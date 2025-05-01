@@ -206,6 +206,20 @@ const login = async (req, res, next) => {
   });
 };
 
+const getEmployeBySpecialite = async (req, res, next) => {
+  const specialite = req.params.specialite;
+
+  try {
+    const employe = await USERS.findOne({ role: "employé", specialite: specialite });
+    if (!employe) {
+      return next(new HttpError("Aucun employé trouvé pour cette spécialité", 404));
+    }
+    res.json({ employe: employe.toObject({ getters: true }) });
+  } catch (e) {
+    console.log(e);
+    return next(new HttpError("Erreur lors de la recherche de l'employé", 500));
+  }
+};
 
 // --- MAJ USER ---
 const updateUser = async (req, res, next) => {
@@ -246,7 +260,7 @@ const updateUser = async (req, res, next) => {
 exports.getAllUsers = getAllUsers;
 exports.getUserById = getUserById;
 exports.findUser = getUserByUsernameOrId;
-
+exports.getEmployeBySpecialite = getEmployeBySpecialite;
 exports.register = registerUser;
 exports.login = login;
 

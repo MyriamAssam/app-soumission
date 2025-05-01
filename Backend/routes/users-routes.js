@@ -50,6 +50,7 @@ router.get("/soumissions/employe/:id", async (req, res) => {
     }
 });
 
+router.get("/employe/specialite/:specialite", userController.getEmployeBySpecialite);
 
 router.get("/:userId", userController.getUserById);
 

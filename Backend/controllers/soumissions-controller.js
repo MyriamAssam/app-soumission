@@ -220,9 +220,14 @@ const soumissionList = async (req, res, next) => {
     const userId = req.params.id;
     console.log(">> ID reçu dans la requête :", userId);
 
-    const user = await require("../models/user").findById(userId);
-    console.log(">> Utilisateur trouvé :", user);
+    let user;
+    if (mongoose.isValidObjectId(userId)) {
+        user = await require("../models/user").findById(userId);
+    } else {
+        return res.status(400).json({ message: "ID utilisateur invalide (non ObjectId)" });
+    }
 
+    console.log(">> Utilisateur trouvé :", user);
 
     if (!user || !user.role) {
         return res.status(404).json({ message: "Utilisateur invalide." });
@@ -232,19 +237,12 @@ const soumissionList = async (req, res, next) => {
         return res.status(404).json({ message: "Employé sans spécialité." });
     }
 
-
     let query = {};
     if (user.role === "employé") {
-        console.log(">> Requête pour employé avec spécialité :", user.specialite);
         query.travaux = user.specialite;
     } else {
-        query.clientId = userId;
-
-
-
+        query.clientId = userId; // string direct
     }
-
-
 
     try {
         const soumissions = await SOUMISSIONS.find(query);
@@ -253,7 +251,8 @@ const soumissionList = async (req, res, next) => {
         console.error(err);
         res.status(500).json({ message: "Erreur serveur lors du chargement des soumissions." });
     }
-}
+};
+
 
 
 const deleteSoumission = async (req, res, next) => {

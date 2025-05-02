@@ -208,7 +208,8 @@ const login = async (req, res, next) => {
 
 const getEmployeBySpecialite = async (req, res, next) => {
   const specialite = req.params.specialite;
-  console.log("Reçu dans le paramètre : ", specialite); // 🔍 LOG
+  console.log("Reçu dans le paramètre : ", specialite);
+  console.log("🔍 Recherche employé avec spécialité EXACTE:", specialite);
 
   try {
     const employe = await USERS.findOne({

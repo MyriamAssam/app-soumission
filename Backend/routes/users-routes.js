@@ -47,18 +47,24 @@ router.get("/soumissions/employe/:id", async (req, res) => {
         res.status(500).json({ msg: "Erreur serveur" });
     }
 });
+
 router.get("/soumissions/client/:id", async (req, res) => {
     try {
         const clientId = req.params.id;
+        console.log("🔍 clientId reçu :", clientId);
+
         const objectId = mongoose.Types.ObjectId.isValid(clientId)
             ? new mongoose.Types.ObjectId(clientId)
             : clientId;
 
+        console.log("🔍 objectId utilisé :", objectId);
+
         const soumissions = await SOUMISSIONS.find({ clientId: objectId });
+        console.log("📦 Résultat :", soumissions);
 
         res.status(200).json(soumissions);
     } catch (err) {
-        console.error(err);
+        console.error("🔥 ERREUR BACKEND :", err);
         res.status(500).json({ message: "Erreur lors de la récupération des soumissions du client" });
     }
 });

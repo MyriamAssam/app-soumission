@@ -150,21 +150,30 @@ const addSoumission = async (req, res, next) => {
         clientId
     } = req.body;
 
-    let convertedClientId;
-    try {
-        convertedClientId = new mongoose.Types.ObjectId(clientId); // ✅ conversion explicite
-    } catch (err) {
-        return next(new HttpError("ClientId invalide", 400));
-    }
+    const convertedClientId = mongoose.isValidObjectId(clientId)
+        ? new mongoose.Types.ObjectId(clientId)
+        : clientId;
 
-    const newSoumission = new SOUMISSIONS({
+    console.log("✅ Soumission reçue et préparée :", {
         adresse,
+        prenomClient,
         nomEmployeur,
         email,
         description,
         telephone,
         employeurId,
+        clientId: convertedClientId,
+        travaux
+    });
+
+    const newSoumission = new SOUMISSIONS({
+        adresse,
         prenomClient,
+        nomEmployeur,
+        email,
+        description,
+        telephone,
+        employeurId,
         clientId: convertedClientId,
         travaux
     });

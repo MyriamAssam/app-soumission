@@ -210,8 +210,9 @@ const soumissionList = async (req, res, next) => {
     if (user.role === "employé") {
         query.travaux = user.specialite;
     } else {
-        query.clientId = userId;
+        query.clientId = new mongoose.Types.ObjectId(userId);
     }
+
 
     try {
         const soumissions = await SOUMISSIONS.find(query);

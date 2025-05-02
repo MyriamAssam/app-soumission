@@ -150,12 +150,6 @@ const addSoumission = async (req, res, next) => {
         clientId
     } = req.body;
 
-    if (!mongoose.isValidObjectId(clientId)) {
-        return next(new HttpError("Client ID invalide", 400));
-    }
-    const convertedClientId = new mongoose.Types.ObjectId(clientId);
-
-
     console.log("✅ Soumission reçue et préparée :", {
         adresse,
         prenomClient,
@@ -164,7 +158,7 @@ const addSoumission = async (req, res, next) => {
         description,
         telephone,
         employeurId,
-        clientId: convertedClientId,
+        clientId,
         travaux
     });
 
@@ -176,7 +170,7 @@ const addSoumission = async (req, res, next) => {
         description,
         telephone,
         employeurId,
-        clientId: convertedClientId,
+        clientId, // ✅ string directement
         travaux
     });
 
@@ -187,6 +181,7 @@ const addSoumission = async (req, res, next) => {
         return next(new HttpError("Adding soumission failed, please try again.", 500));
     }
 };
+
 
 
 
@@ -243,11 +238,8 @@ const soumissionList = async (req, res, next) => {
         console.log(">> Requête pour employé avec spécialité :", user.specialite);
         query.travaux = user.specialite;
     } else {
-        if (mongoose.isValidObjectId(userId)) {
-            query.clientId = new mongoose.Types.ObjectId(userId);
-        } else {
-            query.clientId = userId;
-        }
+        query.clientId = userId;
+
 
 
     }

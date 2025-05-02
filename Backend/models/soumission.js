@@ -11,7 +11,7 @@ const soumissionSchema = new mongoose.Schema({
 
 
 
-    clientId: { type: mongoose.Types.ObjectId, ref: "User" },
+    clientId: { type: String, required: true },
     travaux: [{ type: String }],
     date: { type: Date, default: Date.now },
     notesClients: [

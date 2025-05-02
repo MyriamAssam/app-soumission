@@ -150,9 +150,11 @@ const addSoumission = async (req, res, next) => {
         clientId
     } = req.body;
 
-    const convertedClientId = mongoose.isValidObjectId(clientId)
-        ? new mongoose.Types.ObjectId(clientId)
-        : clientId;
+    if (!mongoose.isValidObjectId(clientId)) {
+        return next(new HttpError("Client ID invalide", 400));
+    }
+    const convertedClientId = new mongoose.Types.ObjectId(clientId);
+
 
     console.log("✅ Soumission reçue et préparée :", {
         adresse,

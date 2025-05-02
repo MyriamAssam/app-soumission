@@ -202,9 +202,8 @@ const soumissionList = async (req, res, next) => {
         return res.status(404).json({ message: "Utilisateur invalide." });
     }
 
-    if (user.role === "employé" && !user.specialite) {
-        return res.status(404).json({ message: "Employé sans spécialité." });
-    }
+    query.clientId = new mongoose.Types.ObjectId(userId);
+
 
 
     let query = {};

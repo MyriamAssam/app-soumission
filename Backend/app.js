@@ -16,7 +16,9 @@ app.use(cors({
 
   credentials: true
 }));
-
+app.get("/ping", (req, res) => {
+  res.status(200).send("pong");
+});
 app.options("*", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "https://app-soumission.onrender.com");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");

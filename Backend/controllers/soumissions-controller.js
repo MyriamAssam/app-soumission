@@ -214,7 +214,7 @@ const modifierSoumission = async (req, res, next) => {
 
 
 
-
+const User = require("../models/user"); // Avoid dynamic require inside handler
 
 const soumissionList = async (req, res, next) => {
     const userId = req.params.id;
@@ -226,18 +226,17 @@ const soumissionList = async (req, res, next) => {
 
     let user;
     try {
-        user = await require("../models/user").findById(userId);
+        user = await User.findById(userId);
+        if (!user || !user.role) {
+            return res.status(404).json({ message: "Utilisateur invalide." });
+        }
+
+        if (user.role === "employé" && !user.specialite) {
+            return res.status(404).json({ message: "Employé sans spécialité." });
+        }
     } catch (err) {
         console.error("💥 Erreur findById :", err);
         return res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur." });
-    }
-
-    if (!user || !user.role) {
-        return res.status(404).json({ message: "Utilisateur invalide." });
-    }
-
-    if (user.role === "employé" && !user.specialite) {
-        return res.status(404).json({ message: "Employé sans spécialité." });
     }
 
     let query = {};
@@ -255,6 +254,7 @@ const soumissionList = async (req, res, next) => {
         res.status(500).json({ message: "Erreur serveur lors du chargement des soumissions." });
     }
 };
+
 
 
 

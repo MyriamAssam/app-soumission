@@ -232,8 +232,11 @@ const soumissionList = async (req, res, next) => {
         console.log(">> Requête pour employé avec spécialité :", user.specialite);
         query.travaux = user.specialite;
     } else {
-        const objectId = new mongoose.Types.ObjectId(userId);
-        query.clientId = objectId;
+        if (mongoose.isValidObjectId(userId)) {
+            query.clientId = new mongoose.Types.ObjectId(userId);
+        } else {
+            query.clientId = userId;
+        }
 
 
     }

@@ -220,14 +220,17 @@ const soumissionList = async (req, res, next) => {
     const userId = req.params.id;
     console.log(">> ID reçu dans la requête :", userId);
 
-    let user;
-    if (mongoose.isValidObjectId(userId)) {
-        user = await require("../models/user").findById(userId);
-    } else {
+    if (!mongoose.isValidObjectId(userId)) {
         return res.status(400).json({ message: "ID utilisateur invalide (non ObjectId)" });
     }
 
-    console.log(">> Utilisateur trouvé :", user);
+    let user;
+    try {
+        user = await require("../models/user").findById(userId);
+    } catch (err) {
+        console.error("💥 Erreur findById :", err);
+        return res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur." });
+    }
 
     if (!user || !user.role) {
         return res.status(404).json({ message: "Utilisateur invalide." });
@@ -241,17 +244,18 @@ const soumissionList = async (req, res, next) => {
     if (user.role === "employé") {
         query.travaux = user.specialite;
     } else {
-        query.clientId = userId; // string direct
+        query.clientId = userId;
     }
 
     try {
         const soumissions = await SOUMISSIONS.find(query);
         res.json({ soumissions: soumissions.map((s) => s.toObject({ getters: true })) });
     } catch (err) {
-        console.error(err);
+        console.error("💥 Erreur recherche soumissions :", err);
         res.status(500).json({ message: "Erreur serveur lors du chargement des soumissions." });
     }
 };
+
 
 
 

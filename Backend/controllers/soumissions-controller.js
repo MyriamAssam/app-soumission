@@ -195,7 +195,11 @@ const modifierSoumission = async (req, res, next) => {
 
 const soumissionList = async (req, res, next) => {
     const userId = req.params.id;
+    console.log(">> ID reçu dans la requête :", userId);
+
     const user = await require("../models/user").findById(userId);
+    console.log(">> Utilisateur trouvé :", user);
+
 
     if (!user || !user.role) {
         return res.status(404).json({ message: "Utilisateur invalide." });
@@ -208,10 +212,13 @@ const soumissionList = async (req, res, next) => {
 
     let query = {};
     if (user.role === "employé") {
+        console.log(">> Requête pour employé avec spécialité :", user.specialite);
         query.travaux = user.specialite;
     } else {
-        query.clientId = new mongoose.Types.ObjectId(userId);
+        console.log(">> Requête pour client avec clientId :", userId);
+        query.clientId = userId;
     }
+
 
 
     try {

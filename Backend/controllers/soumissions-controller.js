@@ -1,4 +1,3 @@
-// --- IMPORTS ---
 const SOUMISSIONS = require("../models/soumission");
 const HttpError = require("../util/http-error");
 const mongoose = require("mongoose");
@@ -202,8 +201,9 @@ const soumissionList = async (req, res, next) => {
         return res.status(404).json({ message: "Utilisateur invalide." });
     }
 
-    query.clientId = new mongoose.Types.ObjectId(userId);
-
+    if (user.role === "employé" && !user.specialite) {
+        return res.status(404).json({ message: "Employé sans spécialité." });
+    }
 
 
     let query = {};
@@ -254,4 +254,4 @@ exports.recherche = findSoumissionsByEmail;
 exports.soumissionList = soumissionList;
 exports.addSoumission = addSoumission;
 exports.majSoumission = modifierSoumission;
-exports.supprimerSoumission = deleteSoumission;
+exports.supprimerSoumission = deleteSoumission;                                     

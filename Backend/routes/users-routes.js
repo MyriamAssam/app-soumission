@@ -48,18 +48,7 @@ router.get("/soumissions/employe/:id", async (req, res) => {
     }
 });
 
-router.get("/soumissions/client/:id", async (req, res) => {
-    try {
-        const clientId = req.params.id;
 
-        const soumissions = await SOUMISSIONS.find({ clientId: clientId });
-
-        res.status(200).json(soumissions);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Erreur lors de la récupération des soumissions du client" });
-    }
-});
 
 router.get("/:userId", userController.getUserById);
 

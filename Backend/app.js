@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 
 
 
-app.use("/soumis", soumisRoutes);
+
 app.use("/soumissions", soumisRoutes);
 app.use("/users", usersRoutes);
 

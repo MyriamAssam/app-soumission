@@ -216,7 +216,8 @@ const soumissionList = async (req, res, next) => {
         query.travaux = user.specialite;
     } else {
         console.log(">> Requête pour client avec clientId :", userId);
-        query.clientId = userId;
+        query.clientId = { $in: [userId, new mongoose.Types.ObjectId(userId)] };
+
     }
 
 

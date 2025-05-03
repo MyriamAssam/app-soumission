@@ -15,22 +15,6 @@ router.get("/allUsers", userController.getAllUsers);
 
 // ✅ Cette route est accessible sans authentification
 router.get("/employe/specialite/:specialite", userController.getEmployeBySpecialite);
-
-// ✅ À partir d’ici, on protège les routes
-router.use(checkAuth);
-
-router.patch("/:userId", async (req, res, next) => {
-    const userIdFromParams = req.params.userId;
-    const userIdFromToken = req.userData.userId;
-
-    if (userIdFromParams !== userIdFromToken) {
-        const error = new HttpError("Non autorisé à modifier ce profil.", 403);
-        return next(error);
-    }
-
-    userController.majUser(req, res, next);
-});
-
 router.get("/soumissions/employe/:id", async (req, res) => {
     try {
         const employe = await USERS.findById(req.params.id);
@@ -68,6 +52,22 @@ router.get("/soumissions/client/:id", async (req, res) => {
         res.status(500).json({ message: "Erreur lors de la récupération des soumissions du client" });
     }
 });
+// ✅ À partir d’ici, on protège les routes
+router.use(checkAuth);
+
+router.patch("/:userId", async (req, res, next) => {
+    const userIdFromParams = req.params.userId;
+    const userIdFromToken = req.userData.userId;
+
+    if (userIdFromParams !== userIdFromToken) {
+        const error = new HttpError("Non autorisé à modifier ce profil.", 403);
+        return next(error);
+    }
+
+    userController.majUser(req, res, next);
+});
+
+
 
 
 

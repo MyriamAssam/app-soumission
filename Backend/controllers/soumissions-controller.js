@@ -69,20 +69,35 @@ const findSoumissionsByEmail = async (req, res, next) => {
 
 // 📥 CREATE
 const addSoumission = async (req, res, next) => {
-    const {
+    let {
         adresse, prenomClient, nomEmployeur, email, description,
         telephone, employeurId, travaux, clientId
     } = req.body;
 
-    const newSoumission = new Soumission({
-        adresse, prenomClient, nomEmployeur, email, description,
-        telephone, employeurId, clientId, travaux
-    });
-
     try {
+        if (!mongoose.isValidObjectId(clientId)) {
+            return next(new HttpError("clientId invalide.", 400));
+        }
+        if (!mongoose.isValidObjectId(employeurId)) {
+            return next(new HttpError("employeurId invalide.", 400));
+        }
+
+        const newSoumission = new Soumission({
+            adresse,
+            prenomClient,
+            nomEmployeur,
+            email,
+            description,
+            telephone,
+            employeurId: new mongoose.Types.ObjectId(employeurId),
+            clientId: new mongoose.Types.ObjectId(clientId),
+            travaux
+        });
+
         await newSoumission.save();
         res.status(201).json({ soumission: newSoumission.toObject({ getters: true }) });
     } catch (e) {
+        console.log(e);
         next(new HttpError("Ajout de la soumission échoué.", 500));
     }
 };
@@ -120,40 +135,39 @@ const deleteSoumission = async (req, res, next) => {
     }
 };
 
-// 🔎 GET ALL FROM EMPLOYEUR
+// 🔎 ALL BY EMPLOYEUR ID
 const getAllSoumissionsEmployeur = async (req, res, next) => {
     const employeurId = req.params.soumissionId;
 
     try {
-        const results = await Soumission.find({ employeurId });
+        if (!mongoose.isValidObjectId(employeurId)) {
+            return next(new HttpError("ID employeur invalide.", 400));
+        }
 
+        const results = await Soumission.find({ employeurId });
         if (!results.length) {
-            return next(new HttpError("Aucune soumission publiée par cet utilisateur.", 404));
+            return next(new HttpError("Aucune soumission publiée par cet employeur.", 404));
         }
 
         res.json({ soumissions: results.map(s => s.toObject({ getters: true })) });
     } catch (e) {
-        next(new HttpError("Erreur de récupération des soumissions employeur.", 500));
+        next(new HttpError("Erreur récupération soumissions employeur.", 500));
     }
 };
 
-// 🔁 BY USER ROLE
+// 🔁 BY ROLE
 const soumissionList = async (req, res, next) => {
     const userId = req.params.id;
 
     try {
         const user = await User.findById(userId);
-        if (!user || !user.role) {
-            return res.status(404).json({ message: "Utilisateur introuvable ou invalide." });
+        if (!user) {
+            return res.status(404).json({ message: "Utilisateur introuvable." });
         }
 
-        let query = {};
-
-        if (user.role === "employé" && user.specialite) {
-            query.travaux = user.specialite;
-        } else {
-            query.clientId = userId;
-        }
+        const query = user.role === "employé"
+            ? { travaux: user.specialite }
+            : { clientId: new mongoose.Types.ObjectId(userId) };
 
         const soumissions = await Soumission.find(query);
         if (!soumissions.length) {
@@ -163,10 +177,9 @@ const soumissionList = async (req, res, next) => {
         res.json({ soumissions: soumissions.map(s => s.toObject({ getters: true })) });
     } catch (err) {
         console.error("💥 ERREUR:", err);
-        return res.status(500).json({ message: "Erreur serveur." });
+        res.status(500).json({ message: "Erreur serveur." });
     }
 };
-
 
 // 🔁 EXPORTS
 exports.getAllSoumissions = getAllSoumissions;

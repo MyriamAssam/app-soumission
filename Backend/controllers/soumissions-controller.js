@@ -121,7 +121,7 @@ exports.soumissionList = async (req, res, next) => {
 };
 
 
-// 🔁 EXPORTS
+/*
 exports.getAllSoumissions = getAllSoumissions;
 exports.getSoumissionById = getSoumissionById;
 exports.soumissionUser = getAllSoumissionsEmployeur;
@@ -129,4 +129,4 @@ exports.recherche = findSoumissionsByEmail;
 exports.soumissionList = soumissionList;
 exports.addSoumission = addSoumission;
 exports.majSoumission = modifierSoumission;
-exports.supprimerSoumission = deleteSoumission;
+exports.supprimerSoumission = deleteSoumission;*/

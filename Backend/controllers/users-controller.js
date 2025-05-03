@@ -129,11 +129,11 @@ exports.majUser = async (req, res, next) => {
 };
 
 
-// 🔁 EXPORTS
+/*
 exports.register = register;
 exports.login = login;
 exports.getAllUsers = getAllUsers;
 exports.getUserById = getUserById;
 exports.findUser = getUserByUsernameOrId;
 exports.getEmployeBySpecialite = getEmployeBySpecialite;
-exports.majUser = updateUser;
+exports.majUser = updateUser;*/

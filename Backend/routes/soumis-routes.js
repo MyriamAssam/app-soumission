@@ -4,12 +4,16 @@ const SOUMISSIONS = require("../models/soumission");
 
 const router = express.Router();
 
-// ROUTES SPÉCIFIQUES D’ABORD
-router.get("/client/:id", soumissionController.soumissionList);
-router.get("/employe/:id", soumissionController.soumissionList);
+// --- ROUTES PUBLIQUES ---
+router.get("/", soumissionController.getAllSoumissions);
 router.get("/find/:oId", soumissionController.getSoumissionById);
 router.post("/find", soumissionController.recherche);
 
+// --- ROUTES SELON RÔLE UTILISATEUR ---
+router.get("/client/:id", soumissionController.soumissionList);
+router.get("/employe/:id", soumissionController.soumissionList);
+
+// --- NOTES ---
 router.patch("/:oId/note", async (req, res) => {
     try {
         const { notes, role, auteur } = req.body;
@@ -19,24 +23,19 @@ router.patch("/:oId/note", async (req, res) => {
         }
 
         const champNote = role === "employé" ? "notesEmployes" : "notesClients";
+        const nouvelleNote = { auteur, texte: notes, date: new Date() };
 
-        const nouvelleNote = {
-            auteur,
-            texte: notes,
-            date: new Date()
-        };
-
-        const soumission = await SOUMISSIONS.findByIdAndUpdate(
-            req.params.oId, // ✅ correction ici
+        const updated = await SOUMISSIONS.findByIdAndUpdate(
+            req.params.oId,
             { $push: { [champNote]: nouvelleNote } },
             { new: true }
         );
 
-        if (!soumission) {
+        if (!updated) {
             return res.status(404).json({ msg: "Soumission introuvable." });
         }
 
-        res.status(200).json({ message: "Note ajoutée avec succès", soumission });
+        res.status(200).json({ message: "Note ajoutée avec succès", soumission: updated });
     } catch (err) {
         console.error("Erreur serveur:", err);
         res.status(500).json({ msg: "Erreur serveur" });
@@ -53,29 +52,24 @@ router.patch("/:oId/notes/clear", async (req, res) => {
     const champNote = role === "employé" ? "notesEmployes" : "notesClients";
 
     try {
-        const soumission = await SOUMISSIONS.findByIdAndUpdate(
+        const cleared = await SOUMISSIONS.findByIdAndUpdate(
             req.params.oId,
             { [champNote]: [] },
             { new: true }
         );
 
-        if (!soumission) {
+        if (!cleared) {
             return res.status(404).json({ msg: "Soumission introuvable." });
         }
 
-        res.status(200).json({ msg: "Historique des notes supprimé", soumission });
+        res.status(200).json({ msg: "Historique des notes supprimé", soumission: cleared });
     } catch (err) {
         console.error("Erreur suppression notes:", err);
         res.status(500).json({ msg: "Erreur serveur" });
     }
 });
 
-
-
-
-// ROUTES GÉNÉRIQUES
-router.get("/", soumissionController.getAllSoumissions);
-
+// --- CRUD SOUMISSIONS ---
 router.post("/", soumissionController.addSoumission);
 router.put("/:oId", soumissionController.majSoumission);
 router.delete("/:oId", soumissionController.supprimerSoumission);

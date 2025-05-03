@@ -7,7 +7,8 @@ const soumissionSchema = new mongoose.Schema({
     email: { type: String, required: true },
     description: { type: String, required: false },
     telephone: { type: String, required: false },
-    employeurId: { type: mongoose.Types.ObjectId, ref: "User" },
+    employeurId: { type: String, required: true },
+
 
 
 

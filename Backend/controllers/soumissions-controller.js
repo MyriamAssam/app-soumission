@@ -141,27 +141,32 @@ const getAllSoumissionsEmployeur = async (req, res, next) => {
 const soumissionList = async (req, res, next) => {
     const userId = req.params.id;
 
-    if (!mongoose.isValidObjectId(userId)) {
-        return res.status(400).json({ message: "ID utilisateur invalide" });
-    }
-
     try {
         const user = await User.findById(userId);
         if (!user || !user.role) {
-            return res.status(404).json({ message: "Utilisateur invalide." });
+            return res.status(404).json({ message: "Utilisateur introuvable ou invalide." });
         }
 
-        const filter = user.role === "employé"
-            ? { travaux: user.specialite }
-            : { clientId: userId };
+        let query = {};
 
-        const soumissions = await Soumission.find(filter);
+        if (user.role === "employé" && user.specialite) {
+            query.travaux = user.specialite;
+        } else {
+            query.clientId = userId;
+        }
+
+        const soumissions = await Soumission.find(query);
+        if (!soumissions.length) {
+            return res.status(404).json({ message: "Aucune soumission trouvée." });
+        }
 
         res.json({ soumissions: soumissions.map(s => s.toObject({ getters: true })) });
-    } catch (e) {
-        next(new HttpError("Erreur lors de la récupération des soumissions.", 500));
+    } catch (err) {
+        console.error("💥 ERREUR:", err);
+        return res.status(500).json({ message: "Erreur serveur." });
     }
 };
+
 
 // 🔁 EXPORTS
 exports.getAllSoumissions = getAllSoumissions;

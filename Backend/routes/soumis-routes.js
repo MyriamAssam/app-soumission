@@ -41,6 +41,21 @@ router.patch("/:oId/note", async (req, res) => {
         res.status(500).json({ msg: "Erreur serveur" });
     }
 });
+// backend/routes/soumissions-routes.js
+router.get("/specialite/:specialite", async (req, res) => {
+    try {
+        const specialite = req.params.specialite;
+
+        const soumissions = await SOUMISSIONS.find({
+            travaux: { $in: [specialite] }
+        });
+
+        res.status(200).json(soumissions);
+    } catch (err) {
+        console.error("Erreur:", err);
+        res.status(500).json({ message: "Erreur serveur." });
+    }
+});
 
 router.patch("/:oId/notes/clear", async (req, res) => {
     const { role } = req.body;

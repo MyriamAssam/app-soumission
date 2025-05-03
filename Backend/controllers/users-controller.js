@@ -130,7 +130,7 @@ exports.majUser = async (req, res, next) => {
 
 
 // 🔁 EXPORTS
-exports.register = registerUser;
+exports.register = register;
 exports.login = login;
 exports.getAllUsers = getAllUsers;
 exports.getUserById = getUserById;

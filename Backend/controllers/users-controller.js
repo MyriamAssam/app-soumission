@@ -141,13 +141,14 @@ const login = async (req, res, next) => {
   }
 
   // Vérification des identifiants
-  if (!existingUser || existingUser.mdp !== mdp || existingUser.type !== type) {
+  if (!existingUser || existingUser.mdp !== mdp || existingUser.role !== type) {
     return next(
       new HttpError(
         "Connexion échouée, veuillez vérifier vos identifiants.",
         401
       )
     );
+
   } else {
     // Si les identifiants sont bons
     let token;

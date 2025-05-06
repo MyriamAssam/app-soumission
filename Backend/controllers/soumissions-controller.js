@@ -191,6 +191,37 @@ const modifierSoumission = async (req, res, next) => {
 
 
 
+const ajouterNote = async (req, res, next) => {
+    const soumissionId = req.params.oId;
+    const { notes, role, auteur } = req.body;
+
+    try {
+        const soumission = await SOUMISSIONS.findById(soumissionId);
+        if (!soumission) {
+            return next(new HttpError("Soumission introuvable.", 404));
+        }
+
+        const nouvelleNote = {
+            auteur,
+            texte: notes,
+            date: new Date()
+        };
+
+        if (role === "client") {
+            soumission.notesClients.push(nouvelleNote);
+        } else if (role === "employé") {
+            soumission.notesEmployes.push(nouvelleNote);
+        } else {
+            return next(new HttpError("Rôle invalide.", 400));
+        }
+
+        await soumission.save();
+        res.status(200).json({ message: "Note ajoutée avec succès." });
+    } catch (err) {
+        console.error(err);
+        return next(new HttpError("Erreur lors de l'ajout de la note.", 500));
+    }
+};
 
 
 const soumissionList = async (req, res, next) => {

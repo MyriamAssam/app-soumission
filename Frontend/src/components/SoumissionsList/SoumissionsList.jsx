@@ -14,8 +14,9 @@ const ListeSoumissions = () => {
         const fetchSoumissions = async () => {
             try {
                 const endpoint = auth.role === "employé"
-                    ? `soumissions/employe/${auth.user.id}`
-                    : `soumissions/client/${auth.user.id}`;
+                    ? `soumissions/employe/${auth.user._id}`
+                    : `soumissions/client/${auth.user._id}`;
+
 
 
                 const response = await fetch(process.env.REACT_APP_BACKEND_URL + endpoint);
@@ -31,7 +32,8 @@ const ListeSoumissions = () => {
 
 
     const handleDetails = (soumi) => {
-        navigate(`/soumission/${soumi.id}`, { state: { soumi } });
+        navigate(`/soumission/${soumi._id}`, { state: { soumi } });
+
     };
 
     const handleAddSoumi = () => {
@@ -52,7 +54,7 @@ const ListeSoumissions = () => {
 
             <ul>
                 {soumissions.map((soumi) => (
-                    <li key={soumi.id} onClick={() => handleDetails(soumi)} style={{ cursor: "pointer", padding: "10px", borderBottom: "1px solid #ccc" }}>
+                    <li key={soumi._id} onClick={() => handleDetails(soumi)} style={{ cursor: "pointer", padding: "10px", borderBottom: "1px solid #ccc" }}>
                         {soumi.description + " - " + moment(soumi.date).format("DD MMM YYYY HH:mm") || "(Aucune description)"}
                     </li>
                 ))}

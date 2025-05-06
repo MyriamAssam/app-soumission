@@ -26,7 +26,7 @@ export default function Inscription(props) {
     const inputs = new FormData(event.target);
     const data = Object.fromEntries(inputs.entries());
 
-    // Vérification du mot de passe AVANT d’envoyer la requête
+
     if (!motDePasseEstValide(password)) {
       SetError("Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.");
       return;
@@ -210,6 +210,18 @@ export default function Inscription(props) {
           <strong>Inscription</strong>
         </button>
       </p>
+      {message && (
+        <div className={`message ${message.type}`}>
+          {message.text}
+        </div>
+      )}
+
+      {error && (
+        <div className="message">
+          {error}
+        </div>
+      )}
+
     </form>
   );
 }

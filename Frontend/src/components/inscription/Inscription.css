@@ -35,7 +35,7 @@ fieldset {
 }
 
 .message {
-
+  color: #d30d07;
   padding: 8px;
   border-radius: 5px;
   margin-bottom: 0.4rem;

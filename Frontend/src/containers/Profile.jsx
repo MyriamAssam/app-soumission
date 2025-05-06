@@ -54,7 +54,8 @@ export default function Profile() {
         if (!user) return;
 
         try {
-            const response = await fetch(process.env.REACT_APP_BACKEND_URL + `users/${user.id}`, {
+            const response = await fetch(process.env.REACT_APP_BACKEND_URL + `users/${user._id}`, {
+
 
 
 
@@ -111,13 +112,6 @@ export default function Profile() {
                 <input type="password" name="mdp" value={formData.mdp} onChange={handleChange} />
             </div>
 
-            <div className="controles">
-                <label>Type de compte :</label>
-                <select name="role" value={formData.role} onChange={handleChange} required disabled>
-                    <option value="client">Client</option>
-                    <option value="employé">Employé</option>
-                </select>
-            </div>
 
             {formData.role === "employé" && (
                 <div className="controles">

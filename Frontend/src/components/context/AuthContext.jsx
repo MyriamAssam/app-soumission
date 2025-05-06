@@ -39,6 +39,9 @@ export const AuthProvider = ({ children }) => {
         setEmail(parsedUser.email);
         setAdresse(parsedUser.adresse);
         setTelephone(parsedUser.telephone);
+        parsedUser.id = parsedUser._id;
+        setUser(parsedUser);
+
       } catch (err) {
         console.error("Erreur parsing user", err);
         localStorage.clear();

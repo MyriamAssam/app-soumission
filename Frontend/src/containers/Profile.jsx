@@ -55,7 +55,7 @@ export default function Profile() {
 
         try {
             const response = await fetch(
-                process.env.REACT_APP_BACKEND_URL + `users/${user.id}`,
+                process.env.REACT_APP_BACKEND_URL + `users/${user._id}`,
                 {
                     method: "PUT", // ✅ ici
                     headers: {

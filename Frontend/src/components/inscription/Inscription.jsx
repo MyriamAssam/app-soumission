@@ -37,7 +37,7 @@ export default function Inscription(props) {
       const responseData = await response.json();
       console.log("2", responseData);
       auth.login(
-        responseData.user.id,
+        responseData.user._id,
         responseData.token,
         responseData.user.prenom,
         responseData.user.email,
@@ -45,6 +45,7 @@ export default function Inscription(props) {
         responseData.user.telephone,
         responseData.user.role
       );
+
 
 
       if (responseData.user.role === "client") {

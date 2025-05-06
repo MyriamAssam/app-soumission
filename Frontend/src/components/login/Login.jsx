@@ -48,7 +48,7 @@ export default function Login(props) {
       }
 
       auth.login(
-        responseData.userId,
+        responseData._id || responseData.userId,
         responseData.token,
         responseData.prenom,
         responseData.email,
@@ -56,6 +56,7 @@ export default function Login(props) {
         responseData.telephone,
         responseData.role.toLowerCase()
       );
+
 
       if (responseData.userId !== undefined) {
         navigate("/soumissions");

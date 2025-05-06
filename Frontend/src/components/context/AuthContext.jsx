@@ -32,12 +32,18 @@ export const AuthProvider = ({ children }) => {
         console.log("USER RESTAURÉ DU LOCALSTORAGE", parsedUser);
         setUser(parsedUser);
         setToken(storedToken);
+        setRole(parsedUser.role);
+        setPrenom(parsedUser.prenom);
+        setEmail(parsedUser.email);
+        setAdresse(parsedUser.adresse);
+        setTelephone(parsedUser.telephone);
       } catch (err) {
         console.error("Erreur parsing user", err);
         localStorage.clear();
       }
     }
   }, []);
+
 
 
 

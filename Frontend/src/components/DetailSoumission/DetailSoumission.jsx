@@ -44,6 +44,12 @@ const DetailSoumission = () => {
 
     const handleSaveNote = async () => {
         try {
+            console.log("📤 Données envoyées :", {
+                note,
+                role: auth.role,
+                auteur: auth.prenom
+            });
+
             await fetch(
                 process.env.REACT_APP_BACKEND_URL + `soumissions/${soumi._id}/note`,
 
@@ -58,6 +64,11 @@ const DetailSoumission = () => {
                 }
             );
 
+            console.log("📤 Données envoyées :", {
+                note,
+                role: auth.role,
+                auteur: auth.prenom
+            });
 
             const response = await fetch(
                 process.env.REACT_APP_BACKEND_URL + `soumissions/find/${soumi._id}`

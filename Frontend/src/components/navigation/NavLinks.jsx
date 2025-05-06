@@ -26,7 +26,7 @@ const NavLinks = () => {
             "Content-Type": "application/json",
           }
         );
-        setType(foundUserData.users[0].role); // pas 'type'
+        setType(foundUserData.users[0].role);
         console.log(foundUserData.users[0]);
       } catch (e) {
         console.error(e);

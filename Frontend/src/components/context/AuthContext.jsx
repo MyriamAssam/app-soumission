@@ -30,6 +30,8 @@ export const AuthProvider = ({ children }) => {
       try {
         const parsedUser = JSON.parse(storedUser);
         console.log("USER RESTAURÉ DU LOCALSTORAGE", parsedUser);
+
+
         setUser(parsedUser);
         setToken(storedToken);
         setRole(parsedUser.role);

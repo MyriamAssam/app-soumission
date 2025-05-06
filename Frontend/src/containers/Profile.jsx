@@ -55,9 +55,9 @@ export default function Profile() {
 
         try {
             const response = await fetch(
-                process.env.REACT_APP_BACKEND_URL + `users/${user?.id || user?._id}`,
+                process.env.REACT_APP_BACKEND_URL + `users/${user.id}`,
                 {
-                    method: "PATCH",
+                    method: "PUT", // ✅ ici
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + token
@@ -65,6 +65,7 @@ export default function Profile() {
                     body: JSON.stringify(formData)
                 }
             );
+
 
 
             if (!response.ok) {

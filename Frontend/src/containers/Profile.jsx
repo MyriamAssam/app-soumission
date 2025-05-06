@@ -54,19 +54,18 @@ export default function Profile() {
         if (!user) return;
 
         try {
-            const response = await fetch(process.env.REACT_APP_BACKEND_URL + `users/${user._id}`, {
+            const response = await fetch(
+                process.env.REACT_APP_BACKEND_URL + `users/${user?.id || user?._id}`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + token
+                    },
+                    body: JSON.stringify(formData)
+                }
+            );
 
-
-
-
-
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + token
-                },
-                body: JSON.stringify(formData)
-            });
 
             if (!response.ok) {
                 throw new Error("Erreur lors de la mise à jour.");

@@ -67,25 +67,30 @@ const findSoumissionsByEmail = async (req, res, next) => {
     }
 };
 
-// 📥 CREATE
 const addSoumission = async (req, res, next) => {
-    const {
-        adresse, prenomClient, nomEmployeur, email, description,
-        telephone, employeurId, travaux, clientId
-    } = req.body;
+    const { adresse, prenomClient, nomEmployeur, email, description, telephone, employeurId, travaux } = req.body;
 
-    const newSoumission = new Soumission({
-        adresse, prenomClient, nomEmployeur, email, description,
-        telephone, employeurId, clientId, travaux
+    const newSoumission = new SOUMISSIONS({
+        adresse,
+        nomEmployeur,
+        email,
+        description,
+        telephone,
+        employeurId,
+        prenomClient,
+        clientId: req.body.clientId,
+        travaux
+
     });
 
     try {
         await newSoumission.save();
         res.status(201).json({ soumission: newSoumission.toObject({ getters: true }) });
-    } catch (e) {
-        next(new HttpError("Ajout de la soumission échoué.", 500));
+    } catch (err) {
+        return next(new HttpError("Adding soumission failed, please try again.", 500));
     }
 };
+
 
 // ✏️ UPDATE
 const modifierSoumission = async (req, res, next) => {

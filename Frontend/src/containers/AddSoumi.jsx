@@ -87,7 +87,7 @@ const AddSoumi = (props) => {
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Types de travaux :</label>
-                    <br />
+
                     <div className="checkbox-group">
                         {["portes et fenêtres", "extérieur", "salle de bain", "toiture", "plancher", "climatisation", "éléctricité", "plomberie", "cuisine", "peinture"].map((item) => (
                             <div key={item}>
@@ -108,21 +108,15 @@ const AddSoumi = (props) => {
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Email :</label>
-                    <br />
                     <input type="email" value={emailField} readOnly />
-                    <br />
                 </div>
                 <div className="controles no-margin">
                     <label>Adresse :</label>
-                    <br />
                     <input type="text" value={adresseField} readOnly />
-                    <br />
                 </div>
                 <div className="controles no-margin">
                     <label>Téléphone :</label>
-                    <br />
                     <input type="text" value={telephoneField} readOnly />
-                    <br />
                 </div>
             </div>
 
@@ -130,7 +124,6 @@ const AddSoumi = (props) => {
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>Description : </label>
-                    <br />
                     <textarea name="description" cols="60" rows="5" defaultValue={description}></textarea>
                 </div>
             </div>

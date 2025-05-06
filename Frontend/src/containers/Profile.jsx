@@ -5,6 +5,7 @@ import "./Profile.css";
 export default function Profile() {
     const { user, token, updateUser } = useAuthContext();
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState({
         prenom: "",
@@ -48,16 +49,32 @@ export default function Profile() {
             };
         });
     };
+    const telephoneEstValide = (tel) => {
+        return /^\d{3}-\d{3}-\d{4}$/.test(tel);
+    };
+    const motDePasseEstValide = (mdp) => {
+        if (!mdp) return true;
+        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/.test(mdp);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!user) return;
+        if (!telephoneEstValide(formData.telephone)) {
+            setMessage({ type: "error", text: "Format de téléphone invalide (ex : 123-456-7890)." });
+            return;
+        }
+
+        if (!motDePasseEstValide(formData.mdp)) {
+            setMessage({ type: "error", text: "Mot de passe faible. Il doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial." });
+            return;
+        }
 
         try {
             const response = await fetch(
                 process.env.REACT_APP_BACKEND_URL + `users/${user._id}`,
                 {
-                    method: "PUT", // ✅ ici
+                    method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + token
@@ -109,8 +126,24 @@ export default function Profile() {
 
             <div className="controles">
                 <label>Mot de passe :</label>
-                <input type="password" name="mdp" value={formData.mdp} onChange={handleChange} />
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        name="mdp"
+                        value={formData.mdp}
+                        onChange={handleChange}
+                        style={{ flex: 1 }}
+                    />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        style={{ marginLeft: "8px" }}
+                    >
+                        {showPassword ? "Cacher" : "Afficher"}
+                    </button>
+                </div>
             </div>
+
 
 
             {formData.role === "employé" && (

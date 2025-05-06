@@ -9,6 +9,7 @@ router.get("/client/:id", soumissionController.soumissionList);
 router.get("/employe/:id", soumissionController.soumissionList);
 router.get("/find/:oId", soumissionController.getSoumissionById);
 router.post("/find", soumissionController.recherche);
+router.patch("/:oId/note/:noteId", soumissionController.modifierNote);
 
 router.patch("/:oId/note", async (req, res) => {
     try {

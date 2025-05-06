@@ -185,6 +185,29 @@ const modifierSoumission = async (req, res, next) => {
 };
 
 
+exports.modifierNote = async (req, res, next) => {
+    const { oId, noteId } = req.params;
+    const { texte, role } = req.body;
+
+    const champNote = role === "employé" ? "notesEmployes" : "notesClients";
+
+    try {
+        const soum = await SOUMISSIONS.findById(oId);
+        if (!soum) return next(new HttpError("Soumission introuvable", 404));
+
+        const notes = soum[champNote];
+        const noteIndex = notes.findIndex((n) => n.id === noteId);
+        if (noteIndex === -1) return next(new HttpError("Note introuvable", 404));
+
+        notes[noteIndex].texte = texte;
+
+        await soum.save();
+        res.status(200).json({ message: "Note modifiée avec succès", soumission: soum });
+    } catch (err) {
+        console.error(err);
+        return next(new HttpError("Erreur serveur", 500));
+    }
+};
 
 
 const ajouterNote = async (req, res, next) => {

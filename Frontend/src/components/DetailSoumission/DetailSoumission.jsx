@@ -9,6 +9,8 @@ const DetailSoumission = () => {
     const location = useLocation();
     const { soumi } = location.state || {};
     const auth = useContext(AuthContext);
+    const [noteIdEnCours, setNoteIdEnCours] = useState(null);
+
     const [note, setNote] = useState("");
     const [listeNotes, setListeNotes] = useState([]);
     const [message, setMessage] = useState(null);
@@ -41,8 +43,10 @@ const DetailSoumission = () => {
     }, [auth.role, soumi._id]);
 
     const handleEditNote = (index, texte) => {
-        setNote(texte); // Remet la note dans le champ
-        // Supprimer la note en attente de mise à jour
+        setNote(listeNotes[index].texte);
+        setNoteIdEnCours(listeNotes[index].id);
+
+
         const newNotes = [...listeNotes];
         newNotes.splice(index, 1);
         setListeNotes(newNotes);
@@ -79,19 +83,29 @@ const DetailSoumission = () => {
                 auteur: auth.prenom
             });
 
-            await fetch(
-                process.env.REACT_APP_BACKEND_URL + `soumissions/${soumi._id}/note`,
-
-                {
+            if (noteIdEnCours) {
+                await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}/note/${noteIdEnCours}`, {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        notes: note,
-                        role: auth.role,
-                        auteur: auth.prenom,
-                    }),
-                }
-            );
+                    body: JSON.stringify({ texte: note, role: auth.role }),
+                });
+                setNoteIdEnCours(null);
+            } else {
+                await fetch(
+                    process.env.REACT_APP_BACKEND_URL + `soumissions/${soumi._id}/note`,
+                    {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            notes: note,
+                            role: auth.role,
+                            auteur: auth.prenom,
+                            id: Math.random().toString(36).substr(2, 9) // ID unique
+                        }),
+                    }
+                );
+            }
+
 
             console.log("📤 Données envoyées :", {
                 note,

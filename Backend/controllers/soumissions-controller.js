@@ -76,9 +76,10 @@ const addSoumission = async (req, res, next) => {
         email,
         description,
         telephone,
-        employeurId,
+
         prenomClient,
-        clientId: req.body.clientId,
+        employeurId: auth.user?._id,
+        clientId: auth.user?._id,
         travaux
 
     });
@@ -86,6 +87,8 @@ const addSoumission = async (req, res, next) => {
     try {
         await newSoumission.save();
         res.status(201).json({ soumission: newSoumission.toObject({ getters: true }) });
+        console.log("Nouvelle soumission:", newSoumi);
+
     } catch (err) {
         return next(new HttpError("Adding soumission failed, please try again.", 500));
     }

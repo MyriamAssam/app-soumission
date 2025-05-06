@@ -2,30 +2,28 @@ const jwt = require("jsonwebtoken");
 const HttpError = require("../util/http-error");
 
 module.exports = (req, res, next) => {
-  if (req.method === "OPTIONS") {
-    return next();
-  }
-
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return next(new HttpError("Token d'authentification manquant ou invalide.", 401));
-  }
-
-  const token = authHeader.split(" ")[1];
-
   try {
-    const decodedToken = jwt.verify(token, "tpsyntheseMelia&Ivan-cours4a5");
+    if (req.method === "OPTIONS") {
+      return next();
+    }
 
-    req.userData = {
-      userId: decodedToken.userId,
-      role: decodedToken.role,
-      specialite: decodedToken.specialite
-    };
+    const token = req.headers.authorization.split(" ")[1];
+    if (!token) {
+      throw new Error("L'authentification a échoué.");
+    }
+
+    const tokenDecode = jwt.verify(token, "ProjetDeveloppment2024");
+    req.userData = { userId: tokenDecode.userId };
+    console.log("Validation de l'authentification: ", req.userData);
 
     next();
-  } catch (err) {
-    console.log("Erreur vérification JWT:", err);
-    return next(new HttpError("Token invalide, veuillez vous reconnecter.", 403));
+  } catch (e) {
+    console.log(e);
+    return next(
+      new HttpError(
+        "Échec lors de l'authentification, veuillez réessayer plus tard.",
+        401
+      )
+    );
   }
 };

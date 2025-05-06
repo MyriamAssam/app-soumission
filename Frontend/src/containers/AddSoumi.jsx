@@ -11,14 +11,17 @@ const AddSoumi = (props) => {
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
     let prenomClient, email, adresse, description, travaux, telephone
-    const [emailField, setEmailField] = useState(auth.email || "");
-    const [adresseField, setAdresseField] = useState(auth.adresse || "");
-    const [telephoneField, setTelephoneField] = useState(auth.telephone || "");
+    const [emailField, setEmailField] = useState(auth.user?.email || "");
+    const [adresseField, setAdresseField] = useState(auth.user?.adresse || "");
+    const [telephoneField, setTelephoneField] = useState(auth.user?.telephone || "");
+
+
     useEffect(() => {
-        setEmailField(auth.email || "");
-        setAdresseField(auth.adresse || "");
-        setTelephoneField(auth.telephone || "");
-    }, [auth.email, auth.adresse, auth.telephone]);
+        setEmailField(auth.user?.email || "");
+        setAdresseField(auth.user?.adresse || "");
+        setTelephoneField(auth.user?.telephone || "");
+    }, [auth.user]);
+
 
     const location = useLocation();
     if (location.state !== null) {
@@ -51,16 +54,17 @@ const AddSoumi = (props) => {
         const isEdit = location.state?.soumissionId;
 
         const newSoumi = {
-            adresse: auth.adresse,
-            prenomClient: auth.prenom,
-            email: auth.email,
-            telephone: auth.telephone,
-            employeurId: auth.user._id || auth.user.userId,
-            clientId: auth.user._id || auth.user.userId,
-            nomEmployeur: auth.prenom,
+            adresse: auth.user?.adresse,
+            prenomClient: auth.user?.prenom,
+            email: auth.user?.email,
+            telephone: auth.user?.telephone,
+            employeurId: auth.user?._id || auth.user?.userId,
+            clientId: auth.user?._id || auth.user?.userId,
+            nomEmployeur: auth.user?.prenom,
             description: data.description,
             travaux: travauxSelectionnes,
         };
+
 
 
         try {

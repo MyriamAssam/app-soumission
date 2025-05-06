@@ -16,7 +16,9 @@ const NavLinks = () => {
         if (!userId) return;
 
         const foundUserData = await sendRequest(
-          process.env.REACT_APP_BACKEND_URL + `users/find/${auth.user}/`,
+          process.env.REACT_APP_BACKEND_URL + `users/find/${auth.user._id}/`,
+
+
 
           "GET",
           null,

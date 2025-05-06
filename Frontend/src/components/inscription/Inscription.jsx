@@ -13,6 +13,9 @@ export default function Inscription(props) {
   const [message, setMessage] = useState(null);
 
   const navigate = useNavigate();
+  const motDePasseEstValide = (pwd) => {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/.test(pwd);
+  };
 
   const { user, token } = useAuthContext();
   const auth = useContext(AuthContext);
@@ -22,8 +25,15 @@ export default function Inscription(props) {
     event.preventDefault();
     const inputs = new FormData(event.target);
     const data = Object.fromEntries(inputs.entries());
-    console.log("data ", data);
+
+    // Vérification du mot de passe AVANT d’envoyer la requête
+    if (!motDePasseEstValide(password)) {
+      SetError("Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.");
+      return;
+    }
+
     event.target.reset();
+
     try {
       const response = await fetch(
         process.env.REACT_APP_BACKEND_URL + "users/register/",
@@ -35,6 +45,8 @@ export default function Inscription(props) {
       );
 
       const responseData = await response.json();
+
+
       console.log("2", responseData);
       auth.login(
         responseData.user._id,
@@ -97,10 +109,13 @@ export default function Inscription(props) {
       <div className="controles-rows">
         <div className="controles no-margin">
           <label>Mot de passe :</label>
+
+
           <input
             type="password"
             name="mdp"
             value={password}
+
             onChange={(e) => setPassword(e.target.value)}
             required
           />

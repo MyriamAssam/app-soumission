@@ -49,7 +49,8 @@ const AddSoumi = (props) => {
         const fd = new FormData(event.target);
         const data = Object.fromEntries(fd.entries());
 
-        const travauxSelectionnes = fd.getAll("travaux");
+        const travauxSelectionnes = [fd.get("travaux")];
+
 
         const isEdit = location.state?.soumissionId;
 
@@ -91,20 +92,22 @@ const AddSoumi = (props) => {
 
             <div className="controles-rows">
                 <div className="controles no-margin">
-                    <label>Types de travaux :</label>
-
-                    <div className="checkbox-group">
-                        {["portes et fenêtres", "extérieur", "salle de bain", "toiture", "plancher", "climatisation", "éléctricité", "plomberie", "cuisine", "peinture"].map((item) => (
-                            <div key={item}>
-                                <label>
-                                    <input type="checkbox" name="travaux" value={item} />
-                                    {item}
-                                </label>
-                            </div>
+                    <label>Type de travaux :</label>
+                    <select name="travaux" required defaultValue="">
+                        <option value="" disabled>Sélectionner un type</option>
+                        {[
+                            "portes et fenêtres", "extérieur", "salle de bain", "toiture",
+                            "plancher", "climatisation", "éléctricité", "plomberie",
+                            "cuisine", "peinture"
+                        ].map((item) => (
+                            <option key={item} value={item}>{item}</option>
                         ))}
-                    </div>
+                    </select>
                 </div>
+
             </div>
+
+
 
             <div className="controles-rows">
 
@@ -140,7 +143,7 @@ const AddSoumi = (props) => {
 
 
             </p>
-        </form>
+        </form >
     );
 };
 

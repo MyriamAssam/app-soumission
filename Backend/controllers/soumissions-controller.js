@@ -1,71 +1,141 @@
-const Soumission = require("../models/soumission");
-const User = require("../models/user");
-const mongoose = require("mongoose");
+const SOUMISSIONS = require("../models/soumission");
 const HttpError = require("../util/http-error");
+const mongoose = require("mongoose");
 
-// 🔎 GET ALL
+
 const getAllSoumissions = async (req, res, next) => {
+    let soumissions;
     try {
-        const soumissions = await Soumission.find();
-        if (!soumissions.length) {
+        soumissions = await SOUMISSIONS.find().exec();
+        if (!soumissions || soumissions.length == 0) {
             return next(new HttpError("Aucune soumission trouvée...", 404));
         }
-        res.json({ soumissions: soumissions.map(s => s.toObject({ getters: true })) });
     } catch (e) {
-        next(new HttpError("Échec lors de la récupération des soumissions.", 500));
+        console.log(e);
+        return next(
+            new HttpError(
+                "Échec lors de la récupération des soumissions, veuillez réessayer plus tard",
+                500
+            )
+        );
     }
+    res.json({ soumissions: soumissions.map((o) => o.toObject({ getters: true })) });
 };
 
-// 🔎 GET ONE
+
+
 const getSoumissionById = async (req, res, next) => {
+    const oId = req.params.oId;
+
+    let soumission;
     try {
-        const soumission = await Soumission.findById(req.params.oId);
-        if (!soumission) {
-            return next(new HttpError("Soumission introuvable.", 404));
-        }
-        res.json({ soumission: soumission.toObject({ getters: true }) });
+        soumission = await SOUMISSIONS.findById(oId);
     } catch (e) {
-        next(new HttpError("Échec lors de la récupération de la soumission.", 500));
+        console.log(e);
+        return next(
+            new HttpError(
+                "Échec lors de la récupération de la soumission, veuillez réessayer plus tard.",
+                500
+            )
+        );
     }
+
+    if (!soumission) {
+        return next(new HttpError("Soumission introuvable.", 404));
+    }
+
+    res.json({ soumission: soumission.toObject({ getters: true }) });
 };
 
-// 🔎 FIND (by employeurId or email)
+
+const getAllSoumissionsEmployeur = async (req, res, next) => {
+    const employeurId = req.params.soumissionId;
+
+    let SoumissionsEmployeur;
+    try {
+        SoumissionsEmployeur = await SOUMISSIONS.find({ employeurId: employeurId });
+    } catch (e) {
+        // Vérifier si l'erreur provient du fait que l'utilisateur est introuvable
+        if (e.kind == "ObjectId" && e.path == "employeurId") {
+            return next(new HttpError("L'utilisateur est introuvable.", 404));
+        }
+
+        console.log(e);
+        return next(
+            new HttpError(
+                "Échec lors de l'obtention des soumissions de l'utilisateur.",
+                500
+            )
+        );
+    }
+
+    if (SoumissionsEmployeur?.length === 0) {
+        return next(
+            new HttpError(
+                "Cet utilisateur n'a pas encore publié de soumissions ou il est introuvable.",
+                404
+            )
+        );
+    }
+
+    res.json({
+        soumissions: SoumissionsEmployeur.map((o) => o.toObject({ getters: true })),
+    });
+};
+
+
 const findSoumissionsByEmail = async (req, res, next) => {
     const { employeurId, email } = req.body;
-    let results = [];
+    console.log(`EmployeurId: ${employeurId}, Email: ${email}`);
 
+    let soumission = [];
     try {
         if (employeurId && mongoose.isValidObjectId(employeurId)) {
-            results = await Soumission.find({ employeurId });
+            (await SOUMISSIONS.find({ employeurId: employeurId })).map((o) =>
+                soumission.push(o)
+            );
         }
-
-        if (email) {
-            const emailLower = email.toLowerCase();
-            const filterByEmail = (list) =>
-                list.filter(
-                    s =>
-                        s.email.toLowerCase() === emailLower ||
-                        s.email.toLowerCase().includes(emailLower) ||
-                        emailLower.includes(s.email.toLowerCase())
+        if (email && email.length > 0) {
+            if (soumission.length > 0) {
+                soumission = soumission.filter(
+                    (o) =>
+                        o.email.toLowerCase() == email.toLowerCase() ||
+                        o.email.toLowerCase().includes(email.toLowerCase()) ||
+                        email.toLowerCase().includes(o.email.toLowerCase())
                 );
-
-            if (results.length) {
-                results = filterByEmail(results);
             } else {
-                const all = await Soumission.find();
-                results = filterByEmail(all);
+                const allSoumissions = await SOUMISSIONS.find();
+                const allSoumissionsApresFiltre = allSoumissions.filter(
+                    (o) =>
+                        o.email.toLowerCase() == email.toLowerCase() ||
+                        o.email.toLowerCase().includes(email.toLowerCase()) ||
+                        email.toLowerCase().includes(o.email.toLowerCase())
+                );
+                allSoumissionsApresFiltre.map((o) => {
+                    soumission.push(o);
+                    console.log("Soumission trouvée par email: ", o);
+                });
             }
         }
-
-        if (!results.length) {
-            return next(new HttpError("Aucune soumission ne correspond à ces filtres.", 404));
-        }
-
-        res.json({ soumission: results.map(s => s.toObject({ getters: true })) });
     } catch (e) {
-        next(new HttpError("Échec lors de la recherche de la soumission.", 500));
+        console.log(e);
+        return next(
+            new HttpError(
+                "Échec lors de la recherche de la soumission, veuillez réessayer plus tard.",
+                500
+            )
+        );
     }
+
+    if (soumission.length == 0) {
+        return next(
+            new HttpError("Aucune soumission ne correspond à ces filtres.", 404)
+        );
+    }
+
+    res.json({ soumission: soumission.map((o) => o.toObject({ getters: true })) });
 };
+
 
 const addSoumission = async (req, res, next) => {
     const { adresse, prenomClient, nomEmployeur, email, description, telephone, employeurId, travaux } = req.body;
@@ -76,10 +146,9 @@ const addSoumission = async (req, res, next) => {
         email,
         description,
         telephone,
-
+        employeurId,
         prenomClient,
-        employeurId: auth.user?._id,
-        clientId: auth.user?._id,
+        clientId: req.body.clientId,
         travaux
 
     });
@@ -87,91 +156,97 @@ const addSoumission = async (req, res, next) => {
     try {
         await newSoumission.save();
         res.status(201).json({ soumission: newSoumission.toObject({ getters: true }) });
-        console.log("Nouvelle soumission:", newSoumi);
-
     } catch (err) {
         return next(new HttpError("Adding soumission failed, please try again.", 500));
     }
 };
 
 
-// ✏️ UPDATE
+
+
 const modifierSoumission = async (req, res, next) => {
+    const oId = req.params.oId;
+    const modifications = req.body;
+
     try {
-        const updated = await Soumission.findByIdAndUpdate(
-            req.params.oId,
-            req.body,
-            { new: true }
+        const soumissionModifiee = await SOUMISSIONS.findByIdAndUpdate(oId, modifications, {
+            new: true,
+        });
+
+        if (!soumissionModifiee) {
+            return next(new HttpError("Soumission introuvable.", 404));
+        }
+
+        res.status(201).json({ soumission: soumissionModifiee.toObject({ getters: true }) });
+    } catch (e) {
+        console.log(e);
+        return next(
+            new HttpError(
+                "Échec lors de la modification de la soumission, veuillez réessayer plus tard.",
+                500
+            )
         );
-
-        if (!updated) {
-            return next(new HttpError("Soumission introuvable.", 404));
-        }
-
-        res.status(201).json({ soumission: updated.toObject({ getters: true }) });
-    } catch (e) {
-        next(new HttpError("Échec de la modification de la soumission.", 500));
     }
 };
 
-// ❌ DELETE
-const deleteSoumission = async (req, res, next) => {
-    try {
-        const deleted = await Soumission.findByIdAndDelete(req.params.oId);
-        if (!deleted) {
-            return next(new HttpError("Soumission introuvable.", 404));
-        }
 
-        res.status(200).json({ message: "Soumission supprimée avec succès." });
-    } catch (e) {
-        next(new HttpError("Erreur lors de la suppression.", 500));
-    }
-};
 
-// 🔎 GET ALL FROM EMPLOYEUR
-const getAllSoumissionsEmployeur = async (req, res, next) => {
-    const employeurId = req.params.soumissionId;
 
-    try {
-        const results = await Soumission.find({ employeurId });
 
-        if (!results.length) {
-            return next(new HttpError("Aucune soumission publiée par cet utilisateur.", 404));
-        }
-
-        res.json({ soumissions: results.map(s => s.toObject({ getters: true })) });
-    } catch (e) {
-        next(new HttpError("Erreur de récupération des soumissions employeur.", 500));
-    }
-};
-
-// 🔁 BY USER ROLE
 const soumissionList = async (req, res, next) => {
     const userId = req.params.id;
+    const user = await require("../models/user").findById(userId);
 
-    if (!mongoose.isValidObjectId(userId)) {
-        return res.status(400).json({ message: "ID utilisateur invalide" });
+    if (!user || !user.role) {
+        return res.status(404).json({ message: "Utilisateur invalide." });
+    }
+
+    if (user.role === "employé" && !user.specialite) {
+        return res.status(404).json({ message: "Employé sans spécialité." });
+    }
+
+
+    let query = {};
+    if (user.role === "employé") {
+        query.travaux = user.specialite;
+    } else {
+        query.clientId = userId;
     }
 
     try {
-        const user = await User.findById(userId);
-        if (!user || !user.role) {
-            return res.status(404).json({ message: "Utilisateur invalide." });
+        const soumissions = await SOUMISSIONS.find(query);
+        res.json({ soumissions: soumissions.map((s) => s.toObject({ getters: true })) });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Erreur serveur lors du chargement des soumissions." });
+    }
+}
+
+
+const deleteSoumission = async (req, res, next) => {
+    const oId = req.params.oId;
+
+    let soumission;
+    try {
+        soumission = await SOUMISSIONS.findByIdAndDelete(oId);
+
+        if (!soumission) {
+            return next(new HttpError("Soumission introuvable.", 404));
         }
 
-        const filter = user.role === "employé"
-            ? { travaux: user.specialite }
-            : { clientId: userId };
-
-        const soumissions = await Soumission.find(filter);
-
-        res.json({ soumissions: soumissions.map(s => s.toObject({ getters: true })) });
+        res.status(200).json({ message: "La soumission a été supprimée avec succès." });
     } catch (e) {
-        next(new HttpError("Erreur lors de la récupération des soumissions.", 500));
+        console.log(e);
+        return next(
+            new HttpError(
+                "Échec lors de la suppression de la soumission, veuillez réessayer plus tard.",
+                500
+            )
+        );
     }
 };
 
-// 🔁 EXPORTS
+// --- EXPORTS ---
 exports.getAllSoumissions = getAllSoumissions;
 exports.getSoumissionById = getSoumissionById;
 exports.soumissionUser = getAllSoumissionsEmployeur;

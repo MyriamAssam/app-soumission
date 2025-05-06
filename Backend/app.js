@@ -11,26 +11,16 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: ["https://app-soumission.onrender.com", "https://app-soumission-1.onrender.com"],
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  origin: "https://app-soumission.onrender.com",
+  methods: "GET,POST,PUT,PATCH,DELETE",
   credentials: true
 }));
 
-app.options("*", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://app-soumission.onrender.com");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.sendStatus(200);
-});
-
-
 app.use(bodyParser.json());
+app.options("*", (req, res) => res.sendStatus(200));
 
 
-
-
+app.use("/soumis", soumisRoutes);
 app.use("/soumissions", soumisRoutes);
 app.use("/users", usersRoutes);
 

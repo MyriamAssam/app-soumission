@@ -12,24 +12,30 @@ const NavLinks = () => {
   useEffect(() => {
     async function infoProfil() {
       try {
+        const userId = auth.user?._id || auth.user?.userId;
+        if (!userId) return;
+
         const foundUserData = await sendRequest(
-          process.env.REACT_APP_BACKEND_URL + `users/find/${auth.user}/`,
+          process.env.REACT_APP_BACKEND_URL + `users/find/${auth.user._id || auth.user.userId}`,
+
           "GET",
           null,
           {
             "Content-Type": "application/json",
           }
         );
-        setType(foundUserData.users[0].type);
+        setType(foundUserData.users[0].role); // pas 'type'
         console.log(foundUserData.users[0]);
       } catch (e) {
         console.error(e);
       }
     }
+
     if (auth.user !== null) {
       infoProfil();
     }
   }, [auth.user]);
+
 
   return (
     <ul className="navi-links">

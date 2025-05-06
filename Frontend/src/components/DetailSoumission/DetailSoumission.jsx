@@ -40,6 +40,35 @@ const DetailSoumission = () => {
         fetchNoteList();
     }, [auth.role, soumi._id]);
 
+    const handleEditNote = (index, texte) => {
+        setNote(texte); // Remet la note dans le champ
+        // Supprimer la note en attente de mise à jour
+        const newNotes = [...listeNotes];
+        newNotes.splice(index, 1);
+        setListeNotes(newNotes);
+    };
+
+    const handleDeleteNote = async (index) => {
+        const newNotes = [...listeNotes];
+        newNotes.splice(index, 1);
+
+        try {
+            const champNote = auth.role === "employé" ? "notesEmployes" : "notesClients";
+            await fetch(
+                `${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ [champNote]: newNotes }),
+                }
+            );
+            setListeNotes(newNotes);
+            setMessage({ type: "info", text: "Note supprimée." });
+        } catch (err) {
+            console.error(err);
+            setMessage({ type: "error", text: "Erreur lors de la suppression de la note." });
+        }
+    };
 
 
     const handleSaveNote = async () => {
@@ -196,8 +225,16 @@ const DetailSoumission = () => {
                     <li key={idx}>
                         <strong>{n.auteur}</strong> ({moment(n.date).format("DD MMM YYYY HH:mm")}) :
                         <p>{n.texte}</p>
+
+                        {n.auteur === auth.prenom && (
+                            <>
+                                <button onClick={() => handleEditNote(idx, n.texte)}>Modifier</button>
+                                <button onClick={() => handleDeleteNote(idx)}>Supprimer</button>
+                            </>
+                        )}
                     </li>
                 ))}
+
             </ul>
 
             <button className="boutonSupp" type="button" onClick={handleClearNotes}>

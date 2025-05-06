@@ -180,14 +180,10 @@ const modifierSoumission = async (req, res, next) => {
         res.status(201).json({ soumission: soumissionModifiee.toObject({ getters: true }) });
     } catch (e) {
         console.log(e);
-        return next(
-            new HttpError(
-                "Échec lors de la modification de la soumission, veuillez réessayer plus tard.",
-                500
-            )
-        );
+        return next(new HttpError("Échec lors de la modification de la soumission.", 500));
     }
 };
+
 
 
 

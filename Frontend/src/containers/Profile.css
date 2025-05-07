@@ -165,13 +165,24 @@ input {
 }
 
 .input-with-button input {
+    flex: unset;
     width: 100%;
+    max-width: 15rem;
+    height: 40px;
     padding: 0.5rem;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid #758a8a;
     border-radius: 4px;
-    height: 40px;
+    background-color: white;
+    color: #142020;
     box-sizing: border-box;
+}
+
+.input-with-button button {
+    height: 40px;
+    padding: 0 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
 }
 
 

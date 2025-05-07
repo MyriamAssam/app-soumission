@@ -123,7 +123,7 @@ export default function Profile() {
                 <label>Email :</label>
                 <input type="email" name="email" value={formData.email} onChange={handleChange} required />
             </div>
-
+            <label>Réécrivez votre mot de passe si vous ne voulez pas le modifier.</label>
             <div className="controles">
                 <label>Mot de passe :</label>
                 <div className="input-with-button">

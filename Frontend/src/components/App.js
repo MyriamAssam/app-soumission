@@ -14,7 +14,7 @@ import DetailSoumission from "../components/DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
 import Profile from "../containers/Profile";
 import { useTranslation } from "react-i18next";
-import './i18n';
+import '../i18n';
 
 const App = () => {
   const { i18n } = useTranslation();

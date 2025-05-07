@@ -144,9 +144,12 @@ fieldset {
 .input-with-button {
     display: flex;
     align-items: center;
-    margin-top: 5px;
+    justify-content: center;
     gap: 10px;
+    max-width: 15rem;
+    width: 100%;
 }
+
 
 
 input[type="text"],
@@ -165,9 +168,7 @@ input {
 }
 
 .input-with-button input {
-    flex: unset;
-    width: 100%;
-    max-width: 15rem;
+    flex: 1;
     height: 40px;
     padding: 0.5rem;
     font-size: 1rem;
@@ -177,6 +178,7 @@ input {
     color: #142020;
     box-sizing: border-box;
 }
+
 
 .input-with-button button {
     height: 40px;

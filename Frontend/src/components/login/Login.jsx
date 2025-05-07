@@ -3,25 +3,24 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
-export default function Login(props) {
+import { useTranslation } from "react-i18next";
+
+export default function Login() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [type, setType] = useState("");
   const [typeCompte, setTypeCompte] = useState("Client");
-  const navigate = useNavigate();
   const [message, setMessage] = useState(null);
-  const auth = useContext(AuthContext);
   const [error, SetError] = useState(null);
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
   const { user, token } = useAuthContext();
-
-
 
   async function authSubmitHandler(event) {
     event.preventDefault();
     const inputs = new FormData(event.target);
     const data = Object.fromEntries(inputs.entries());
     data.type = typeCompte.toLowerCase();
-    console.log("data ", data);
     event.target.reset();
 
     try {
@@ -35,15 +34,17 @@ export default function Login(props) {
       );
 
       const responseData = await response.json();
-      console.log("1", responseData);
 
       if (!response.ok) {
-        SetError(responseData.message || "Connexion échouée.");
+        SetError(t("login_failed"));
         return;
       }
 
-      if (!responseData.role || responseData.role.toLowerCase() !== typeCompte.toLowerCase()) {
-        SetError("Rôle incorrect sélectionné ou informations invalides.");
+      if (
+        !responseData.role ||
+        responseData.role.toLowerCase() !== typeCompte.toLowerCase()
+      ) {
+        SetError(t("wrong_role"));
         return;
       }
 
@@ -57,23 +58,22 @@ export default function Login(props) {
         responseData.role.toLowerCase()
       );
 
-
       if (responseData.userId !== undefined) {
         navigate("/soumissions");
       }
     } catch (err) {
-      SetError(err.message || "Une erreur est survenue.");
+      SetError(t("error_occurred"));
       console.error(err);
     }
   }
 
-
   return (
     <form onSubmit={authSubmitHandler}>
-      <h2>Connexion</h2>
+      <h2>{t("connexion")}</h2>
+
       <div className="controles-rows">
         <div className="controles no-margin">
-          <label>Email :</label>
+          <label>{t("email")} :</label>
           <input
             type="email"
             name="email"
@@ -83,9 +83,10 @@ export default function Login(props) {
           />
         </div>
       </div>
+
       <div className="controles-rows">
         <div className="controles no-margin">
-          <label>Mot de passe :</label>
+          <label>{t("mot_de_passe")} :</label>
           <input
             type="password"
             name="mdp"
@@ -96,39 +97,28 @@ export default function Login(props) {
         </div>
       </div>
 
-
-
       <div className="typeCompte">
-
-
         <a onClick={() => {
           setTypeCompte("Client");
-          setMessage({ type: "info", text: "Client sélectionné." });
+          setMessage({ type: "info", text: t("msg_client") });
         }}>
-          <strong>Client</strong>
+          <strong>{t("client")}</strong>
         </a>
 
         <a onClick={() => {
           setTypeCompte("Employé");
-          setMessage({ type: "info", text: "Employé sélectionné." });
+          setMessage({ type: "info", text: t("msg_employe") });
         }}>
-          <strong>Employé</strong>
+          <strong>{t("employe")}</strong>
         </a>
       </div>
-      {error && (
-        <div className="message erreur">
-          {error}
-        </div>
-      )}
 
-      {message && (
-        <div className={`message ${message.type}`}>
-          {message.text}
-        </div>
-      )}
+      {error && <div className="message erreur">{error}</div>}
+      {message && <div className={`message ${message.type}`}>{message.text}</div>}
+
       <p className="form-actions">
         <button className="boutonLog" type="submit">
-          <strong>Connexion</strong>
+          <strong>{t("connexion")}</strong>
         </button>
       </p>
     </form>

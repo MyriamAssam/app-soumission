@@ -2,8 +2,10 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../components/context/AuthContext";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const AllSoumissions = () => {
+    const { t } = useTranslation();
     const [soumissions, setSoumissions] = useState([]);
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
@@ -24,26 +26,28 @@ const AllSoumissions = () => {
     const handleClick = (soumi) => {
         navigate(`/soumission/${soumi.id}`, { state: { soumi } });
     };
+
     if (!auth.user) {
-        return <p><strong>Veuillez vous connecter pour voir les détails.</strong></p>;
+        return <p><strong>{t("connectezVousPourVoir")}</strong></p>;
     }
 
     return (
         <div>
-            <h2>Toutes les soumissions</h2>
+            <h2>{t("titreToutesSoumissions")}</h2>
             <ul>
                 {soumissions.map((soumi) => (
-                    <li key={soumi.id}
+                    <li
+                        key={soumi.id}
                         style={{ cursor: "pointer", borderBottom: "1px solid #ccc", padding: "10px" }}
-                        onClick={() => handleClick(soumi)}>
+                        onClick={() => handleClick(soumi)}
+                    >
                         <strong>{soumi.prenomClient}</strong> - {moment(soumi.date).format("DD MMM YYYY [à] HH:mm")}
                         <br />
-                        {soumi.description || "Pas de description"}
+                        {soumi.description || t("pasDeDescription")}
                     </li>
                 ))}
             </ul>
         </div>
-
     );
 };
 

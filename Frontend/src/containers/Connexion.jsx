@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import Login from "../components/login/Login";
 import "./Register.css";
 import axios from "axios";
-
+import { useTranslation } from "react-i18next";
 export default function Connexion() {
   const [typeCompte, setTypeCompte] = useState("Client");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [offers, setOffers] = useState([]);
   const [error, setError] = useState(null);
-
+  const { t } = useTranslation();
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
@@ -42,7 +42,7 @@ export default function Connexion() {
 
     <div className="texte">
       <br />
-      <h2>Inscrivez-vous ou connectez-vous pour demander ou voir vos soumissions!</h2>
+      <h2>{t("register.messageinscription")} </h2>
       <br />
       <Login type={typeCompte} onLogin={handleLogin} />
 

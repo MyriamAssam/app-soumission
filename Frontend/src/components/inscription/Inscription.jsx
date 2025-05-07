@@ -3,32 +3,43 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { AuthContext } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export default function Inscription(props) {
+  const { t } = useTranslation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [prenom, setPrenom] = useState("");
   const [adresse, setAdresse] = useState("");
   const [telephone, setTelephone] = useState("");
   const [message, setMessage] = useState(null);
+  const [error, SetError] = useState(null);
+  const [typeCompte, setTypeCompte] = useState("Client");
 
   const navigate = useNavigate();
+  const { user, token } = useAuthContext();
+  const auth = useContext(AuthContext);
+
   const motDePasseEstValide = (pwd) => {
     return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/.test(pwd);
   };
 
-  const { user, token } = useAuthContext();
-  const auth = useContext(AuthContext);
-  const [error, SetError] = useState(null);
-  const [typeCompte, setTypeCompte] = useState("Client");
+  const formatPhoneInput = (value) => {
+    const cleaned = value.replace(/\D/g, "").slice(0, 10);
+    const len = cleaned.length;
+    if (len < 4) return cleaned;
+    if (len < 7) return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
+    return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+  };
+
   async function authSubmitHandler(event) {
     event.preventDefault();
     const inputs = new FormData(event.target);
     const data = Object.fromEntries(inputs.entries());
 
-
     if (!motDePasseEstValide(password)) {
-      SetError("Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.");
+      SetError(t("form.erreur_password"));
       return;
     }
 
@@ -46,8 +57,6 @@ export default function Inscription(props) {
 
       const responseData = await response.json();
 
-
-      console.log("2", responseData);
       auth.login(
         responseData.user._id,
         responseData.token,
@@ -57,8 +66,6 @@ export default function Inscription(props) {
         responseData.user.telephone,
         responseData.user.role
       );
-
-
 
       if (responseData.user.role === "client") {
         navigate("/add-soumi", {
@@ -73,29 +80,19 @@ export default function Inscription(props) {
       } else if (responseData.user.role === "employé") {
         navigate("/soumissions");
       }
-
-      console.log("data1 ", responseData);
     } catch (err) {
-      SetError(err.message || "une erreur");
+      SetError(err.message || "error");
       console.log(err);
     }
   }
-  const formatPhoneInput = (value) => {
-
-    const cleaned = value.replace(/\D/g, "").slice(0, 10);
-    const len = cleaned.length;
-
-    if (len < 4) return cleaned;
-    if (len < 7) return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
-    return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
-  };
 
   return (
     <form onSubmit={authSubmitHandler}>
-      <h2>Inscription</h2>
+      <h2>{t("register.inscription")}</h2>
+
       <div className="controles-rows">
         <div className="controles no-margin">
-          <label>Email :</label>
+          <label>{t("email")} :</label>
           <input
             type="email"
             name="email"
@@ -108,14 +105,11 @@ export default function Inscription(props) {
 
       <div className="controles-rows">
         <div className="controles no-margin">
-          <label>Mot de passe :</label>
-
-
+          <label>{t("form.mot_de_passe")} :</label>
           <input
             type="password"
             name="mdp"
             value={password}
-
             onChange={(e) => setPassword(e.target.value)}
             required
           />
@@ -124,7 +118,7 @@ export default function Inscription(props) {
 
       <div className="controles-rows">
         <div className="controles no-margin">
-          <label>Prénom :</label>
+          <label>{t("form.prenom")} :</label>
           <input
             type="prenom"
             name="prenom"
@@ -134,9 +128,10 @@ export default function Inscription(props) {
           />
         </div>
       </div>
+
       <div className="controles-rows">
         <div className="controles no-margin">
-          <label>Adresse :</label>
+          <label>{t("form.adresse")} :</label>
           <input
             type="adresse"
             name="adresse"
@@ -146,82 +141,74 @@ export default function Inscription(props) {
           />
         </div>
       </div>
+
       <div className="controles-rows">
         <div className="controles no-margin">
-          <label>Téléphone</label>
+          <label>{t("form.telephone")}</label>
           <input
             type="tel"
             name="telephone"
             value={telephone}
-            onChange={(e) => {
-              const formatted = formatPhoneInput(e.target.value);
-              setTelephone(formatted);
-            }}
+            onChange={(e) => setTelephone(formatPhoneInput(e.target.value))}
             maxLength="12"
             required
           />
-
-
         </div>
       </div>
+
       {typeCompte === "Employé" && (
         <div className="controles-rows">
           <div className="controles no-margin">
-            <label>Domaine de spécialité :</label>
+            <label>{t("profil.specialite")} :</label>
             <select name="specialite" required>
               {[
                 "portes et fenêtres", "extérieur", "salle de bain", "toiture",
-                "plancher", "climatisation", "éléctricité", "plomberie", "cuisine", "peinture"
-              ].map((sp) => (
-                <option key={sp} value={sp}>{sp}</option>
+                "plancher", "climatisation", "électricité", "plomberie",
+                "cuisine", "peinture"
+              ].map((item) => (
+                <option key={item} value={item}>{t(`typeTravauxList.${item}`)}</option>
               ))}
+
             </select>
           </div>
         </div>
       )}
-      { }
-      <input type="hidden" name="role" value={typeCompte === "Employé" ? "employé" : "client"} />
 
+      <input
+        type="hidden"
+        name="role"
+        value={typeCompte === "Employé" ? "employé" : "client"}
+      />
 
       <div className="typeCompte">
-
-
         <a onClick={() => {
           setTypeCompte("Client");
-          setMessage({ type: "info", text: "Client sélectionné." });
+          setMessage({ type: "info", text: t("form.msg_client") });
         }}>
-          <strong>Client</strong>
+          <strong>{t("client")}</strong>
         </a>
 
         <a onClick={() => {
           setTypeCompte("Employé");
-          setMessage({ type: "info", text: "Employé sélectionné." });
+          setMessage({ type: "info", text: t("form.msg_employe") });
         }}>
-          <strong>Employé</strong>
+          <strong>{t("form.employe")}</strong>
         </a>
       </div>
+
       {message && (
         <div className={`message ${message.type}`}>
           {message.text}
         </div>
       )}
+
       <p className="form-actions">
         <button className="boutonLog" type="submit">
-          <strong>Inscription</strong>
+          <strong>{t("register.btn")}</strong>
         </button>
       </p>
-      {message && (
-        <div className={`message ${message.type}`}>
-          {message.text}
-        </div>
-      )}
 
-      {error && (
-        <div className="message">
-          {error}
-        </div>
-      )}
-
+      {error && <div className="message">{error}</div>}
     </form>
   );
 }

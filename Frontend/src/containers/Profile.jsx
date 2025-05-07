@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
+import { useTranslation } from "react-i18next";
+
 export default function Profile() {
+    const { t } = useTranslation();
     const { user, token, updateUser } = useAuthContext();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +19,7 @@ export default function Profile() {
         role: "",
         specialite: ""
     });
+
     const [message, setMessage] = useState(null);
 
     useEffect(() => {
@@ -49,9 +53,8 @@ export default function Profile() {
             };
         });
     };
-    const telephoneEstValide = (tel) => {
-        return /^\d{3}-\d{3}-\d{4}$/.test(tel);
-    };
+
+    const telephoneEstValide = (tel) => /^\d{3}-\d{3}-\d{4}$/.test(tel);
     const motDePasseEstValide = (mdp) => {
         if (!mdp) return true;
         return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/.test(mdp);
@@ -60,13 +63,14 @@ export default function Profile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!user) return;
+
         if (!telephoneEstValide(formData.telephone)) {
-            setMessage({ type: "error", text: "Format de téléphone invalide (ex : 123-456-7890)." });
+            setMessage({ type: "error", text: t("profil.telephoneInvalide") });
             return;
         }
 
         if (!motDePasseEstValide(formData.mdp)) {
-            setMessage({ type: "error", text: "Mot de passe faible. Il doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial." });
+            setMessage({ type: "error", text: t("profil.motDePasseInvalide") });
             return;
         }
 
@@ -83,86 +87,75 @@ export default function Profile() {
                 }
             );
 
-
-
-            if (!response.ok) {
-                throw new Error("Erreur lors de la mise à jour.");
-            }
+            if (!response.ok) throw new Error();
 
             const updatedUser = await response.json();
             updateUser(updatedUser.user);
-            console.log(updatedUser);
-            setMessage({ type: "success", text: "Profil mis à jour avec succès!" });
+            setMessage({ type: "success", text: t("profil.miseAJourSucces") });
 
         } catch (error) {
             console.error(error);
-            setMessage({ type: "error", text: "Échec de la mise à jour du profil." });
+            setMessage({ type: "error", text: t("profil.miseAJourErreur") });
         }
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Modifier mon profil</h2>
+            <h2>{t("profil.titre")}</h2>
 
             <div className="controles">
-                <label>Prénom :</label>
+                <label>{t("profil.prenom")} :</label>
                 <input type="text" name="prenom" value={formData.prenom} onChange={handleChange} required />
             </div>
 
             <div className="controles">
-                <label>Adresse :</label>
+                <label>{t("profil.adresse")} :</label>
                 <input type="text" name="adresse" value={formData.adresse} onChange={handleChange} required />
             </div>
 
             <div className="controles">
-                <label>Téléphone :</label>
+                <label>{t("profil.telephone")} :</label>
                 <input type="text" name="telephone" value={formData.telephone} onChange={handleChange} required />
             </div>
 
             <div className="controles">
-                <label>Email :</label>
+                <label>{t("profil.email")} :</label>
                 <input type="email" name="email" value={formData.email} onChange={handleChange} required />
             </div>
-            <label>Réécrivez votre mot de passe si vous ne voulez pas le modifier.</label>
+
+            <label>{t("profil.infoMdp")}</label>
+
             <div className="controles">
-                <label>Mot de passe :</label>
+                <label>{t("profil.mdp")} :</label>
                 <div className="input-with-button">
                     <input
                         type={showPassword ? "text" : "password"}
                         name="mdp"
                         value={formData.mdp}
                         onChange={handleChange}
-                        required />
-                    <button
-                        type="button"
-                        onClick={() => setShowPassword((prev) => !prev)}
-                    >
-                        {showPassword ? "Cacher" : "Afficher"}
+                        required
+                    />
+                    <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
+                        {showPassword ? t("profil.cacher") : t("profil.afficher")}
                     </button>
                 </div>
             </div>
 
-
-
-
             {formData.role === "employé" && (
                 <div className="controles">
-                    <div className="controles-rows">
-                        <div className="controles no-margin">
-                            <label>Domaine de spécialité :</label>
-                            <select name="specialite" value={formData.specialite} onChange={handleChange} required>
-                                {[
-                                    "portes et fenêtres", "extérieur", "salle de bain", "toiture",
-                                    "plancher", "climatisation", "électricité", "plomberie", "cuisine", "peinture"
-                                ].map((sp) => (
-                                    <option key={sp} value={sp}>{sp}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+                    <label>{t("profil.specialite")} :</label>
+                    <select name="specialite" value={formData.specialite} onChange={handleChange} required>
+                        {[
+                            "portes et fenêtres", "extérieur", "salle de bain", "toiture",
+                            "plancher", "climatisation", "électricité", "plomberie",
+                            "cuisine", "peinture"
+                        ].map((item) => (
+                            <option key={item} value={item}>{t(`typeTravauxList.${item}`)}</option>
+                        ))}
+
+                    </select>
                 </div>
             )}
-
 
             {message && (
                 <div className={`message ${message.type}`}>
@@ -172,7 +165,7 @@ export default function Profile() {
 
             <p className="form-actions">
                 <button className="boutonLog" type="submit">
-                    <strong>Mettre à jour</strong>
+                    <strong>{t("profil.btnMettreAJour")}</strong>
                 </button>
             </p>
         </form>

@@ -1,20 +1,22 @@
 import "./AddSoumi.css";
 import React, { useContext, useEffect, useState } from "react";
-
 import { useHttpClient } from "../hooks/http-hook";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../components/context/AuthContext";
+import { useTranslation } from "react-i18next";
 
-
-const AddSoumi = (props) => {
+const AddSoumi = () => {
+    const { t } = useTranslation();
     const { sendRequest } = useHttpClient();
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
-    let prenomClient, email, adresse, description, travaux, telephone
+    const location = useLocation();
+
     const [emailField, setEmailField] = useState(auth.user?.email || "");
     const [adresseField, setAdresseField] = useState(auth.user?.adresse || "");
     const [telephoneField, setTelephoneField] = useState(auth.user?.telephone || "");
-
+    const description = location.state?.description || "";
+    const isEdit = !!location.state?.soumissionId;
 
     useEffect(() => {
         setEmailField(auth.user?.email || "");
@@ -22,37 +24,11 @@ const AddSoumi = (props) => {
         setTelephoneField(auth.user?.telephone || "");
     }, [auth.user]);
 
-
-    const location = useLocation();
-    if (location.state !== null) {
-        telephone = location.state.telephone;
-        prenomClient = location.state.prenomClient;
-        email = location.state.email;
-        adresse = location.state.adresse;
-        description = location.state.description;
-        travaux = location.state.published;
-
-    } else {
-        telephone = 0;
-        prenomClient = "";
-        email = "";
-        adresse = 0;
-        description = "";
-        travaux = null;
-
-    }
-
-
-
     async function addSoumiSubmitHandler(event) {
         event.preventDefault();
         const fd = new FormData(event.target);
         const data = Object.fromEntries(fd.entries());
-
         const travauxSelectionnes = [fd.get("travaux")];
-
-
-        const isEdit = location.state?.soumissionId;
 
         const newSoumi = {
             adresse: auth.user?.adresse,
@@ -66,12 +42,10 @@ const AddSoumi = (props) => {
             travaux: travauxSelectionnes,
         };
 
-
-
         try {
             const url = isEdit
-                ? process.env.REACT_APP_BACKEND_URL + `soumissions/${location.state.soumissionId}`
-                : process.env.REACT_APP_BACKEND_URL + `soumissions/`;
+                ? `${process.env.REACT_APP_BACKEND_URL}soumissions/${location.state.soumissionId}`
+                : `${process.env.REACT_APP_BACKEND_URL}soumissions/`;
             const method = isEdit ? "PUT" : "POST";
 
             await sendRequest(url, method, JSON.stringify(newSoumi), {
@@ -84,66 +58,55 @@ const AddSoumi = (props) => {
         }
     }
 
-
-
     return (
         <form onSubmit={addSoumiSubmitHandler}>
-            <h2>{location.state?.soumissionId ? "Modifier la soumission" : "Créer nouvelle Soumission"}</h2>
+            <h2>{isEdit ? t("modifSoumission") : t("creerSoumission")}</h2>
 
             <div className="controles-rows">
                 <div className="controles no-margin">
-                    <label>Type de travaux :</label>
+                    <label>{t("typeTravaux")} :</label>
                     <select name="travaux" required defaultValue="">
-                        <option value="" disabled>Sélectionner un type</option>
+                        <option value="" disabled>{t("selectionType")}</option>
                         {[
                             "portes et fenêtres", "extérieur", "salle de bain", "toiture",
-                            "plancher", "climatisation", "éléctricité", "plomberie",
+                            "plancher", "climatisation", "électricité", "plomberie",
                             "cuisine", "peinture"
                         ].map((item) => (
-                            <option key={item} value={item}>{item}</option>
+                            <option key={item} value={item}>{t(`typeTravauxList.${item}`)}</option>
                         ))}
+
                     </select>
                 </div>
-
-            </div>
-
-
-
-            <div className="controles-rows">
-
             </div>
 
             <div className="controles-rows">
                 <div className="controles no-margin">
-                    <label>Email :</label>
+                    <label>{t("email")} :</label>
                     <input type="email" value={emailField} readOnly />
                 </div>
                 <div className="controles no-margin">
-                    <label>Adresse :</label>
+                    <label>{t("adresse")} :</label>
                     <input type="text" value={adresseField} readOnly />
                 </div>
                 <div className="controles no-margin">
-                    <label>Téléphone :</label>
+                    <label>{t("telephone")} :</label>
                     <input type="text" value={telephoneField} readOnly />
                 </div>
             </div>
 
-
             <div className="controles-rows">
                 <div className="controles no-margin">
-                    <label>Description : </label>
+                    <label>{t("description")} : </label>
                     <textarea name="description" cols="60" rows="5" defaultValue={description}></textarea>
                 </div>
             </div>
 
             <p className="form-actions">
                 <button className="boutonLog" type="submit">
-                    {location.state?.soumissionId ? "Modifier" : "Créer"}
+                    {isEdit ? t("modifier") : t("creer")}
                 </button>
-
-
             </p>
-        </form >
+        </form>
     );
 };
 

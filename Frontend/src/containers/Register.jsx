@@ -8,7 +8,7 @@ export default function Register() {
   return (
     <div className="texte">
       <br />
-      <h2>Inscrivez-vous ou connectez-vous pour demander ou voir vos soumissions!</h2>
+      <h2>{t("register.messageinscription")} </h2>
       <br />
       <Inscription type={typeCompte} />
 

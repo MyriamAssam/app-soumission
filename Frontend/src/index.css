@@ -8,6 +8,25 @@ body {
   background-color: #efe2fc;
 }
 
+.language-buttons {
+  margin-top: 20px;
+}
+
+.lang-btn {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.lang-btn:hover,
+.contact-btn:hover {
+  background-color: #b61fdf;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

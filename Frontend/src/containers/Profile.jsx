@@ -126,23 +126,22 @@ export default function Profile() {
 
             <div className="controles">
                 <label>Mot de passe :</label>
-                <div style={{ display: "flex", alignItems: "center" }}>
+                <div className="input-with-button">
                     <input
                         type={showPassword ? "text" : "password"}
                         name="mdp"
                         value={formData.mdp}
                         onChange={handleChange}
-                        style={{ flex: 1 }}
-                    />
+                        required />
                     <button
                         type="button"
                         onClick={() => setShowPassword((prev) => !prev)}
-                        style={{ marginLeft: "8px" }}
                     >
                         {showPassword ? "Cacher" : "Afficher"}
                     </button>
                 </div>
             </div>
+
 
 
 

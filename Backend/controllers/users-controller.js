@@ -182,35 +182,38 @@ const login = async (req, res, next) => {
   }
 };
 
-// --- MAJ USER ---
+const SOUMISSIONS = require("../models/soumission");
+
 const updateUser = async (req, res, next) => {
   const userId = req.params.userId;
   const updates = req.body;
 
   try {
-    const userMaj = await USERS.findByIdAndUpdate(userId, updates, {
-      new: true,
-    });
+    const userMaj = await USERS.findByIdAndUpdate(userId, updates, { new: true });
 
     if (!userMaj) {
-      return next(
-        new HttpError(
-          "Utilisateur non trouvé, impossible de faire la mise à jour",
-          404
-        )
-      );
+      return next(new HttpError("Utilisateur non trouvé, impossible de faire la mise à jour", 404));
     }
+
+    // 🔁 Mise à jour des soumissions associées
+    await SOUMISSIONS.updateMany(
+      { clientId: userId },
+      {
+        $set: {
+          prenomClient: userMaj.prenom,
+          email: userMaj.email,
+          adresse: userMaj.adresse,
+          telephone: userMaj.telephone,
+        },
+      }
+    );
 
     res.status(200).json({ user: userMaj.toObject({ getters: true }) });
   } catch (e) {
-    return next(
-      new HttpError(
-        "Échec de la maj de l'utilisateur, veuillez réessayer plus tard",
-        500
-      )
-    );
+    return next(new HttpError("Échec de la maj de l'utilisateur", 500));
   }
 };
+
 
 // --- EXPORTS ---
 exports.getAllUsers = getAllUsers;

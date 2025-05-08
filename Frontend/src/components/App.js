@@ -13,12 +13,16 @@ import SoumissionsList from "./SoumissionsList/SoumissionsList";
 import DetailSoumission from "./DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
 import Profile from "../containers/Profile";
-import { AuthProvider } from "./context/AuthContext"; // 👈 importe ici
+import { AuthProvider } from "./context/AuthContext";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: (
+      <AuthProvider>
+        <RootLayout />
+      </AuthProvider>
+    ),
     children: [
       { path: "/", element: <Navigate to="/connexion" /> },
       { path: "/connexion", element: <Connexion /> },
@@ -32,11 +36,12 @@ const router = createBrowserRouter([
   },
 ]);
 
+
 const App = () => {
   return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+
+    <RouterProvider router={router} />
+
   );
 };
 

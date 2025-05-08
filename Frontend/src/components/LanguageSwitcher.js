@@ -1,7 +1,7 @@
-// components/LanguageSwitcher.js
 import React from "react";
 import { useTranslation } from "react-i18next";
-import "./App.css";
+import './App.css'; // Assure-toi d'avoir ce fichier ou ajoute la classe dans App.css
+
 const LanguageSwitcher = () => {
     const { i18n } = useTranslation();
 
@@ -9,10 +9,22 @@ const LanguageSwitcher = () => {
         i18n.changeLanguage(lang);
     };
 
+    const currentLang = i18n.language;
+
     return (
         <div className="language-buttons">
-            <button onClick={() => changeLanguage("fr")} className="lang-btn">FR</button>
-            <button onClick={() => changeLanguage("en")} className="lang-btn">EN</button>
+            <button
+                onClick={() => changeLanguage("fr")}
+                className={`lang-btn ${currentLang === "fr" ? "active" : ""}`}
+            >
+                FR
+            </button>
+            <button
+                onClick={() => changeLanguage("en")}
+                className={`lang-btn ${currentLang === "en" ? "active" : ""}`}
+            >
+                EN
+            </button>
         </div>
     );
 };

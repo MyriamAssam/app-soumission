@@ -8,19 +8,17 @@ import {
 import Register from "../containers/Register";
 import Connexion from "../containers/Connexion";
 import AddSoumi from "../containers/AddSoumi";
-import Navigation from "../components/navigation/Navigation";
 import RootLayout from "../containers/Roots";
 import SoumissionsList from "../components/SoumissionsList/SoumissionsList";
 import DetailSoumission from "../components/DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
 import Profile from "../containers/Profile";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 const App = () => {
   const routes = createBrowserRouter([
     {
       path: "/",
-      element: <RootLayout />,
+      element: <RootLayout />, // <== ici tu inclus la navigation et la langue
       children: [
         { path: "/", element: <Navigate to="/connexion" /> },
         { path: "/connexion", element: <Connexion /> },
@@ -34,13 +32,7 @@ const App = () => {
     },
   ]);
 
-  return (
-    <div>
-      <Navigation /> {/* ✅ toujours après AuthProvider */}
-
-      <RouterProvider router={routes} />
-    </div>
-  );
+  return <RouterProvider router={routes} />;
 };
 
 export default App;

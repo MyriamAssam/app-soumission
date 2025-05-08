@@ -1,3 +1,4 @@
+// App.jsx
 import React from "react";
 import {
   createBrowserRouter,
@@ -9,30 +10,30 @@ import Register from "../containers/Register";
 import Connexion from "../containers/Connexion";
 import AddSoumi from "../containers/AddSoumi";
 import RootLayout from "../containers/Roots";
-import SoumissionsList from "../components/SoumissionsList/SoumissionsList";
-import DetailSoumission from "../components/DetailSoumission/DetailSoumission";
+import SoumissionsList from "./SoumissionsList/SoumissionsList";
+import DetailSoumission from "./DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
 import Profile from "../containers/Profile";
 
-const App = () => {
-  const routes = createBrowserRouter([
-    {
-      path: "/",
-      element: <RootLayout />, // <== ici tu inclus la navigation et la langue
-      children: [
-        { path: "/", element: <Navigate to="/connexion" /> },
-        { path: "/connexion", element: <Connexion /> },
-        { path: "/register", element: <Register /> },
-        { path: "/soumissions", element: <SoumissionsList /> },
-        { path: "/soumission/:id", element: <DetailSoumission /> },
-        { path: "/add-soumi", element: <AddSoumi /> },
-        { path: "/all", element: <AllSoumissions /> },
-        { path: "/profil", element: <Profile /> },
-      ],
-    },
-  ]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />, // Contient la nav et Outlet
+    children: [
+      { path: "/", element: <Navigate to="/connexion" /> },
+      { path: "/connexion", element: <Connexion /> },
+      { path: "/register", element: <Register /> },
+      { path: "/soumissions", element: <SoumissionsList /> },
+      { path: "/soumission/:id", element: <DetailSoumission /> },
+      { path: "/add-soumi", element: <AddSoumi /> },
+      { path: "/all", element: <AllSoumissions /> },
+      { path: "/profil", element: <Profile /> },
+    ],
+  },
+]);
 
-  return <RouterProvider router={routes} />;
+const App = () => {
+  return <RouterProvider router={router} />;
 };
 
 export default App;

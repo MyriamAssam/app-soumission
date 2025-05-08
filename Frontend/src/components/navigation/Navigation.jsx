@@ -1,6 +1,7 @@
-import "./Navigation.css";
-import NavLinks from "./NavLinks";
+import React from "react";
 import { Link } from "react-router-dom";
+import NavLinks from "./NavLinks";
+import LanguageSwitcher from "../LanguageSwitcher"; // ✅ ici maintenant
 
 const Navigation = () => {
   return (
@@ -11,8 +12,9 @@ const Navigation = () => {
         </h1>
         <nav className="main-navigation_entete-nav">
           <NavLinks />
+          <LanguageSwitcher /> {/* ✅ ICI, sous le NavLinks */}
           <div style={logoContainer}>
-            <img src={require("../navigation/images/logomenu.png")} alt="Logo" style={logoStyle} />
+            <img src={require("./images/logomenu.png")} alt="Logo" style={logoStyle} />
           </div>
         </nav>
       </header>

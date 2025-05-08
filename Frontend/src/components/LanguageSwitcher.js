@@ -1,8 +1,11 @@
+// LanguageSwitcher.jsx
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 const LanguageSwitcher = () => {
-    const { i18n } = useTranslation(); // ✅ appelle directe du hook
+    console.log("🌐 LanguageSwitcher mounted");
+
+    const { i18n } = useTranslation();
 
     const changeLanguage = (lang) => {
         i18n.changeLanguage(lang);
@@ -29,4 +32,3 @@ const LanguageSwitcher = () => {
 };
 
 export default LanguageSwitcher;
-

@@ -9,7 +9,8 @@ import SoumissionsList from "./SoumissionsList/SoumissionsList";
 import DetailSoumission from "./DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
 import Profile from "../containers/Profile";
-import { AuthProvider } from "./context/AuthContext"; // 👈 IMPORTANT
+import { AuthProvider } from "./context/AuthContext";
+import { LanguageProvider } from "./context/LanguageContext"; // ✅ nouveau
 
 const router = createBrowserRouter([
   {
@@ -29,8 +30,10 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => (
-  <AuthProvider> {/* 👈 Le contexte englobe tout */}
-    <RouterProvider router={router} />
+  <AuthProvider>
+    <LanguageProvider> {/* ✅ le nouveau provider est ici */}
+      <RouterProvider router={router} />
+    </LanguageProvider>
   </AuthProvider>
 );
 

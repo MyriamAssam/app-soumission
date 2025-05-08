@@ -1,9 +1,12 @@
+
+import { useTranslation } from "react-i18next";
+
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import moment from "moment";
 import "moment/locale/fr";
-import { useTranslation } from "react-i18next";
+
 
 const ListeSoumissions = () => {
     const { t, i18n } = useTranslation();
@@ -13,7 +16,7 @@ const ListeSoumissions = () => {
 
 
     useEffect(() => {
-        moment.locale(i18n.language); // pour que moment.js utilise la bonne langue
+        moment.locale(i18n.language);
     }, [i18n.language]);
 
     useEffect(() => {

@@ -1,33 +1,30 @@
 .navi-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
   list-style: none;
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
 }
 
 .navi-links li {
-  margin: 0rem;
+  margin: 0;
 }
 
 .navi-links a {
-  border: 1px solid transparent;
-  color: #292929;
   text-decoration: none;
-  padding: 0.6rem;
+  color: white;
+  padding: 0.5rem 1rem;
+  transition: 0.3s;
+  border-radius: 4px;
 }
 
 .navi-links a:hover,
 .navi-links a:active,
 .navi-links a.active {
-  background: #e3e9ee;
-  border-color: #292929;
-  color: #292929;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
 .main-navigation_entete-nav {

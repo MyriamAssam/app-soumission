@@ -13,6 +13,12 @@
   z-index: 5;
 }
 
+.main-navigation_titre {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
 .main-navigation_entete-nav {
   display: flex;
   align-items: center;
@@ -20,8 +26,11 @@
 }
 
 .logo-container {
-  margin-left: 2rem;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
 }
+
 
 
 main {

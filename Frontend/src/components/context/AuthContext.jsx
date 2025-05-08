@@ -23,8 +23,11 @@ export const AuthProvider = ({ children }) => {
   const [telephone, setTelephone] = useState(null);
 
   useEffect(() => {
+    console.log("AuthContext Provider initialized:", { user, token, role });
+
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
+    console.log("AuthContext Provider initialized:", { user, token, role });
 
     if (storedUser && storedToken) {
       try {
@@ -51,9 +54,15 @@ export const AuthProvider = ({ children }) => {
 
 
 
-
+  console.log("User after login:", user);
+  console.log("Token after login:", token);
+  console.log("localStorage user:", localStorage.getItem("user"));
   const login = (userId, token, prenom, email, adresse, telephone, role, specialite = "") => {
+    console.log("User after login:", user);
+    console.log("Token after login:", token);
+    console.log("localStorage user:", localStorage.getItem("user"));
     const userObject = {
+
       _id: userId.toString(),
       prenom,
       email,

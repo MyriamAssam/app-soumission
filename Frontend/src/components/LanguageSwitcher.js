@@ -1,18 +1,8 @@
-
-import './App.css'; // Assure-toi d'avoir ce fichier ou ajoute la classe dans App.css
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 const LanguageSwitcher = () => {
-    let i18n;
-
-    try {
-        const translation = useTranslation();
-        i18n = translation.i18n;
-    } catch (e) {
-        console.warn("i18n context non disponible encore.");
-        return null; // retourne rien si le contexte n'est pas prêt
-    }
+    const { i18n } = useTranslation(); // ✅ appelle directe du hook
 
     const changeLanguage = (lang) => {
         i18n.changeLanguage(lang);
@@ -39,3 +29,4 @@ const LanguageSwitcher = () => {
 };
 
 export default LanguageSwitcher;
+

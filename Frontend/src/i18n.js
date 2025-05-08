@@ -1,25 +1,32 @@
-// src/i18n.js
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import React from "react";
+import { useTranslation } from "react-i18next";
 
-import en from './locales/en.json';
-import fr from './locales/fr.json';
+const LanguageSwitcher = () => {
+    const { i18n } = useTranslation(); // ✅ appelle correcte du hook
 
-i18n
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-        fallbackLng: 'fr',
-        debug: true,
-        interpolation: {
-            escapeValue: false,
-        },
-        resources: {
-            en: { translation: en },
-            fr: { translation: fr },
-        },
-    });
+    const changeLanguage = (lang) => {
+        i18n.changeLanguage(lang);
+    };
 
-export default i18n;
+    const currentLang = i18n.language;
+
+    return (
+        <div className="language-buttons">
+            <button
+                onClick={() => changeLanguage("fr")}
+                className={`lang-btn ${currentLang === "fr" ? "active" : ""}`}
+            >
+                FR
+            </button>
+            <button
+                onClick={() => changeLanguage("en")}
+                className={`lang-btn ${currentLang === "en" ? "active" : ""}`}
+            >
+                EN
+            </button>
+        </div>
+    );
+};
+
+export default LanguageSwitcher;
 

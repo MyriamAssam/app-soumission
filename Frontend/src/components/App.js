@@ -1,9 +1,14 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+
 import Register from "../containers/Register";
 import Connexion from "../containers/Connexion";
 import AddSoumi from "../containers/AddSoumi";
-import "./App.css";
+
 import RootLayout from "../containers/Roots";
 import SoumissionsList from "../components/SoumissionsList/SoumissionsList";
 import DetailSoumission from "../components/DetailSoumission/DetailSoumission";

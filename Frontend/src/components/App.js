@@ -8,7 +8,7 @@ import {
 import Register from "../containers/Register";
 import Connexion from "../containers/Connexion";
 import AddSoumi from "../containers/AddSoumi";
-
+import Navigation from "../components/navigation/Navigation";
 import RootLayout from "../containers/Roots";
 import SoumissionsList from "../components/SoumissionsList/SoumissionsList";
 import DetailSoumission from "../components/DetailSoumission/DetailSoumission";
@@ -36,6 +36,8 @@ const App = () => {
 
   return (
     <div>
+      <Navigation /> {/* ✅ toujours après AuthProvider */}
+      <LanguageSwitcher />
       <RouterProvider router={routes} />
     </div>
   );

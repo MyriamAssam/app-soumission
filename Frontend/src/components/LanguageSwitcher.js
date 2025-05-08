@@ -1,9 +1,18 @@
+
+import './App.css'; // Assure-toi d'avoir ce fichier ou ajoute la classe dans App.css
 import React from "react";
 import { useTranslation } from "react-i18next";
-import './App.css'; // Assure-toi d'avoir ce fichier ou ajoute la classe dans App.css
 
 const LanguageSwitcher = () => {
-    const { i18n } = useTranslation();
+    let i18n;
+
+    try {
+        const translation = useTranslation();
+        i18n = translation.i18n;
+    } catch (e) {
+        console.warn("i18n context non disponible encore.");
+        return null; // retourne rien si le contexte n'est pas prêt
+    }
 
     const changeLanguage = (lang) => {
         i18n.changeLanguage(lang);

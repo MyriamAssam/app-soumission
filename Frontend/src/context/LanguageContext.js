@@ -1,4 +1,4 @@
-// File: src/context/LanguageContext.js
+
 import React, { createContext, useState } from 'react';
 
 export const LanguageContext = createContext(null);

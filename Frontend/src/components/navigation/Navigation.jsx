@@ -7,7 +7,7 @@ import "./Navigation.css";
 const Navigation = () => {
   return (
     <>
-      <div className="main-header-container">
+      <div className="main-header-wrapper">
         <header className="main-entete">
           <h1 className="main-navigation_titre">
             <Link to="/connexion" className="soumission-lien">Soumissions</Link>
@@ -23,11 +23,9 @@ const Navigation = () => {
               <img src={require("./images/logomenu.png")} alt="Logo" className="logo-style" />
             </div>
           </nav>
-
-
-
         </header>
       </div>
+
     </>
   );
 };

@@ -15,7 +15,11 @@ import { AuthProvider } from "./context/AuthContext";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: (
+      <AuthProvider>
+        <RootLayout />
+      </AuthProvider>
+    ),
     children: [
       { path: "/", element: <Navigate to="/connexion" /> },
       { path: "/connexion", element: <Connexion /> },
@@ -30,9 +34,7 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => (
-  <AuthProvider>
-    <RouterProvider router={router} />
-  </AuthProvider>
+  <RouterProvider router={router} />
 );
 
 export default App;

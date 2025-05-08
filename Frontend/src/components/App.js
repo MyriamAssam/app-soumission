@@ -31,9 +31,7 @@ const router = createBrowserRouter([
 
 const App = () => (
   <AuthProvider>
-    <LanguageProvider> {/* ✅ le nouveau provider est ici */}
-      <RouterProvider router={router} />
-    </LanguageProvider>
+    <RouterProvider router={router} />
   </AuthProvider>
 );
 

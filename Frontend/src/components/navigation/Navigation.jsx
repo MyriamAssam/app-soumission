@@ -14,9 +14,7 @@ const Navigation = () => {
           </h1>
           <nav className="main-navigation_entete-nav">
             <div className="nav-left">
-              <ul className="navi-links">
-                <NavLinks />
-              </ul>
+              <ul className="navi-links"><NavLinks /></ul>
               <LanguageSwitcher />
             </div>
             <div className="logo-container">
@@ -24,6 +22,7 @@ const Navigation = () => {
             </div>
           </nav>
         </header>
+
       </div>
 
     </>

@@ -12,29 +12,20 @@ const Navigation = () => {
           <Link to="/connexion" className="soumission-lien">Soumissions</Link>
         </h1>
         <nav className="main-navigation_entete-nav">
-
-          <NavLinks />
-          <LanguageSwitcher />
-          {/* ✅ ICI, sous le NavLinks */}
-          <div style={logoContainer}>
-            <img src={require("./images/logomenu.png")} alt="Logo" style={logoStyle} />
+          <div className="nav-group">
+            <NavLinks />
+            <LanguageSwitcher />
+          </div>
+          <div className="logo-container">
+            <img src={require("./images/logomenu.png")} alt="Logo" className="logo-style" />
           </div>
         </nav>
+
       </header>
     </>
   );
 };
 
-const logoContainer = {
-  flex: 1,
-  display: "flex",
-  justifyContent: "flex-start",
-  marginLeft: "200px"
-};
 
-const logoStyle = {
-  height: "50px",
-  width: "auto"
-};
 
 export default Navigation;

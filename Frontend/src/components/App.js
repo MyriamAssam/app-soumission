@@ -10,7 +10,7 @@ import DetailSoumission from "./DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
 import Profile from "../containers/Profile";
 import { AuthProvider } from "./context/AuthContext";
-import { LanguageProvider } from "../context/LanguageContext"; // ✅ nouveau
+
 
 const router = createBrowserRouter([
   {

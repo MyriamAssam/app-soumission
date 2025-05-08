@@ -4,6 +4,7 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
+
 import Register from "../containers/Register";
 import Connexion from "../containers/Connexion";
 import AddSoumi from "../containers/AddSoumi";
@@ -12,11 +13,12 @@ import SoumissionsList from "./SoumissionsList/SoumissionsList";
 import DetailSoumission from "./DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
 import Profile from "../containers/Profile";
+import { AuthProvider } from "./context/AuthContext"; // 👈 importe ici
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />, // Ce layout utilise <Navigation />
+    element: <RootLayout />,
     children: [
       { path: "/", element: <Navigate to="/connexion" /> },
       { path: "/connexion", element: <Connexion /> },
@@ -31,7 +33,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 };
 
 export default App;

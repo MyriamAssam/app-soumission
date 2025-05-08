@@ -1,4 +1,4 @@
-// i18n.js
+// src/i18n.js
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -13,16 +13,13 @@ i18n
         fallbackLng: 'fr',
         debug: true,
         interpolation: {
-            escapeValue: false, // not needed for react
+            escapeValue: false,
         },
         resources: {
-            en: {
-                translation: en,
-            },
-            fr: {
-                translation: fr,
-            },
+            en: { translation: en },
+            fr: { translation: fr },
         },
     });
 
 export default i18n;
+

@@ -9,17 +9,11 @@ import SoumissionsList from "./SoumissionsList/SoumissionsList";
 import DetailSoumission from "./DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
 import Profile from "../containers/Profile";
-import { AuthProvider } from "./context/AuthContext";
-
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <AuthProvider>
-        <RootLayout />
-      </AuthProvider>
-    ),
+    element: <RootLayout />,
     children: [
       { path: "/", element: <Navigate to="/connexion" /> },
       { path: "/connexion", element: <Connexion /> },
@@ -33,8 +27,5 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App = () => (
-  <RouterProvider router={router} />
-);
+export default router;
 
-export default App;

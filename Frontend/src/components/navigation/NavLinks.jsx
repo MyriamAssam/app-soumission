@@ -6,6 +6,7 @@ import { useHttpClient } from "../../hooks/http-hook";
 import { AuthContext } from "../context/AuthContext";
 
 
+
 const NavLinks = () => {
   const auth = useContext(AuthContext);
   console.log("Auth Context in NavLinks:", auth);

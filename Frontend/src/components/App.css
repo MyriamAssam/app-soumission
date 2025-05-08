@@ -1,13 +1,17 @@
 .language-buttons {
-    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-left: 1rem;
 }
 
 .lang-btn {
-    margin: 0 0.5rem;
-    padding: 8px 16px;
+    padding: 6px 12px;
     border: 1px solid #888;
+    border-radius: 4px;
     background-color: white;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .lang-btn.active {

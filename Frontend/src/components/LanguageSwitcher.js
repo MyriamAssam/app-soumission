@@ -27,6 +27,7 @@ const LanguageSwitcher = () => {
             >
                 EN
             </button>
+
         </div>
     );
 };

@@ -8,6 +8,8 @@ import { AuthContext } from "../context/AuthContext";
 
 const NavLinks = () => {
   const auth = useContext(AuthContext);
+  console.log("Auth Context in NavLinks:", auth);
+
   const { t } = useTranslation();
 
   const [type, setType] = useState("");
@@ -15,6 +17,8 @@ const NavLinks = () => {
 
 
   useEffect(() => {
+    console.log("Auth Context in NavLinks useEffect:", auth);
+
     async function infoProfil() {
       try {
         const userId = auth.user?._id || auth.user?.userId;
@@ -41,6 +45,8 @@ const NavLinks = () => {
     if (auth.user !== null) {
       infoProfil();
     }
+    console.log("Auth Context in NavLinks useEffect:", auth);
+
   }, [auth.user]);
 
 

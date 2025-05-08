@@ -13,6 +13,8 @@
   margin: 0 auto;
   height: 4.5rem;
   display: flex;
+  align-items: flex-end;
+  /* 👈 tout aligné par le bas */
   justify-content: space-between;
   padding: 0 2rem;
 }
@@ -21,9 +23,10 @@
   color: white;
   font-weight: bold;
   font-size: 1.5rem;
+  line-height: 1;
   display: flex;
-  align-items: flex-start;
-  /* 👈 Soumissions reste haut */
+  align-items: flex-end;
+  /* 👈 aligne le texte "Soumissions" en bas */
 }
 
 .soumission-lien {
@@ -36,23 +39,19 @@
 .main-navigation_entete-nav {
   display: flex;
   align-items: flex-end;
-  /* 👈 boutons + liens + logo descendent */
+  /* 👈 aligné sur "Soumissions" */
   gap: 2rem;
 }
 
 .nav-left {
   display: flex;
   align-items: flex-end;
-  /* 👈 important */
   gap: 1.2rem;
 }
 
 .logo-container {
   display: flex;
   align-items: flex-end;
-  /* 👈 aligné avec boutons/langues */
-  padding-bottom: 2px;
-  /* 👌 optionnel si nécessaire */
 }
 
 .logo-style {

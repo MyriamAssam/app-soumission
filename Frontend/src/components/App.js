@@ -1,11 +1,9 @@
-// App.jsx
 import React from "react";
 import {
   createBrowserRouter,
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-
 import Register from "../containers/Register";
 import Connexion from "../containers/Connexion";
 import AddSoumi from "../containers/AddSoumi";
@@ -18,7 +16,7 @@ import Profile from "../containers/Profile";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />, // Contient la nav et Outlet
+    element: <RootLayout />, // Ce layout utilise <Navigation />
     children: [
       { path: "/", element: <Navigate to="/connexion" /> },
       { path: "/connexion", element: <Connexion /> },

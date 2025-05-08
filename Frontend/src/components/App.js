@@ -36,7 +36,6 @@ const App = () => {
 
   return (
     <div>
-      <LanguageSwitcher />
       <RouterProvider router={routes} />
     </div>
   );

@@ -1,10 +1,6 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
-
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import "./App.css";
 import Register from "../containers/Register";
 import Connexion from "../containers/Connexion";
 import AddSoumi from "../containers/AddSoumi";
@@ -13,6 +9,7 @@ import SoumissionsList from "./SoumissionsList/SoumissionsList";
 import DetailSoumission from "./DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
 import Profile from "../containers/Profile";
+import { AuthProvider } from "./context/AuthContext"; // 👈 IMPORTANT
 
 const router = createBrowserRouter([
   {
@@ -31,7 +28,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App = () => <RouterProvider router={router} />;
+const App = () => (
+  <AuthProvider> {/* 👈 Le contexte englobe tout */}
+    <RouterProvider router={router} />
+  </AuthProvider>
+);
 
 export default App;
-

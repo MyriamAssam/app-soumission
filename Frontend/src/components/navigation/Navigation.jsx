@@ -12,14 +12,17 @@ const Navigation = () => {
           <Link to="/connexion" className="soumission-lien">Soumissions</Link>
         </h1>
         <nav className="main-navigation_entete-nav">
-          <div className="nav-group">
+          <ul className="navi-links">
             <NavLinks />
+          </ul>
+          <div className="nav-right">
             <LanguageSwitcher />
-          </div>
-          <div className="logo-container">
-            <img src={require("./images/logomenu.png")} alt="Logo" className="logo-style" />
+            <div className="logo-container">
+              <img src={require("./images/logomenu.png")} alt="Logo" className="logo-style" />
+            </div>
           </div>
         </nav>
+
 
       </header>
     </>

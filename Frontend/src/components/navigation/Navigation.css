@@ -10,7 +10,7 @@
   background: rgb(207, 155, 231);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.26);
   padding: 0 2rem;
-  z-index: 5;
+  z-index: 10;
 }
 
 .main-navigation_titre {
@@ -22,23 +22,24 @@
 .main-navigation_entete-nav {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
-.nav-group {
+.nav-right {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.logo-style {
-  height: 40px;
+.logo-container img.logo-style {
+  height: 32px;
   width: auto;
+}
+
+.soumission-lien {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
 }
 
 
@@ -61,11 +62,7 @@ main {
 
 
 
-.soumission-lien {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-}
+
 
 @media (min-width: 768px) {
   .main-navigation_entete-nav {

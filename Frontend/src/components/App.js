@@ -1,10 +1,5 @@
-import React, { useState } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
-
+import React from "react";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import Register from "../containers/Register";
 import Connexion from "../containers/Connexion";
 import AddSoumi from "../containers/AddSoumi";
@@ -14,17 +9,9 @@ import SoumissionsList from "../components/SoumissionsList/SoumissionsList";
 import DetailSoumission from "../components/DetailSoumission/DetailSoumission";
 import AllSoumissions from "../containers/AllSoumissions";
 import Profile from "../containers/Profile";
-import { useTranslation } from "react-i18next";
-import '../i18n';
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const App = () => {
-  const { i18n } = useTranslation();
-  const [error, setError] = useState(null);
-
-  const changeLanguage = (lang) => {
-    i18n.changeLanguage(lang);
-  };
-
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -44,12 +31,7 @@ const App = () => {
 
   return (
     <div>
-      <div className="language-buttons">
-        <button onClick={() => changeLanguage("fr")} className="lang-btn">FR</button>
-        <button onClick={() => changeLanguage("en")} className="lang-btn">EN</button>
-      </div>
-
-      {error && <div>{error}</div>}
+      <LanguageSwitcher />
       <RouterProvider router={routes} />
     </div>
   );

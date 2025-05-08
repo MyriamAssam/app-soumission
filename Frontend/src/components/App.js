@@ -37,7 +37,7 @@ const App = () => {
   return (
     <div>
       <Navigation /> {/* ✅ toujours après AuthProvider */}
-      <LanguageSwitcher />
+
       <RouterProvider router={routes} />
     </div>
   );

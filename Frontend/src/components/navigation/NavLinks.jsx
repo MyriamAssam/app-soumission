@@ -7,8 +7,9 @@ import { AuthContext } from "../context/AuthContext";
 
 
 const NavLinks = () => {
-  const { t } = useTranslation();
   const auth = useContext(AuthContext);
+  const { t } = useTranslation();
+
   const [type, setType] = useState("");
   const { sendRequest } = useHttpClient();
 

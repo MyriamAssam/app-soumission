@@ -13,41 +13,17 @@
   margin: 0 auto;
   height: 4.5rem;
   display: flex;
-  align-items: flex-end;
   justify-content: space-between;
-  padding: 0 2rem 0.3rem 2rem;
+  padding: 0 2rem;
 }
 
 .main-navigation_titre {
   color: white;
   font-weight: bold;
   font-size: 1.5rem;
-}
-
-.main-navigation_entete-nav {
   display: flex;
-  align-items: flex-end;
-  gap: 2.5rem;
-  flex-shrink: 0;
-}
-
-.nav-left {
-  display: flex;
-  align-items: flex-end;
-  gap: 1.5rem;
-  margin-bottom: 2px;
-}
-
-.logo-container {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  padding-bottom: 3px;
-}
-
-.logo-style {
-  height: 32px;
-  width: auto;
+  align-items: flex-start;
+  /* 👈 Soumissions reste haut */
 }
 
 .soumission-lien {
@@ -56,6 +32,34 @@
   font-weight: bold;
   font-size: 1.5rem;
 }
+
+.main-navigation_entete-nav {
+  display: flex;
+  align-items: flex-end;
+  /* 👈 boutons + liens + logo descendent */
+  gap: 2rem;
+}
+
+.nav-left {
+  display: flex;
+  align-items: flex-end;
+  /* 👈 important */
+  gap: 1.2rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: flex-end;
+  /* 👈 aligné avec boutons/langues */
+  padding-bottom: 2px;
+  /* 👌 optionnel si nécessaire */
+}
+
+.logo-style {
+  height: 32px;
+  width: auto;
+}
+
 
 
 

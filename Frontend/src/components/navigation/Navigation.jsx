@@ -2,7 +2,7 @@ import LanguageSwitcher from "../LanguageSwitcher";
 import React from "react";
 import { Link } from "react-router-dom";
 import NavLinks from "./NavLinks";
-
+import "./Navigation.css";
 
 const Navigation = () => {
   return (

@@ -11,8 +11,9 @@ const Navigation = () => {
           <Link to="/connexion" className="soumission-lien">Soumissions</Link>
         </h1>
         <nav className="main-navigation_entete-nav">
-          <LanguageSwitcher />
+
           <NavLinks />
+          <LanguageSwitcher />
           {/* ✅ ICI, sous le NavLinks */}
           <div style={logoContainer}>
             <img src={require("./images/logomenu.png")} alt="Logo" style={logoStyle} />

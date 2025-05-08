@@ -6,10 +6,11 @@ import "moment/locale/fr";
 import { useTranslation } from "react-i18next";
 
 const ListeSoumissions = () => {
+    const { t, i18n } = useTranslation();
     const [soumissions, setSoumissions] = useState([]);
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
-    const { t, i18n } = useTranslation();
+
 
     useEffect(() => {
         moment.locale(i18n.language); // pour que moment.js utilise la bonne langue

@@ -4,11 +4,12 @@ import "./Register.css";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 export default function Connexion() {
+  const { t } = useTranslation();
   const [typeCompte, setTypeCompte] = useState("Client");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [offers, setOffers] = useState([]);
   const [error, setError] = useState(null);
-  const { t } = useTranslation();
+
   const handleLogin = () => {
     setIsAuthenticated(true);
   };

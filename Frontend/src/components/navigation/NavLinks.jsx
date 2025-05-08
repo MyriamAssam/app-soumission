@@ -6,10 +6,11 @@ import { AuthContext } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 
 const NavLinks = () => {
+  const { t } = useTranslation();
   const auth = useContext(AuthContext);
   const [type, setType] = useState("");
   const { sendRequest } = useHttpClient();
-  const { t } = useTranslation();
+
 
   useEffect(() => {
     async function infoProfil() {

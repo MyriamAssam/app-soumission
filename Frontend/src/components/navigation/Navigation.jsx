@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NavLinks from "./NavLinks";
-import LanguageSwitcher from "../LanguageSwitcher"; // ✅ ici maintenant
+import LanguageSwitcher from "../LanguageSwitcher";
 
 const Navigation = () => {
   return (

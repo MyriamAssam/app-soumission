@@ -86,8 +86,8 @@ export default function Login() {
         </div>
       </div>
       <div className="controles-rows">
-        <div className="controles no-margin">
-          <label>{t("mot_de_passe")} :</label>
+        <div className="controles mdp-field">
+          <label>{t("form.mot_de_passe")} :</label>
           <input
             type="password"
             name="mdp"
@@ -95,8 +95,10 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <p className="mdp-info">{t("mdp")}</p>
         </div>
       </div>
+
 
       <div className="typeCompte">
         <a onClick={() => {

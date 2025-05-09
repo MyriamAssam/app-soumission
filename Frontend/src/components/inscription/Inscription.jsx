@@ -105,7 +105,6 @@ export default function Inscription(props) {
 
       <div className="controles-rows">
         <div className="controles no-margin">
-          <label>{t("mdp")}</label>
           <label>{t("form.mot_de_passe")} :</label>
           <input
             type="password"
@@ -114,6 +113,9 @@ export default function Inscription(props) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <p className="mdp-info">
+            {t("form.mdp")}
+          </p>
         </div>
       </div>
 

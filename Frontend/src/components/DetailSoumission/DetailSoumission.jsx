@@ -182,8 +182,8 @@ const DetailSoumission = () => {
             <button className="boutonSupp" onClick={handleClearNotes}>
                 <strong>{t("details.boutonSupprimerHistorique")}</strong>
             </button>
-
-            {auth.role === "client" && (
+            { }
+            {auth.role === "client" && auth.user._id === soumi.clientId && (
                 <div className="boutons-actions">
                     <button className="boutonModi" onClick={handleEdit}><strong>{t("details.boutonModifierSoum")}</strong></button>
                     <button className="boutonAjout" onClick={() => navigate("/add-soumi")}><strong>{t("details.boutonAjouter")}</strong></button>
@@ -191,11 +191,13 @@ const DetailSoumission = () => {
                 </div>
             )}
 
-            {auth.role === "employé" && (
+            { }
+            {auth.role === "employé" && soumi.travaux.includes(auth.user.specialite) && (
                 <div className="boutons-actions">
                     <button className="boutonSupp" onClick={handleDelete}><strong>{t("details.boutonSupprimerSoum")}</strong></button>
                 </div>
             )}
+
 
             {message && (
                 <div className={`message ${message.type}`}>

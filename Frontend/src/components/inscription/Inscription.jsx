@@ -110,7 +110,8 @@ export default function Inscription(props) {
       </div>
 
       <div className="controles-rows">
-        <div className="controles no-margin">
+        <div className="controles no-margin mdp-field">
+
           <label>{t("form.mot_de_passe")} :</label>
           <input
             type="password"
@@ -190,20 +191,29 @@ export default function Inscription(props) {
       />
 
       <div className="typeCompte">
-        <a onClick={() => {
-          setTypeCompte("Client");
-          setMessage({ type: "info", text: t("form.msg_client") });
-        }}>
-          <strong>{t("client")}</strong>
-        </a>
+        <button
+          type="button"
+          className={typeCompte === "Client" ? "active" : ""}
+          onClick={() => {
+            setTypeCompte("Client");
+            setMessage({ type: "info", text: t("form.msg_client") });
+          }}
+        >
+          {t("client")}
+        </button>
 
-        <a onClick={() => {
-          setTypeCompte("Employé");
-          setMessage({ type: "info", text: t("form.msg_employe") });
-        }}>
-          <strong>{t("form.employe")}</strong>
-        </a>
+        <button
+          type="button"
+          className={typeCompte === "Employé" ? "active" : ""}
+          onClick={() => {
+            setTypeCompte("Employé");
+            setMessage({ type: "info", text: t("form.msg_employe") });
+          }}
+        >
+          {t("form.employe")}
+        </button>
       </div>
+
 
       {message && (
         <div className={`message ${message.type}`}>

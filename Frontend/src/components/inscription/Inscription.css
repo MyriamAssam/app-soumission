@@ -28,6 +28,26 @@ form {
   max-width: 15rem;
 }
 
+.typeCompte button {
+  background-color: #e6e6fa;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.typeCompte button:hover {
+  background-color: #d1b3e0;
+}
+
+.typeCompte button.active {
+  background-color: #c29ad9;
+  color: white;
+}
+
 .mdp-field {
   display: flex;
   flex-direction: column;

@@ -218,15 +218,26 @@ const ajouterNote = async (req, res, next) => {
     const soumissionId = req.params.oId;
     const { id, notes, role, auteur } = req.body;
 
+    if (!notes || !role || !auteur) {
+        return next(new HttpError("Champs requis manquants pour la note.", 400));
+    }
+
+    const champNote = role === "client" ? "notesClients" :
+        role === "employé" ? "notesEmployes" : null;
+
+    if (!champNote) {
+        return next(new HttpError("Rôle invalide (doit être 'client' ou 'employé').", 400));
+    }
+
     try {
         const soumission = await SOUMISSIONS.findById(soumissionId);
-        if (!soumission) return next(new HttpError("Soumission introuvable.", 404));
+        if (!soumission) {
+            return next(new HttpError("Soumission introuvable.", 404));
+        }
 
-        const champNote = role === "client" ? "notesClients" : "notesEmployes";
-
-        // ❗ Empêcher l'ajout si une note avec le même ID existe déjà
+        // Empêcher les doublons (même ID déjà utilisé)
         if (soumission[champNote].some(n => n.id === id)) {
-            return next(new HttpError("Une note avec cet ID existe déjà. Utilisez la modification.", 400));
+            return next(new HttpError("Une note avec cet ID existe déjà.", 400));
         }
 
         const nouvelleNote = {
@@ -237,9 +248,9 @@ const ajouterNote = async (req, res, next) => {
         };
 
         soumission[champNote].push(nouvelleNote);
-
         await soumission.save();
-        res.status(200).json({ message: "Note ajoutée avec succès." });
+
+        res.status(201).json({ message: "Note ajoutée avec succès.", soumission });
     } catch (err) {
         console.error(err);
         return next(new HttpError("Erreur lors de l'ajout de la note.", 500));

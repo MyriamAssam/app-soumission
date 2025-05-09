@@ -14,48 +14,44 @@
   height: 4.5rem;
   display: flex;
   align-items: center;
-  /* ✅ centré verticalement */
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .main-navigation_titre {
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
-  display: flex;
-  align-items: center;
-  /* ✅ vertical align fix */
+  margin-right: 2rem;
 }
 
 .soumission-lien {
   text-decoration: none;
   color: white;
-  font-weight: bold;
-  font-size: 1.5rem;
 }
 
 .main-navigation_entete-nav {
   display: flex;
   align-items: center;
-  /* ✅ vertical align fix */
-  gap: 1.8rem;
+  justify-content: flex-end;
+  flex-grow: 1;
+  gap: 2rem;
 }
 
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
 }
 
 .logo-style {
-  height: 32px;
+  height: 40px;
   width: auto;
 }
 

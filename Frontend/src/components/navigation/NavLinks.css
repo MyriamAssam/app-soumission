@@ -1,11 +1,9 @@
 .navi-links {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  gap: 1rem;
 }
 
 .navi-links li {
@@ -13,18 +11,16 @@
 }
 
 .navi-links a {
-  text-decoration: none;
   color: white;
-  padding: 0.5rem 1rem;
-  transition: 0.3s;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
   border-radius: 4px;
+  transition: 0.2s;
 }
 
 .navi-links a:hover,
-.navi-links a:active,
 .navi-links a.active {
   background: rgba(255, 255, 255, 0.2);
-  color: white;
 }
 
 .main-navigation_entete-nav {

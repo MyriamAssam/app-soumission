@@ -13,15 +13,20 @@ form {
   gap: 1rem;
 }
 
+.mdp-block {
+  margin-bottom: 1rem;
+}
+
 .mdp-info {
   font-size: 0.75rem;
   color: #ffffff;
   text-align: center;
-  margin-top: 0.3rem;
+  margin-top: 0.5rem;
+  /* un peu d’air entre l’input et le texte */
   max-width: 300px;
-  /* identique à .controles */
   line-height: 1.3;
 }
+
 
 
 .controles,

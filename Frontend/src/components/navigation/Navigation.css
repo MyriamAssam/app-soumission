@@ -20,23 +20,22 @@
 }
 
 .main-navigation_titre {
+  display: flex;
+  align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
-  margin-right: 2rem;
 }
 
 .soumission-lien {
   text-decoration: none;
   color: white;
+  font-size: 1.5rem;
 }
 
 .main-navigation_entete-nav {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  flex-grow: 1;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .nav-left {
@@ -48,13 +47,13 @@
 .logo-container {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .logo-style {
-  height: 40px;
+  height: 36px;
   width: auto;
 }
-
 
 
 

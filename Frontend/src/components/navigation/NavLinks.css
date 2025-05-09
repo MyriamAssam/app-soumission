@@ -6,10 +6,6 @@
   gap: 1rem;
 }
 
-.navi-links li {
-  margin: 0;
-}
-
 .navi-links a {
   color: white;
   text-decoration: none;
@@ -23,14 +19,7 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-.main-navigation_entete-nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
 
-  width: 100%;
-
-}
 
 @media (min-width: 768px) {
   .navi-links {

@@ -18,15 +18,16 @@ form {
 }
 
 
-
 .mdp-info {
   font-size: 0.75rem;
   color: #dddddd;
   text-align: center;
-  margin-top: 0.4rem;
+  margin-top: -0.2rem;
+  margin-bottom: 1rem;
   line-height: 1.3;
   max-width: 15rem;
 }
+
 
 .typeCompte button {
   background-color: #e6e6fa;

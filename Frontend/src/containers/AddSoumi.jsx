@@ -48,10 +48,10 @@ const AddSoumi = () => {
                 : `${process.env.REACT_APP_BACKEND_URL}soumissions/`;
             const method = isEdit ? "PUT" : "POST";
             if (!isEdit && (!data.description || data.description.trim() === "")) {
-
                 setMessage({ type: "info", text: t("soumission.description_obligatoire") });
-
+                return;
             }
+
 
             await sendRequest(url, method, JSON.stringify(newSoumi), {
                 "Content-Type": "application/json",
@@ -103,7 +103,16 @@ const AddSoumi = () => {
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>{t("details.description")} : </label>
-                    <textarea name="description" cols="60" rows="5" defaultValue={description}></textarea>
+                    <textarea name="description" cols="60" rows="5" defaultValue={description}></textarea><textarea
+                        name="description"
+                        cols="60"
+                        rows="5"
+                        defaultValue={description}
+                        required
+                        pattern=".*\S.*"
+                        title={t("soumission.description_obligatoire")}
+                    />
+
                 </div>
             </div>
 

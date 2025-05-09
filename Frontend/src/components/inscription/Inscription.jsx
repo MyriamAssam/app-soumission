@@ -120,11 +120,15 @@ export default function Inscription(props) {
             required
           />
         </div>
-        <p className="mdp-info">{t("mdp")}</p>
-
-
-
       </div>
+
+      { }
+      <p className="mdp-info">{t("mdp")}</p>
+
+
+
+
+
 
 
       <div className="controles-rows">

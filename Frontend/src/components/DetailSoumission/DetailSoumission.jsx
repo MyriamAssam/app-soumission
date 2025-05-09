@@ -130,8 +130,9 @@ const DetailSoumission = () => {
 
     const handleEdit = () => {
         navigate("/add-soumi", {
-            state: { ...soumi },
+            state: { ...soumi, soumissionId: soumi._id },
         });
+
     };
 
     const formatPhoneNumber = (number) => {

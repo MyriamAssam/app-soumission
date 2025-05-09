@@ -87,7 +87,7 @@ export default function Login() {
       </div>
       <div className="controles-rows">
         <div className="controles mdp-field">
-          <label>{t("form.mot_de_passe")} :</label>
+
           <input
             type="password"
             name="mdp"

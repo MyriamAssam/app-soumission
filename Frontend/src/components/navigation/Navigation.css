@@ -36,6 +36,9 @@
   text-decoration: none;
   color: white;
   font-size: 1.5rem;
+  margin-left: -0.5rem;
+  /* ✅ léger déplacement vers la gauche */
+  margin-right: 1rem;
 }
 
 .main-navigation_entete-nav {

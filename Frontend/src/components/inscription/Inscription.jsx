@@ -105,6 +105,7 @@ export default function Inscription(props) {
 
       <div className="controles-rows">
         <div className="controles no-margin">
+          <label>{t("mdp")}</label>
           <label>{t("form.mot_de_passe")} :</label>
           <input
             type="password"

@@ -26,8 +26,8 @@
         "messageinscription": "Login or sign in to manage your quotes!"
     },
     "soumission": {
-        "modifSoumission": "Edit submission",
-        "creerSoumission": "Create new submission",
+        "modifSoumission": "Edit qiote",
+        "creerSoumission": "Create new quote",
         "typeTravaux": "Type of work",
         "selectionType": "Select a type",
         "description": "Description",
@@ -35,7 +35,7 @@
         "creer": "Create"
     },
     "allSoumissions": {
-        "titre": "All submissions",
+        "titre": "All quotes",
         "pasDeDescription": "No description",
         "connectezVousPourVoir": "Please log in to see the details."
     },

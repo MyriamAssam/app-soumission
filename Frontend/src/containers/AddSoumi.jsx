@@ -60,7 +60,7 @@ const AddSoumi = () => {
 
     return (
         <form onSubmit={addSoumiSubmitHandler}>
-            <h2>{isEdit ? t("soumission.modifSoumission") : t("soumission.modifSoumission")}</h2>
+            <h2>{isEdit ? t("soumission.creerSoumission") : t("soumission.modifSoumission")}</h2>
 
             <div className="controles-rows">
                 <div className="controles no-margin">

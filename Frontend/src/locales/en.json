@@ -26,7 +26,7 @@
         "messageinscription": "Login or sign in to manage your quotes!"
     },
     "soumission": {
-        "modifSoumission": "Edit qiote",
+        "modifSoumission": "Edit quote",
         "creerSoumission": "Create new quote",
         "typeTravaux": "Type of work",
         "selectionType": "Select a type",
@@ -101,6 +101,7 @@
         "miseAJourSucces": "Profile updated successfully!",
         "miseAJourErreur": "Failed to update profile."
     },
+    "mdp": "The password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.",
     "connexion": "Login",
     "email": "Email",
     "mot_de_passe": "Password",

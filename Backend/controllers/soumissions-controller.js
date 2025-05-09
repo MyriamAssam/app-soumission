@@ -185,7 +185,7 @@ const modifierSoumission = async (req, res, next) => {
 };
 
 
-exports.modifierNote = async (req, res, next) => {
+const modifierNote = async (req, res, next) => {
     const { oId, noteId } = req.params;
     const { texte, role } = req.body;
 
@@ -216,29 +216,27 @@ exports.modifierNote = async (req, res, next) => {
 
 const ajouterNote = async (req, res, next) => {
     const soumissionId = req.params.oId;
-    const { notes, role, auteur } = req.body;
+    const { id, notes, role, auteur } = req.body;
 
     try {
         const soumission = await SOUMISSIONS.findById(soumissionId);
-        if (!soumission) {
-            return next(new HttpError("Soumission introuvable.", 404));
+        if (!soumission) return next(new HttpError("Soumission introuvable.", 404));
+
+        const champNote = role === "client" ? "notesClients" : "notesEmployes";
+
+        // ❗ Empêcher l'ajout si une note avec le même ID existe déjà
+        if (soumission[champNote].some(n => n.id === id)) {
+            return next(new HttpError("Une note avec cet ID existe déjà. Utilisez la modification.", 400));
         }
 
         const nouvelleNote = {
-            id: req.body.id,
+            id: id || require("crypto").randomBytes(6).toString("hex"),
             auteur,
             texte: notes,
             date: new Date()
         };
 
-
-        if (role === "client") {
-            soumission.notesClients.push(nouvelleNote);
-        } else if (role === "employé") {
-            soumission.notesEmployes.push(nouvelleNote);
-        } else {
-            return next(new HttpError("Rôle invalide.", 400));
-        }
+        soumission[champNote].push(nouvelleNote);
 
         await soumission.save();
         res.status(200).json({ message: "Note ajoutée avec succès." });
@@ -247,6 +245,7 @@ const ajouterNote = async (req, res, next) => {
         return next(new HttpError("Erreur lors de l'ajout de la note.", 500));
     }
 };
+
 
 
 const soumissionList = async (req, res, next) => {
@@ -312,3 +311,4 @@ exports.addSoumission = addSoumission;
 exports.majSoumission = modifierSoumission;
 exports.supprimerSoumission = deleteSoumission;
 exports.ajouterNote = ajouterNote;
+exports.modifierNote = modifierNote; 

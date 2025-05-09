@@ -13,6 +13,11 @@ form {
   gap: 1rem;
 }
 
+.form-inner {
+  transform: translateY(-1rem);
+  /* Ajuste à ta convenance */
+}
+
 .message {
   margin-bottom: 0.4rem;
   padding: 8px;

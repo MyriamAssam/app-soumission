@@ -69,21 +69,22 @@ export default function Login() {
 
   return (
     <form onSubmit={authSubmitHandler}>
-      <h2>{t("connexion")}</h2>
+      <div className="form-inner">
+        <h2>{t("connexion")}</h2>
 
-      <div className="controles-rows">
-        <div className="controles no-margin">
-          <label>{t("email")} :</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        <div className="controles-rows">
+          <div className="controles no-margin">
+            <label>{t("email")} :</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
         </div>
       </div>
-
       <div className="controles-rows">
         <div className="controles no-margin">
           <label>{t("mot_de_passe")} :</label>

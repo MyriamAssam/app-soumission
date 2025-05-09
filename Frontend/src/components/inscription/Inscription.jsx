@@ -113,10 +113,8 @@ export default function Inscription(props) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <p className="mdp-info">
-            {t("mdp")}
-          </p>
         </div>
+        <p className="mdp-info">{t("mdp")}</p>
       </div>
 
       <div className="controles-rows">

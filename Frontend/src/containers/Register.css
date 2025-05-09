@@ -1,3 +1,5 @@
 .texte h2 {
     text-align: center;
+    margin-top: 6rem;
+    /* ✅ Descend le texte vers le bas */
 }

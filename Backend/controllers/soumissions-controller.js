@@ -197,7 +197,11 @@ exports.modifierNote = async (req, res, next) => {
 
         const notes = soum[champNote];
         const noteIndex = notes.findIndex((n) => n.id === noteId);
-        if (noteIndex === -1) return next(new HttpError("Note introuvable", 404));
+        if (noteIndex === -1) {
+            console.warn("Note non trouvée par ID:", noteId, notes.map(n => n.id));
+            return next(new HttpError("Note introuvable", 404));
+        }
+
 
         notes[noteIndex].texte = texte;
 

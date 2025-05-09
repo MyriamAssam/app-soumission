@@ -42,11 +42,11 @@ const DetailSoumission = () => {
     }, [auth.role, soumi._id]);
 
     const handleEditNote = (index) => {
-        setNote(listeNotes[index].texte);
-        setNoteIdEnCours(listeNotes[index].id);
-
-
+        const noteAEditer = listeNotes[index];
+        setNote(noteAEditer.texte);
+        setNoteIdEnCours(noteAEditer.id || noteAEditer._id); // fallback si jamais
     };
+
 
     const handleDeleteNote = async (index) => {
         const newNotes = [...listeNotes];
@@ -68,11 +68,13 @@ const DetailSoumission = () => {
 
     const handleSaveNote = async () => {
         try {
-            const url = noteIdEnCours
+            const isEdit = noteIdEnCours != null && noteIdEnCours !== "";
+
+            const url = isEdit
                 ? `${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}/note/${noteIdEnCours}`
                 : `${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}/note`;
 
-            const body = noteIdEnCours
+            const body = isEdit
                 ? { texte: note, role: auth.role }
                 : {
                     notes: note,
@@ -80,8 +82,6 @@ const DetailSoumission = () => {
                     auteur: auth.prenom,
                     id: Math.random().toString(36).substr(2, 9),
                 };
-
-
 
             await fetch(url, {
                 method: "PATCH",

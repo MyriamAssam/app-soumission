@@ -114,7 +114,7 @@ export default function Inscription(props) {
             required
           />
           <p className="mdp-info">
-            {t("form.mdp")}
+            {t("mdp")}
           </p>
         </div>
       </div>

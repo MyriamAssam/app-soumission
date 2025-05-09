@@ -48,8 +48,9 @@ const AddSoumi = () => {
                 : `${process.env.REACT_APP_BACKEND_URL}soumissions/`;
             const method = isEdit ? "PUT" : "POST";
             if (!isEdit && (!data.description || data.description.trim() === "")) {
-                alert(t("soumission.description_obligatoire"));
-                return;
+
+                setMessage({ type: "info", text: t("soumission.description_obligatoire") });
+
             }
 
             await sendRequest(url, method, JSON.stringify(newSoumi), {
@@ -112,6 +113,11 @@ const AddSoumi = () => {
 
                 </button>
             </p>
+            {message && (
+                <div className={`message ${message.type}`}>
+                    {message.text}
+                </div>
+            )}
         </form>
     );
 };

@@ -75,13 +75,14 @@ const DetailSoumission = () => {
                 : `${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}/note`;
 
             const body = isEdit
-                ? { texte: note, role: auth.role }
+                ? { id: noteIdEnCours, texte: note, role: auth.role }
                 : {
+                    id: Math.random().toString(36).substr(2, 9),
                     notes: note,
                     role: auth.role,
-                    auteur: auth.prenom,
-                    id: Math.random().toString(36).substr(2, 9),
+                    auteur: auth.prenom
                 };
+
 
             await fetch(url, {
                 method: "PATCH",

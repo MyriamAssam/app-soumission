@@ -26,11 +26,14 @@ const soumissionSchema = new mongoose.Schema({
     ],
     notesEmployes: [
         {
+            _id: false,
+            id: String, // ⬅️ ajoute ceci
             auteur: String,
             texte: String,
             date: { type: Date, default: Date.now }
         }
     ]
+
 });
 
 module.exports = mongoose.model("Soumission", soumissionSchema);

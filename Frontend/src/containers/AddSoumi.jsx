@@ -11,7 +11,7 @@ const AddSoumi = () => {
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-
+    const [message, setMessage] = useState(null);
     const [emailField, setEmailField] = useState(auth.user?.email || "");
     const [adresseField, setAdresseField] = useState(auth.user?.adresse || "");
     const [telephoneField, setTelephoneField] = useState(auth.user?.telephone || "");

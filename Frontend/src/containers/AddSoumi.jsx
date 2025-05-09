@@ -60,7 +60,8 @@ const AddSoumi = () => {
 
     return (
         <form onSubmit={addSoumiSubmitHandler}>
-            <h2>{isEdit ? t("soumission.creerSoumission") : t("soumission.modifSoumission")}</h2>
+            <h2>{isEdit ? t("soumission.modifSoumission") : t("soumission.creerSoumission")}</h2>
+
 
             <div className="controles-rows">
                 <div className="controles no-margin">
@@ -104,6 +105,7 @@ const AddSoumi = () => {
             <p className="form-actions">
                 <button className="boutonLog" type="submit">
                     {isEdit ? t("soumission.modifier") : t("soumission.creer")}
+
                 </button>
             </p>
         </form>

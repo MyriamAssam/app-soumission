@@ -47,6 +47,10 @@ const AddSoumi = () => {
                 ? `${process.env.REACT_APP_BACKEND_URL}soumissions/${location.state.soumissionId}`
                 : `${process.env.REACT_APP_BACKEND_URL}soumissions/`;
             const method = isEdit ? "PUT" : "POST";
+            if (!isEdit && (!data.description || data.description.trim() === "")) {
+                alert(t("soumission.description_obligatoire"));
+                return;
+            }
 
             await sendRequest(url, method, JSON.stringify(newSoumi), {
                 "Content-Type": "application/json",

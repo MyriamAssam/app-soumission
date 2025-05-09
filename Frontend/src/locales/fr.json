@@ -32,7 +32,10 @@
         "selectionType": "Sélectionner un type",
         "description": "Description",
         "modifier": "Modifier",
-        "creer": "Créer"
+        "creer": "Créer",
+        "erreur_email_existe": "Cet email est déjà utilisé.",
+        "erreur_generale": "Une erreur est survenue lors de l'inscription.",
+        "description_obligatoire": "Veuillez entrer une description pour votre soumission."
     },
     "allSoumissions": {
         "titre": "Toutes les soumissions",

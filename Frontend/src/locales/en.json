@@ -23,7 +23,9 @@
     "register": {
         "inscription": "Register",
         "btn": "Register",
-        "messageinscription": "Login or sign in to manage your quotes!"
+        "messageinscription": "Login or sign in to manage your quotes!",
+        "erreur_email_existe": "Email already used.",
+        "erreur_generale": "error when signing in."
     },
     "soumission": {
         "modifSoumission": "Edit quote",
@@ -32,7 +34,8 @@
         "selectionType": "Select a type",
         "description": "Description",
         "modifier": "Edit",
-        "creer": "Create"
+        "creer": "Create",
+        "description_obligatoire": "Description needed."
     },
     "allSoumissions": {
         "titre": "All quotes",

@@ -221,10 +221,12 @@ const ajouterNote = async (req, res, next) => {
         }
 
         const nouvelleNote = {
+            id: req.body.id,
             auteur,
             texte: notes,
             date: new Date()
         };
+
 
         if (role === "client") {
             soumission.notesClients.push(nouvelleNote);

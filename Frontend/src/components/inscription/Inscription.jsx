@@ -57,6 +57,12 @@ export default function Inscription(props) {
 
       const responseData = await response.json();
 
+      if (!response.ok) {
+        SetError(responseData.message || t("register.erreur_generale"));
+        return;
+      }
+
+
       auth.login(
         responseData.user._id,
         responseData.token,

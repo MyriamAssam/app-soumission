@@ -86,7 +86,7 @@ export default function Login() {
         </div>
       </div>
       <div className="controles-rows">
-
+        <div className="controles no-margin"></div>
         <label>{t("form.mot_de_passe")} :</label>
         <input
           type="password"

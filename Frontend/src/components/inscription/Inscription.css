@@ -17,15 +17,28 @@ form {
   margin-bottom: 1rem;
 }
 
+.mdp-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+.mdp-field input {
+  width: 100%;
+  max-width: 15rem;
+}
+
 .mdp-info {
   font-size: 0.75rem;
-  color: #ffffff;
+  color: #dddddd;
+  /* plus doux visuellement */
   text-align: center;
-  margin-top: 0.5rem;
-  /* un peu d’air entre l’input et le texte */
-  max-width: 300px;
+  margin-top: 0.4rem;
   line-height: 1.3;
 }
+
 
 
 

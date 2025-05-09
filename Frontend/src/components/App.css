@@ -1,11 +1,9 @@
 .language-buttons {
     display: flex;
     align-items: center;
-    /* ✅ assure l'alignement vertical */
-    height: 100%;
-    /* ✅ correspond à la hauteur du header */
-    gap: 0.4rem;
+    gap: 0.3rem;
 }
+
 
 
 .lang-btn {

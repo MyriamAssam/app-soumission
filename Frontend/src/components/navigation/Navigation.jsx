@@ -9,19 +9,22 @@ const Navigation = () => {
     <>
       <div className="main-header-wrapper">
         <header className="main-entete">
-          <div className="main-navigation_titre">
-            <Link to="/connexion" className="soumission-lien">Soumissions</Link>
+          <div className="left-zone">
+            <div className="main-navigation_titre">
+              <Link to="/connexion" className="soumission-lien">Soumissions</Link>
+            </div>
+            <LanguageSwitcher />
           </div>
 
           <div className="main-navigation_entete-nav">
             <ul className="navi-links"><NavLinks /></ul>
-            <LanguageSwitcher />
           </div>
 
           <div className="logo-container">
             <img src={require("./images/logomenu.png")} alt="Logo" className="logo-style" />
           </div>
         </header>
+
 
 
       </div>

@@ -17,10 +17,7 @@ form {
   margin-bottom: 1rem;
 }
 
-.mdp-field {
-  margin-bottom: 1rem;
-  /* même espace que les autres champs */
-}
+
 
 .mdp-info {
   font-size: 0.75rem;
@@ -31,10 +28,25 @@ form {
   max-width: 15rem;
 }
 
+.mdp-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+}
+
 .mdp-field input {
   width: 100%;
   max-width: 15rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #758a8a;
+  background-color: white;
+  color: #142020;
 }
+
 
 
 .controles,

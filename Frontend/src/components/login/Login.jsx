@@ -68,62 +68,70 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={authSubmitHandler}>
+    <form onSubmit={authSubmitHandler} className="login-form">
       <div className="form-inner">
         <h2>{t("connexion")}</h2>
 
         <div className="controles-rows">
           <div className="controles no-margin">
-            <label>{t("email")} :</label>
+            <label htmlFor="email">{t("email")} :</label>
             <input
               type="email"
+              id="email"
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
+
+          <div className="controles no-margin">
+            <label htmlFor="mdp">{t("form.mot_de_passe")} :</label>
+            <input
+              type="password"
+              id="mdp"
+              name="mdp"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="typeCompte">
+          <button
+            type="button"
+            className={typeCompte === "Client" ? "active" : ""}
+            onClick={() => {
+              setTypeCompte("Client");
+              setMessage({ type: "info", text: t("msg_client") });
+            }}
+          >
+            {t("client")}
+          </button>
+
+          <button
+            type="button"
+            className={typeCompte === "Employé" ? "active" : ""}
+            onClick={() => {
+              setTypeCompte("Employé");
+              setMessage({ type: "info", text: t("msg_employe") });
+            }}
+          >
+            {t("employe")}
+          </button>
+        </div>
+
+        {error && <div className="message erreur">{error}</div>}
+        {message && <div className={`message ${message.type}`}>{message.text}</div>}
+
+        <div className="form-actions">
+          <button className="boutonLog" type="submit">
+            <strong>{t("connexion")}</strong>
+          </button>
         </div>
       </div>
-      <div className="controles-rows">
-        <div className="controles no-margin"></div>
-        <label>{t("form.mot_de_passe")} :</label>
-        <input
-          type="password"
-          name="mdp"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-
-      </div>
-
-
-
-      <div className="typeCompte">
-        <a onClick={() => {
-          setTypeCompte("Client");
-          setMessage({ type: "info", text: t("msg_client") });
-        }}>
-          <strong>{t("client")}</strong>
-        </a>
-
-        <a onClick={() => {
-          setTypeCompte("Employé");
-          setMessage({ type: "info", text: t("msg_employe") });
-        }}>
-          <strong>{t("employe")}</strong>
-        </a>
-      </div>
-
-      {error && <div className="message erreur">{error}</div>}
-      {message && <div className={`message ${message.type}`}>{message.text}</div>}
-
-      <p className="form-actions">
-        <button className="boutonLog" type="submit">
-          <strong>{t("connexion")}</strong>
-        </button>
-      </p>
     </form>
+
   );
 }

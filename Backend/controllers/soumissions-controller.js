@@ -307,3 +307,4 @@ exports.soumissionList = soumissionList;
 exports.addSoumission = addSoumission;
 exports.majSoumission = modifierSoumission;
 exports.supprimerSoumission = deleteSoumission;
+exports.ajouterNote = ajouterNote;

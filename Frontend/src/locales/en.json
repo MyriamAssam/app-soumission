@@ -22,7 +22,8 @@
     },
     "register": {
         "inscription": "Register",
-        "btn": "Register"
+        "btn": "Register",
+        "messageinscription": "Login or sign in to manage your quotes!"
     },
     "soumission": {
         "modifSoumission": "Edit submission",

@@ -37,9 +37,10 @@
   align-items: center;
   gap: 1rem;
   height: 100%;
-  margin-left: 2rem;
-  /* ✅ Décale les liens vers la droite */
+  margin-left: 4rem;
+  /* ✅ augmente l’espace entre “Soumissions” et les boutons */
 }
+
 
 
 

@@ -60,13 +60,13 @@ const AddSoumi = () => {
 
     return (
         <form onSubmit={addSoumiSubmitHandler}>
-            <h2>{isEdit ? t("modifSoumission") : t("creerSoumission")}</h2>
+            <h2>{isEdit ? t("soumission.modifSoumission") : t("soumission.modifSoumission")}</h2>
 
             <div className="controles-rows">
                 <div className="controles no-margin">
-                    <label>{t("typeTravaux")} :</label>
+                    <label>{t("soumission.typeTravaux")} :</label>
                     <select name="travaux" required defaultValue="">
-                        <option value="" disabled>{t("selectionType")}</option>
+                        <option value="" disabled>{t("soumission.selectionType")}</option>
                         {[
                             "portes et fenêtres", "extérieur", "salle de bain", "toiture",
                             "plancher", "climatisation", "électricité", "plomberie",
@@ -81,29 +81,29 @@ const AddSoumi = () => {
 
             <div className="controles-rows">
                 <div className="controles no-margin">
-                    <label>{t("email")} :</label>
+                    <label>{t("profil.email")} :</label>
                     <input type="email" value={emailField} readOnly />
                 </div>
                 <div className="controles no-margin">
-                    <label>{t("adresse")} :</label>
+                    <label>{t("profil.adresse")} :</label>
                     <input type="text" value={adresseField} readOnly />
                 </div>
                 <div className="controles no-margin">
-                    <label>{t("telephone")} :</label>
+                    <label>{t("profil.telephone")} :</label>
                     <input type="text" value={telephoneField} readOnly />
                 </div>
             </div>
 
             <div className="controles-rows">
                 <div className="controles no-margin">
-                    <label>{t("description")} : </label>
+                    <label>{t("details.description")} : </label>
                     <textarea name="description" cols="60" rows="5" defaultValue={description}></textarea>
                 </div>
             </div>
 
             <p className="form-actions">
                 <button className="boutonLog" type="submit">
-                    {isEdit ? t("modifier") : t("creer")}
+                    {isEdit ? t("soumission.modifier") : t("soumission.creer")}
                 </button>
             </p>
         </form>

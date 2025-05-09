@@ -43,8 +43,7 @@
   align-items: center;
   height: 100%;
   gap: 2rem;
-  /* un peu plus large */
-  margin-left: 4rem;
+  margin-left: 6rem;
   /* tu peux augmenter ici si tu veux les pousser plus à droite */
 }
 

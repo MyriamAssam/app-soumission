@@ -166,6 +166,21 @@ fieldset {
   justify-content: center;
 }
 
+.controles-rows>.controles {
+  margin-bottom: 1rem;
+  /* espace entre les champs */
+}
+
+.typeCompte {
+  margin-top: 1rem;
+  /* espace au-dessus des boutons Client/Employé */
+}
+
+.form-actions {
+  margin-top: 1.5rem;
+  /* espace avant le bouton Connexion */
+}
+
 .boutonLog {
   padding: 0.5rem 1rem;
   font-size: 1rem;

@@ -45,9 +45,7 @@ const DetailSoumission = () => {
         setNote(listeNotes[index].texte);
         setNoteIdEnCours(listeNotes[index].id);
 
-        const newNotes = [...listeNotes];
-        newNotes.splice(index, 1);
-        setListeNotes(newNotes);
+
     };
 
     const handleDeleteNote = async (index) => {

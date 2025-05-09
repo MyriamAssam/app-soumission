@@ -86,18 +86,18 @@ export default function Login() {
         </div>
       </div>
       <div className="controles-rows">
-        <div className="controles mdp-field">
 
-          <input
-            type="password"
-            name="mdp"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <p className="mdp-info">{t("mdp")}</p>
-        </div>
+        <label>{t("form.mot_de_passe")} :</label>
+        <input
+          type="password"
+          name="mdp"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
       </div>
+
 
 
       <div className="typeCompte">

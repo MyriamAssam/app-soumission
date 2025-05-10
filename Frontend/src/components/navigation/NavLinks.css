@@ -7,7 +7,7 @@
   margin: 0;
   gap: 1rem;
   height: 100%;
-  /* ✅ nécessaire pour le centrage vertical */
+
 }
 
 .navi-links a {

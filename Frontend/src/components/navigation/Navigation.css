@@ -59,14 +59,14 @@
   align-items: center;
   gap: 1rem;
   margin-left: -1rem;
-  /* pousse un peu Soumissions à gauche */
+
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  margin-right: 1rem;
-  /* pousse un peu le logo vers la droite */
+  margin-right: -1rem;
+
 }
 
 .logo-style {

@@ -84,7 +84,7 @@ export default function Login() {
               required
             />
           </div>
-
+          <br />
           <div className="controles no-margin">
             <label htmlFor="mdp">{t("form.mot_de_passe")} :</label>
             <input

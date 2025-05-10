@@ -90,16 +90,18 @@ const AddSoumi = () => {
                     <label>{t("profil.email")} :</label>
                     <input type="email" value={emailField} readOnly />
                 </div>
+                <br />
                 <div className="controles no-margin">
                     <label>{t("profil.adresse")} :</label>
                     <input type="text" value={adresseField} readOnly />
                 </div>
+                <br />
                 <div className="controles no-margin">
                     <label>{t("profil.telephone")} :</label>
                     <input type="text" value={telephoneField} readOnly />
                 </div>
             </div>
-
+            <br />
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>{t("details.description")} : </label>

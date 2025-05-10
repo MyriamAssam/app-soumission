@@ -101,7 +101,7 @@ const AddSoumi = () => {
                     <input type="text" value={telephoneField} readOnly />
                 </div>
             </div>
-            <br />
+
             <div className="controles-rows">
                 <div className="controles no-margin">
                     <label>{t("details.description")} : </label>

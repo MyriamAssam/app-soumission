@@ -17,7 +17,8 @@ const ListeSoumissions = () => {
 
 
     useEffect(() => {
-        moment.locale(i18n.language);
+        const lang = i18n.language.startsWith("fr") ? "fr" : "en-ca";
+        moment.locale(lang);
     }, [i18n.language]);
 
     useEffect(() => {

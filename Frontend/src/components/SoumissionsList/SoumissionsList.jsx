@@ -83,7 +83,7 @@ const ListeSoumissions = () => {
                         }}
                     >
                         {soumi.description
-                            ? `${soumi.description} - ${moment(soumi.date).format("LLL")}`
+                            ? `${soumi.description} - ${moment(soumi.date).locale(i18n.language).format("LLL")}`
                             : t("soumissions.aucune_description")}
                     </li>
                 ))}

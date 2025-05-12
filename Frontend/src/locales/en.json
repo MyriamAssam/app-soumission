@@ -117,5 +117,6 @@
     "error_occurred": "An error occurred.",
     "titreToutesSoumissions": "All submissions",
     "pasDeDescription": "No description",
-    "connectezVousPourVoir": "Please log in to see the details."
+    "connectezVousPourVoir": "Please log in to see the details.",
+    "specialite": "Select the same speciality if you don't want to change it. "
 }

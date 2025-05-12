@@ -143,6 +143,7 @@ export default function Profile() {
 
             {formData.role === "employé" && (
                 <div className="controles">
+                    <label>{t("specialite")} :</label>
                     <label>{t("profil.specialite")} :</label>
                     <select name="specialite" value={formData.specialite} onChange={handleChange} required>
                         {[

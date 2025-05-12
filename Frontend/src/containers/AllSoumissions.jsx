@@ -22,6 +22,9 @@ const AllSoumissions = () => {
         };
         fetchAllSoumissions();
     }, []);
+    useEffect(() => {
+        moment.locale(i18n.language);
+    }, [i18n.language]);
 
     const handleClick = (soumi) => {
         navigate(`/soumission/${soumi.id}`, { state: { soumi } });
@@ -41,7 +44,8 @@ const AllSoumissions = () => {
                         style={{ cursor: "pointer", borderBottom: "1px solid #ccc", padding: "10px" }}
                         onClick={() => handleClick(soumi)}
                     >
-                        <strong>{soumi.prenomClient}</strong> - {moment(soumi.date).format("DD MMM YYYY [à] HH:mm")}
+                        <strong>{soumi.prenomClient}</strong> - {moment(soumi.date).locale(i18n.language).format("LLL")
+                        }
                         <br />
                         {soumi.description || t("pasDeDescription")}
                     </li>

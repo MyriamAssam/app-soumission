@@ -4,6 +4,7 @@ import { AuthContext } from "../components/context/AuthContext";
 import moment from "moment";
 import "moment/locale/fr";
 import { useTranslation } from "react-i18next";
+import "moment/locale/en-ca";
 
 const AllSoumissions = () => {
     const { t, i18n } = useTranslation();

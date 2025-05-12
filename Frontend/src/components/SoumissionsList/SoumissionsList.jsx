@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import moment from "moment";
 import "moment/locale/fr";
+import "moment/locale/en-ca";
 
 
 const ListeSoumissions = () => {

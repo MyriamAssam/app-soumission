@@ -24,6 +24,8 @@ const AddSoumi = () => {
         setTelephoneField(auth.user?.telephone || "");
     }, [auth.user]);
 
+
+
     async function addSoumiSubmitHandler(event) {
         event.preventDefault();
         const fd = new FormData(event.target);

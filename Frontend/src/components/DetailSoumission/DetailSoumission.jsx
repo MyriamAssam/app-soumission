@@ -158,7 +158,7 @@ const DetailSoumission = () => {
             <p><strong>{t("details.telephone")} :</strong> {formatPhoneNumber(soumi.telephone)}</p>
             <p><strong>{t("details.description")} :</strong> {soumi.description}</p>
             <p><strong>{t("details.travaux")} :</strong> {soumi.travaux?.join(", ")}</p>
-            <p><strong>{t("details.date")} :</strong> {moment(soumi.date).format("DD MMMM YYYY [à] HH:mm")}</p>
+            <p><strong>{t("details.date")} :</strong> {moment(soumi.date).locale(i18n.language).format("LLL")}</p>
 
             <label><strong>{t("details.note")}</strong></label><br />
             <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={5} cols={50}></textarea><br />

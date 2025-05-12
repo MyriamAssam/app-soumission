@@ -6,7 +6,8 @@ import "./DetailSoumission.css";
 import moment from "moment";
 
 const DetailSoumission = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
     const navigate = useNavigate();
     const location = useLocation();
     const { soumi } = location.state || {};

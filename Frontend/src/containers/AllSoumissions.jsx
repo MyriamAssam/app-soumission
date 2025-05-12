@@ -6,7 +6,8 @@ import "moment/locale/fr";
 import { useTranslation } from "react-i18next";
 
 const AllSoumissions = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
     const [soumissions, setSoumissions] = useState([]);
     const navigate = useNavigate();
     const auth = useContext(AuthContext);

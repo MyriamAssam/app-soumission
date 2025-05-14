@@ -23,7 +23,8 @@ const Navigation = () => {
         </div>
 
         <div className={`main-navigation_entete-nav ${menuOpen ? "open" : ""}`}>
-          <ul className="navi-links"><NavLinks /></ul>
+          <ul className="navi-links"><NavLinks onLinkClick={() => setMenuOpen(false)} /></ul>
+
         </div>
 
         <div className="logo-container">

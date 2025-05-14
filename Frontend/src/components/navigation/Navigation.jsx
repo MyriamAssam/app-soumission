@@ -17,7 +17,6 @@ const Navigation = () => {
           <LanguageSwitcher />
         </div>
 
-        {/* DOIT être ici, pas dans left-zone */}
         <div className="burger" onClick={() => setMenuOpen(prev => !prev)}>
           ☰
         </div>
@@ -25,11 +24,8 @@ const Navigation = () => {
         <div className={`main-navigation_entete-nav ${menuOpen ? "open" : ""}`}>
           <ul className="navi-links"><NavLinks onLinkClick={() => setMenuOpen(false)} /></ul>
         </div>
-
-        <div className="logo-container">
-          <img src={require("./images/logomenu.png")} alt="Logo" className="logo-style" />
-        </div>
       </header>
+
 
 
     </div>

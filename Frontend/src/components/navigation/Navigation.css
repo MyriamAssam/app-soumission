@@ -92,46 +92,50 @@ main {
 }
 
 @media (min-width: 768px) {
-  .main-entete {
-    justify-content: space-between;
+
+
+  .main-navigation_titre {
+    color: white;
   }
-}
-
-.main-navigation_titre {
-  color: white;
-}
-
-.burger {
-  display: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: white;
-  margin-left: auto;
-  padding: 0.5rem;
 }
 
 @media (max-width: 768px) {
+  .main-entete {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    padding: 0.5rem 1rem;
+  }
+
+  .left-zone {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    flex-grow: 1;
+  }
+
   .burger {
     display: block;
+    z-index: 100;
   }
 
   .main-navigation_entete-nav {
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    background-color: rgb(207, 155, 231);
-    padding: 1rem;
     position: absolute;
     top: 4.5rem;
     left: 0;
-    z-index: 99;
+    right: 0;
+    background-color: rgb(207, 155, 231);
+    display: none;
+    flex-direction: column;
+    padding: 1rem;
   }
 
   .main-navigation_entete-nav.open {
     display: flex;
   }
 }
+
 
 
 

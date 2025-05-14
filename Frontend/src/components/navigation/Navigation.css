@@ -91,6 +91,18 @@ main {
   margin-top: 5rem;
 }
 
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-right: -3rem;
+}
+
+@media (max-width: 768px) {
+  .logo-container {
+    display: none;
+  }
+}
+
 @media (min-width: 768px) {
 
 
@@ -186,8 +198,5 @@ main {
     display: flex;
   }
 
-  .logo-container {
-    display: none;
-    /* optionnel pour gagner de l’espace */
-  }
+
 }

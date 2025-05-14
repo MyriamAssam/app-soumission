@@ -16,7 +16,9 @@ const Navigation = () => {
           </div>
           <LanguageSwitcher />
         </div>
-
+        <div className="logo-container">
+          <img src={require("./images/logomenu.png")} alt="Logo" className="logo-style" />
+        </div>
         <div className="burger" onClick={() => setMenuOpen(prev => !prev)}>
           ☰
         </div>

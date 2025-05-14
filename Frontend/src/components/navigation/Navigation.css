@@ -106,6 +106,8 @@ main {
   font-size: 2rem;
   cursor: pointer;
   color: white;
+  margin-left: auto;
+  padding: 0.5rem;
 }
 
 @media (max-width: 768px) {
@@ -130,6 +132,7 @@ main {
     display: flex;
   }
 }
+
 
 
 

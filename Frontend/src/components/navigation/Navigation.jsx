@@ -17,12 +17,11 @@ const Navigation = () => {
           <LanguageSwitcher />
         </div>
 
-        {/* ✅ Bouton hamburger */}
+        {/* ✅ Bouton hamburger ici */}
         <div className="burger" onClick={() => setMenuOpen(prev => !prev)}>
           ☰
         </div>
 
-        {/* ✅ Menu mobile toggle */}
         <div className={`main-navigation_entete-nav ${menuOpen ? "open" : ""}`}>
           <ul className="navi-links"><NavLinks /></ul>
         </div>
@@ -31,6 +30,7 @@ const Navigation = () => {
           <img src={require("./images/logomenu.png")} alt="Logo" className="logo-style" />
         </div>
       </header>
+
     </div>
   );
 };

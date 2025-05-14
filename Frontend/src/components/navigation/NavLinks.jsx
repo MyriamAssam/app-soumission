@@ -7,7 +7,7 @@ import { AuthContext } from "../context/AuthContext";
 
 
 
-const NavLinks = () => {
+const NavLinks = ({ onLinkClick }) => {
   const auth = useContext(AuthContext);
   const { t } = useTranslation();
   const [type, setType] = useState("");
@@ -31,16 +31,16 @@ const NavLinks = () => {
     <>
       {auth.user === null ? (
         <>
-          <li><NavLink to="/connexion">{t("nav.login")}</NavLink></li>
-          <li><NavLink to="/register">{t("nav.register")}</NavLink></li>
-          <li><NavLink to="/all">{t("nav.allSubmissions")}</NavLink></li>
+          <li><NavLink to="/connexion" onClick={onLinkClick}>{t("nav.login")}</NavLink></li>
+          <li><NavLink to="/register" onClick={onLinkClick}>{t("nav.register")}</NavLink></li>
+          <li><NavLink to="/all" onClick={onLinkClick}>{t("nav.allSubmissions")}</NavLink></li>
         </>
       ) : (
         <>
-          <li><NavLink to="/connexion" onClick={() => auth.logout()}>{t("nav.logout")}</NavLink></li>
-          <li><NavLink to="/profil">{t("nav.profile")}</NavLink></li>
-          <li><NavLink to="/soumissions">{t("nav.myList")}</NavLink></li>
-          <li><NavLink to="/all">{t("nav.allSubmissions")}</NavLink></li>
+          <li><NavLink to="/connexion" onClick={() => { auth.logout(); onLinkClick(); }}>{t("nav.logout")}</NavLink></li>
+          <li><NavLink to="/profil" onClick={onLinkClick}>{t("nav.profile")}</NavLink></li>
+          <li><NavLink to="/soumissions" onClick={onLinkClick}>{t("nav.myList")}</NavLink></li>
+          <li><NavLink to="/all" onClick={onLinkClick}>{t("nav.allSubmissions")}</NavLink></li>
         </>
       )}
     </>

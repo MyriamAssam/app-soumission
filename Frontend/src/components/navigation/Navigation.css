@@ -51,8 +51,10 @@
   align-items: center;
   gap: 2rem;
   flex-grow: 1;
-  /* ✅ Pour que les liens occupent l’espace restant */
+  justify-content: center;
+  /* ✅ Ajout */
 }
+
 
 
 .left-zone {

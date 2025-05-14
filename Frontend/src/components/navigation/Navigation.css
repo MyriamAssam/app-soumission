@@ -105,8 +105,34 @@ main {
 
 
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
+  .main-entete {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 0.5rem 1rem;
+  }
+
   .main-navigation_entete-nav {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0.5rem;
+    margin-left: 0;
+    padding: 0.5rem 1rem;
+  }
+
+  .left-zone {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .logo-container {
+    justify-content: flex-start;
+    width: 100%;
+    margin: 0;
   }
 }

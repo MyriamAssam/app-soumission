@@ -16,17 +16,22 @@ const Navigation = () => {
           </div>
           <LanguageSwitcher />
         </div>
-        <div className="logo-container">
-          <img src={require("./images/logomenu.png")} alt="Logo" className="logo-style" />
-        </div>
-        <div className="burger" onClick={() => setMenuOpen(prev => !prev)}>
-          ☰
-        </div>
 
         <div className={`main-navigation_entete-nav ${menuOpen ? "open" : ""}`}>
           <ul className="navi-links"><NavLinks onLinkClick={() => setMenuOpen(false)} /></ul>
         </div>
+
+        {/* Le logo à la fin pour qu’il soit à droite des liens */}
+        <div className="logo-container">
+          <img src={require("./images/logomenu.png")} alt="Logo" className="logo-style" />
+        </div>
+
+        {/* Hamburger (visible uniquement sur mobile) */}
+        <div className="burger" onClick={() => setMenuOpen(prev => !prev)}>
+          ☰
+        </div>
       </header>
+
 
 
 

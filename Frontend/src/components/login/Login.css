@@ -1,7 +1,7 @@
 form {
   width: 90%;
   max-width: 40rem;
-  margin: 3rem auto 1rem auto;
+  margin: 1.5rem auto;
   padding: 1rem 2rem 2rem 2rem;
   background: rgb(207, 155, 231);
   border-radius: 8px;
@@ -14,8 +14,7 @@ form {
 }
 
 .form-inner {
-  transform: translateY(-2rem);
-  /* Ajuste à ta convenance */
+  transform: translateY(-3.5rem);
 }
 
 .typeCompte button {

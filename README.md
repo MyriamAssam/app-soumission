@@ -21,8 +21,7 @@ Je cherche des opportunités dans le développement ou le soutien technique, id�
 ### 🔹 Application mobile – Estimation travaux (Stage Bâti Québec)
 - Plateforme : Android Studio (Java)
 - Fonction : Estimer le coût des rénovations
-- Backend : MongoDB / Node.js
-- ✔️ Gestion des soumissions, calculs dynamiques, interface adaptée aux utilisateurs
+- ✔️ Estimation des couts de travaux en fonction des matériaux, des dimensions et du cout de la main d'oeuvre
 
 🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/app-estimation)
 
@@ -31,9 +30,25 @@ Je cherche des opportunités dans le développement ou le soutien technique, id�
 ### 🔹 Site web – Bâti Québec Soumissions
 - Plateforme : React + MongoDB + Postman API
 - Fonction : Création et gestion de soumissions
-- Fonctionnalité : Gestion des rôles, formulaire dynamique, i18n
+- Fonctionnalité : Gestion des rôles, formulaire dynamique, i18n (traduction anglais)
 
 🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/app-soumission)
+
+---
+### 🔹 Application mobile – Bâti Québec Soumissions
+- Plateforme : Android Studio
+- Fonction : Création et gestion de soumissions
+- Fonctionnalité : Même chose que le site
+
+🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/soumissions-and.git)
+
+---
+
+### 🔹 Site web – Bâti Québec (site de la compagnie)
+- Plateforme : React + MongoDB + Postman API
+- Fonction : Site de la compagnie, prise de rdv et demande de contact
+
+🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/bati.git)
 
 ---
 
@@ -44,6 +59,7 @@ Je cherche des opportunités dans le développement ou le soutien technique, id�
 - **Outils** : Git, GitHub, Postman, VSCode
 
 ---
+
 
 Merci de votre visite ! N'hésitez pas à me contacter pour toute opportunité ou collaboration.
 

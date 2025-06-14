@@ -33,7 +33,7 @@ Je cherche des opportunités dans le développement ou le soutien technique, id�
 - Fonction : Création et gestion de soumissions
 - Fonctionnalité : Gestion des rôles, formulaire dynamique, i18n
 
-🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/site-soumissions)
+🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/app-soumission)
 
 ---
 

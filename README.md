@@ -12,7 +12,7 @@ Je cherche des opportunités dans le développement ou le soutien technique, id�
 
 📫 Contact : myriamassamea@hotmail.com  
 🌐 LinkedIn : [linkedin.com/in/myriamassam](https://www.linkedin.com/feed/?trk=public_profile_not-found-log-in_google-one-tap-submit)  
-💻 GitHub : [github.com/MyriamAssam](https://github.com/MyriamAssam)
+💻 GitHub : [github.com/MyriamAssam](https://github.com/MyriamAssam/app-soumission)
 
 ---
 

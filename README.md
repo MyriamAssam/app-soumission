@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Portfolio – Myriam Assam
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bienvenue sur mon portfolio de projets réalisés lors de mon stage chez Bâti Québec.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 👩‍💻 À propos
 
-### `npm start`
+Je suis diplômée en informatique (2025) et passionnée par le développement d'applications web et mobiles. J’ai travaillé sur divers projets utilisant React, JavaScript, Android Studio, MongoDB et plus encore.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Je cherche des opportunités dans le développement ou le soutien technique, idéalement en présentiel ou hybride.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+📫 Contact : myriamassamea@hotmail.com  
+🌐 LinkedIn : [linkedin.com/in/myriamassam](https://www.linkedin.com/feed/?trk=public_profile_not-found-log-in_google-one-tap-submit)  
+💻 GitHub : [github.com/MyriamAssam](https://github.com/MyriamAssam/app-soumission)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📂 Projets en vedette
 
-### `npm run build`
+### 🔹 Application mobile – Estimation travaux (Stage Bâti Québec)
+- Plateforme : Android Studio (Java)
+- Fonction : Estimer le coût des rénovations
+- ✔️ Estimation des couts de travaux en fonction des matériaux, des dimensions et du cout de la main d'oeuvre
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/app-estimation)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🔹 Site web – Bâti Québec Soumissions
+- Plateforme : React + MongoDB + Postman API
+- Fonction : Création et gestion de soumissions
+- Fonctionnalité : Gestion des rôles, formulaire dynamique, i18n (traduction anglais)
 
-### `npm run eject`
+🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/app-soumission)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
+### 🔹 Application mobile – Bâti Québec Soumissions
+- Plateforme : Android Studio
+- Fonction : Création et gestion de soumissions
+- Fonctionnalité : Même chose que le site
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/soumissions-and.git)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 🔹 Site web – Bâti Québec (site de la compagnie)
+- Plateforme : React + MongoDB + Postman API
+- Fonction : Site de la compagnie, prise de rdv et demande de contact
 
-## Learn More
+🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/bati.git)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📌 Compétences techniques
 
-### Code Splitting
+- **Langages** : JavaScript, Java, PHP, Python, C++
+- **Technologies** : React, Node.js, MongoDB, MySQL, Android Studio
+- **Outils** : Git, GitHub, Postman, VSCode
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Merci de votre visite ! N'hésitez pas à me contacter pour toute opportunité ou collaboration.
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

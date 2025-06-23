@@ -311,6 +311,59 @@ const deleteSoumission = async (req, res, next) => {
         );
     }
 };
+const getNotes = async (req, res, next) => {
+    const { oId } = req.params;
+    const { role } = req.query;
+
+    if (!role || (role !== "client" && role !== "employé")) {
+        return next(new HttpError("Rôle invalide (client ou employé requis).", 400));
+    }
+
+    const champNote = role === "client" ? "notesClients" : "notesEmployes";
+
+    try {
+        const soumission = await SOUMISSIONS.findById(oId);
+        if (!soumission) {
+            return next(new HttpError("Soumission introuvable.", 404));
+        }
+
+        res.status(200).json({ notes: soumission[champNote] });
+    } catch (err) {
+        console.error(err);
+        return next(new HttpError("Erreur lors de la récupération des notes.", 500));
+    }
+};
+const deleteNote = async (req, res, next) => {
+    const { oId, noteId } = req.params;
+    const { role } = req.query;
+
+    const champNote = role === "client" ? "notesClients" :
+        role === "employé" ? "notesEmployes" : null;
+
+    if (!champNote) {
+        return next(new HttpError("Rôle invalide (client ou employé requis).", 400));
+    }
+
+    try {
+        const soumission = await SOUMISSIONS.findById(oId);
+        if (!soumission) {
+            return next(new HttpError("Soumission introuvable.", 404));
+        }
+
+        const index = soumission[champNote].findIndex(n => n.id === noteId);
+        if (index === -1) {
+            return next(new HttpError("Note introuvable.", 404));
+        }
+
+        soumission[champNote].splice(index, 1);
+        await soumission.save();
+
+        res.status(200).json({ message: "Note supprimée avec succès." });
+    } catch (err) {
+        console.error(err);
+        return next(new HttpError("Erreur lors de la suppression de la note.", 500));
+    }
+};
 
 // --- EXPORTS ---
 exports.getAllSoumissions = getAllSoumissions;
@@ -322,4 +375,7 @@ exports.addSoumission = addSoumission;
 exports.majSoumission = modifierSoumission;
 exports.supprimerSoumission = deleteSoumission;
 exports.ajouterNote = ajouterNote;
-exports.modifierNote = modifierNote; 
+exports.modifierNote = modifierNote;
+exports.getNotes = getNotes;
+exports.deleteNote = deleteNote;
+

@@ -17,8 +17,8 @@ const soumissionSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now },
     notesClients: [
         {
-            _id: false, // pour éviter que Mongoose crée un _id automatiquement
-            id: String, // <-- ajout de cet identifiant
+            _id: false,
+            id: String,
             auteur: String,
             texte: String,
             date: { type: Date, default: Date.now }

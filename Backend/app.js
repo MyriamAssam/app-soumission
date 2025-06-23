@@ -11,10 +11,11 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: "https://app-soumission.onrender.com",
+  origin: "*", // TEMPORAIRE pour tester
   methods: "GET,POST,PUT,PATCH,DELETE",
   credentials: true
 }));
+
 
 // Ajout recommandé pour les requêtes préflight
 app.use((req, res, next) => {

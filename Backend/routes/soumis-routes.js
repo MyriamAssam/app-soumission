@@ -10,6 +10,8 @@ router.get("/employe/:id", soumissionController.soumissionList);
 router.get("/find/:oId", soumissionController.getSoumissionById);
 router.post("/find", soumissionController.recherche);
 router.patch("/:oId/note/:noteId", soumissionController.modifierNote);
+router.get("/:oId/notes", soumissionController.getNotes);
+router.delete("/:oId/notes/:noteId", soumissionController.deleteNote);
 
 
 

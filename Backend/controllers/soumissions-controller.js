@@ -166,7 +166,8 @@ const addSoumission = async (req, res, next) => {
         telephone,
         employeurId: employeurId ? new mongoose.Types.ObjectId(employeurId) : null,
         prenomClient,
-        clientId: clientObjectId,
+
+        clientId,
         travaux
     });
 

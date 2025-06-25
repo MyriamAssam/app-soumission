@@ -138,7 +138,8 @@ const findSoumissionsByEmail = async (req, res, next) => {
 
 
 const addSoumission = async (req, res, next) => {
-    const { adresse,
+    const {
+        adresse,
         prenomClient,
         nomEmployeur = null,
         email,
@@ -149,24 +150,32 @@ const addSoumission = async (req, res, next) => {
         clientId
     } = req.body;
 
+    // ✅ Convertir en ObjectId
+    let clientObjectId;
+    try {
+        clientObjectId = new mongoose.Types.ObjectId(clientId);
+    } catch (err) {
+        return next(new HttpError("ID client invalide.", 400));
+    }
+
     const newSoumission = new SOUMISSIONS({
         adresse,
         nomEmployeur,
         email,
         description,
         telephone,
-        employeurId,
+        employeurId: employeurId ? new mongoose.Types.ObjectId(employeurId) : null,
         prenomClient,
-        clientId: req.body.clientId,
+        clientId: clientObjectId,
         travaux
-
     });
 
     try {
         await newSoumission.save();
         res.status(201).json({ soumission: newSoumission.toObject({ getters: true }) });
     } catch (err) {
-        return next(new HttpError("Adding soumission failed, please try again.", 500));
+        console.error("Erreur addSoumission:", err);
+        return next(new HttpError("Ajout de la soumission échoué.", 500));
     }
 };
 

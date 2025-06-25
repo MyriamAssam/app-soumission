@@ -49,7 +49,7 @@ router.patch("/:oId/notes/clear", async (req, res, next) => {
 // ROUTES GÉNÉRIQUES PROTÉGÉES
 router.get("/", soumissionController.getAllSoumissions);
 router.patch("/:oId/note", soumissionController.ajouterNote);
-router.post("/", soumissionController.addSoumission);
+router.post("/", checkAuth, soumissionController.addSoumission);
 router.put("/:oId", soumissionController.majSoumission);
 router.delete("/:oId", soumissionController.supprimerSoumission);
 

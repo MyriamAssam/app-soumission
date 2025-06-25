@@ -111,7 +111,7 @@ const registerUser = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: createdUser.id, email: email, role: createdUser.role, specialite: createdUser.specialite },
-      "tpsyntheseMelia&Ivan-cours4a5",
+      "ProjetDeveloppment2024",
       { expiresIn: "24h" }
     );
   } catch (e) {
@@ -155,7 +155,7 @@ const login = async (req, res, next) => {
     try {
       token = jwt.sign(
         { userId: existingUser.id, email: existingUser.email },
-        "tpsyntheseMelia&Ivan-cours4a5",
+        "ProjetDeveloppment2024",
         { expiresIn: "24h" }
       );
     } catch (e) {

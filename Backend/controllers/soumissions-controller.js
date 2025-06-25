@@ -94,9 +94,11 @@ const addSoumission = async (req, res, next) => {
         description,
         telephone,
         employeurId = null,
-        travaux,
-        clientId
+        travaux
     } = req.body;
+
+    const clientId = req.userData.userId; // ✅ récupéré du token
+
 
     // ✅ Convertir en ObjectId
     let clientObjectId;

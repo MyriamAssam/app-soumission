@@ -11,19 +11,11 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: "*", // TEMPORAIRE pour tester
-  methods: "GET,POST,PUT,PATCH,DELETE",
+  origin: "https://app-soumission.onrender.com",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
-
-
-// Ajout recommandé pour les requêtes préflight
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://app-soumission.onrender.com");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
-  next();
-});
 
 app.use(bodyParser.json());
 app.options("*", (req, res) => res.sendStatus(200));

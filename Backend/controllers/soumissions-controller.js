@@ -2,7 +2,6 @@ const SOUMISSIONS = require("../models/soumission");
 const HttpError = require("../util/http-error");
 const mongoose = require("mongoose");
 
-
 const getAllSoumissions = async (req, res, next) => {
     let soumissions;
     try {
@@ -12,128 +11,77 @@ const getAllSoumissions = async (req, res, next) => {
         }
     } catch (e) {
         console.log(e);
-        return next(
-            new HttpError(
-                "Échec lors de la récupération des soumissions, veuillez réessayer plus tard",
-                500
-            )
-        );
+        return next(new HttpError("Échec lors de la récupération des soumissions, veuillez réessayer plus tard", 500));
     }
-    res.json({ soumissions: soumissions.map((o) => o.toObject({ getters: true })) });
+    return res.json({ soumissions: soumissions.map((o) => o.toObject({ getters: true })) });
 };
-
-
 
 const getSoumissionById = async (req, res, next) => {
     const oId = req.params.oId;
-
     let soumission;
     try {
         soumission = await SOUMISSIONS.findById(oId);
     } catch (e) {
         console.log(e);
-        return next(
-            new HttpError(
-                "Échec lors de la récupération de la soumission, veuillez réessayer plus tard.",
-                500
-            )
-        );
+        return next(new HttpError("Échec lors de la récupération de la soumission, veuillez réessayer plus tard.", 500));
     }
-
     if (!soumission) {
         return next(new HttpError("Soumission introuvable.", 404));
     }
-
-    res.json({ soumission: soumission.toObject({ getters: true }) });
+    return res.json({ soumission: soumission.toObject({ getters: true }) });
 };
-
 
 const getAllSoumissionsEmployeur = async (req, res, next) => {
     const employeurId = req.params.soumissionId;
-
     let SoumissionsEmployeur;
     try {
         SoumissionsEmployeur = await SOUMISSIONS.find({ employeurId: employeurId });
     } catch (e) {
-        // Vérifier si l'erreur provient du fait que l'utilisateur est introuvable
         if (e.kind == "ObjectId" && e.path == "employeurId") {
             return next(new HttpError("L'utilisateur est introuvable.", 404));
         }
-
         console.log(e);
-        return next(
-            new HttpError(
-                "Échec lors de l'obtention des soumissions de l'utilisateur.",
-                500
-            )
-        );
+        return next(new HttpError("Échec lors de l'obtention des soumissions de l'utilisateur.", 500));
     }
-
     if (SoumissionsEmployeur?.length === 0) {
-        return next(
-            new HttpError(
-                "Cet utilisateur n'a pas encore publié de soumissions ou il est introuvable.",
-                404
-            )
-        );
+        return next(new HttpError("Cet utilisateur n'a pas encore publié de soumissions ou il est introuvable.", 404));
     }
-
-    res.json({
-        soumissions: SoumissionsEmployeur.map((o) => o.toObject({ getters: true })),
-    });
+    return res.json({ soumissions: SoumissionsEmployeur.map((o) => o.toObject({ getters: true })) });
 };
-
 
 const findSoumissionsByEmail = async (req, res, next) => {
     const { employeurId, email } = req.body;
     console.log(`EmployeurId: ${employeurId}, Email: ${email}`);
-
     let soumission = [];
     try {
         if (employeurId && mongoose.isValidObjectId(employeurId)) {
-            (await SOUMISSIONS.find({ employeurId: employeurId })).map((o) =>
-                soumission.push(o)
-            );
+            (await SOUMISSIONS.find({ employeurId: employeurId })).map((o) => soumission.push(o));
         }
         if (email && email.length > 0) {
             if (soumission.length > 0) {
-                soumission = soumission.filter(
-                    (o) =>
-                        o.email.toLowerCase() == email.toLowerCase() ||
-                        o.email.toLowerCase().includes(email.toLowerCase()) ||
-                        email.toLowerCase().includes(o.email.toLowerCase())
+                soumission = soumission.filter((o) =>
+                    o.email.toLowerCase() == email.toLowerCase() ||
+                    o.email.toLowerCase().includes(email.toLowerCase()) ||
+                    email.toLowerCase().includes(o.email.toLowerCase())
                 );
             } else {
                 const allSoumissions = await SOUMISSIONS.find();
-                const allSoumissionsApresFiltre = allSoumissions.filter(
-                    (o) =>
-                        o.email.toLowerCase() == email.toLowerCase() ||
-                        o.email.toLowerCase().includes(email.toLowerCase()) ||
-                        email.toLowerCase().includes(o.email.toLowerCase())
+                const allSoumissionsApresFiltre = allSoumissions.filter((o) =>
+                    o.email.toLowerCase() == email.toLowerCase() ||
+                    o.email.toLowerCase().includes(email.toLowerCase()) ||
+                    email.toLowerCase().includes(o.email.toLowerCase())
                 );
-                allSoumissionsApresFiltre.map((o) => {
-                    soumission.push(o);
-                    console.log("Soumission trouvée par email: ", o);
-                });
+                allSoumissionsApresFiltre.map((o) => soumission.push(o));
             }
         }
     } catch (e) {
         console.log(e);
-        return next(
-            new HttpError(
-                "Échec lors de la recherche de la soumission, veuillez réessayer plus tard.",
-                500
-            )
-        );
+        return next(new HttpError("Échec lors de la recherche de la soumission, veuillez réessayer plus tard.", 500));
     }
-
     if (soumission.length == 0) {
-        return next(
-            new HttpError("Aucune soumission ne correspond à ces filtres.", 404)
-        );
+        return next(new HttpError("Aucune soumission ne correspond à ces filtres.", 404));
     }
-
-    res.json({ soumission: soumission.map((o) => o.toObject({ getters: true })) });
+    return res.json({ soumission: soumission.map((o) => o.toObject({ getters: true })) });
 };
 
 

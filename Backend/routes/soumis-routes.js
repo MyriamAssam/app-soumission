@@ -15,7 +15,7 @@ router.delete("/:oId/notes/:noteId", soumissionController.deleteNote);
 
 
 
-router.patch("/:oId/notes/clear", async (req, res) => {
+router.patch("/:oId/notes/clear", async (req, res, next) => {
     const { role } = req.body;
 
     if (!role) {
@@ -35,12 +35,13 @@ router.patch("/:oId/notes/clear", async (req, res) => {
             return res.status(404).json({ msg: "Soumission introuvable." });
         }
 
-        res.status(200).json({ msg: "Historique des notes supprimé", soumission });
+        return res.status(200).json({ msg: "Historique des notes supprimé", soumission });
     } catch (err) {
         console.error("Erreur suppression notes:", err);
-        res.status(500).json({ msg: "Erreur serveur" });
+        return next(new Error("Erreur serveur"));
     }
 });
+
 
 
 

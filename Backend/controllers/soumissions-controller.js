@@ -109,6 +109,17 @@ const addSoumission = async (req, res, next) => {
     } catch (err) {
         return next(new HttpError("ID client invalide.", 400));
     }
+    console.log("===== [addSoumission] Début de la requête =====");
+    console.log("Header Authorization:", req.headers.authorization);
+    console.log("Données extraites du token (req.userData):", req.userData);
+    console.log("Body reçu:", req.body);
+    console.log("Adresse:", req.body.adresse);
+    console.log("Prenom client:", req.body.prenomClient);
+    console.log("Email:", req.body.email);
+    console.log("Téléphone:", req.body.telephone);
+    console.log("Travaux:", req.body.travaux);
+    console.log("Client ID (token):", req.userData?.userId);
+    console.log("===============================================");
 
     const newSoumission = new SOUMISSIONS({
         adresse,

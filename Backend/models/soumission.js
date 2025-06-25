@@ -1,19 +1,14 @@
-// models/soumission.js
 const mongoose = require("mongoose");
 
 const soumissionSchema = new mongoose.Schema({
-    adresse: { type: String },
-    prenomClient: { type: String },
+    adresse: { type: String, required: true },
+    prenomClient: { type: String, required: true },
     nomEmployeur: { type: String },
     email: { type: String, required: true },
-    description: { type: String },
-    telephone: { type: String },
+    description: { type: String, required: true },
+    telephone: { type: String, required: true },
     employeurId: { type: mongoose.Types.ObjectId, ref: "User" },
-
-
-
-    clientId: { type: String, required: true },
-
+    clientId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
     travaux: [{ type: String }],
     date: { type: Date, default: Date.now },
     notesClients: [
@@ -28,13 +23,12 @@ const soumissionSchema = new mongoose.Schema({
     notesEmployes: [
         {
             _id: false,
-            id: String, // ⬅️ ajoute ceci
+            id: String,
             auteur: String,
             texte: String,
             date: { type: Date, default: Date.now }
         }
     ]
-
 });
 
 module.exports = mongoose.model("Soumission", soumissionSchema);

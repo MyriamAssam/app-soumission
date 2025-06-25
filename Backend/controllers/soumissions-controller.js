@@ -97,10 +97,12 @@ const addSoumission = async (req, res, next) => {
         travaux
     } = req.body;
 
-    const clientId = req.userData.userId; // ✅ récupéré du token
+    const clientId = req.userData?.userId;
 
+    if (!clientId) {
+        return next(new HttpError("Client non authentifié.", 401));
+    }
 
-    // ✅ Convertir en ObjectId
     let clientObjectId;
     try {
         clientObjectId = new mongoose.Types.ObjectId(clientId);
@@ -116,19 +118,25 @@ const addSoumission = async (req, res, next) => {
         telephone,
         employeurId: employeurId ? new mongoose.Types.ObjectId(employeurId) : null,
         prenomClient,
-
-        clientId,
+        clientId: clientObjectId,
         travaux
     });
+
+    // 🟡 Ajoute ce log pour tout voir
+    console.log("Soumission à sauvegarder:", newSoumission);
 
     try {
         await newSoumission.save();
         res.status(201).json({ soumission: newSoumission.toObject({ getters: true }) });
     } catch (err) {
-        console.error("Erreur addSoumission:", err);
-        return next(new HttpError("Ajout de la soumission échoué.", 500));
+        console.error("Erreur .save():", err.message);
+        if (err.name === "ValidationError") {
+            return next(new HttpError("Champs manquants ou invalides: " + err.message, 422));
+        }
+        return next(new HttpError("Ajout de la soumission échoué : " + err.message, 500));
     }
 };
+
 
 
 

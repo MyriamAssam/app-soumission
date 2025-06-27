@@ -98,9 +98,22 @@ const addSoumission = async (req, res, next) => {
     } = req.body;
 
     const clientId = req.userData?.userId;
+    const role = req.userData?.role;
 
     if (!clientId) {
         return next(new HttpError("Client non authentifié.", 401));
+    }
+
+    // 🔎 Validation générale
+    if (!adresse || !prenomClient || !email || !description || !telephone) {
+        return next(new HttpError("Informations manquantes.", 400));
+    }
+
+    // ✅ Validation spécifique employé
+    if (role === "employé") {
+        if (!nomEmployeur || !employeurId) {
+            return next(new HttpError("Informations employeur manquantes.", 400));
+        }
     }
 
     let clientObjectId;
@@ -113,6 +126,7 @@ const addSoumission = async (req, res, next) => {
     console.log("===== [addSoumission] Début de la requête =====");
     console.log("Body reçu:", req.body);
     console.log("Client ID (token):", clientId);
+    console.log("Rôle:", role);
     console.log("===============================================");
 
     const newSoumission = new SOUMISSIONS({
@@ -135,6 +149,7 @@ const addSoumission = async (req, res, next) => {
         return next(new HttpError("Ajout de la soumission échoué : " + err.message, 500));
     }
 };
+
 
 
 

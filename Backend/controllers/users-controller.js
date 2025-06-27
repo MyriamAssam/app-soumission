@@ -150,11 +150,15 @@ const login = async (req, res, next) => {
     );
 
   } else {
-    // Si les identifiants sont bons
     let token;
     try {
       token = jwt.sign(
-        { userId: existingUser.id, email: existingUser.email },
+        {
+          userId: existingUser.id,
+          email: existingUser.email,
+          role: existingUser.role, // ✅ ajouté ici
+          specialite: existingUser.specialite
+        },
         "ProjetDeveloppment2024",
         { expiresIn: "24h" }
       );
@@ -167,6 +171,7 @@ const login = async (req, res, next) => {
         )
       );
     }
+
 
     res.status(201).json({
       userId: existingUser.id,

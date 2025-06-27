@@ -13,7 +13,12 @@ module.exports = (req, res, next) => {
     }
 
     const tokenDecode = jwt.verify(token, "ProjetDeveloppment2024");
-    req.userData = { userId: tokenDecode.userId };
+    req.userData = {
+      userId: tokenDecode.userId,
+      role: tokenDecode.role,
+      email: tokenDecode.email
+    };
+
     console.log("Validation de l'authentification: ", req.userData);
 
     next();

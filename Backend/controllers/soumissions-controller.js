@@ -236,8 +236,10 @@ const ajouterNote = async (req, res, next) => {
             id: id || require("crypto").randomBytes(6).toString("hex"),
             auteur,
             texte: texte,
+            role, // <--- add this line
             date: new Date()
         };
+
 
         soumission[champNote].push(nouvelleNote);
         await soumission.save();

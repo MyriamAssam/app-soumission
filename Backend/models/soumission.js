@@ -17,7 +17,8 @@ const soumissionSchema = new mongoose.Schema({
             id: String,
             auteur: String,
             texte: String,
-            date: { type: Date, default: Date.now }
+            date: { type: Date, default: Date.now },
+            role: String // <-- add this line
         }
     ],
     notesEmployes: [
@@ -26,9 +27,11 @@ const soumissionSchema = new mongoose.Schema({
             id: String,
             auteur: String,
             texte: String,
-            date: { type: Date, default: Date.now }
+            date: { type: Date, default: Date.now },
+            role: String // <-- add this line
         }
     ]
+
 });
 
 module.exports = mongoose.model("Soumission", soumissionSchema);

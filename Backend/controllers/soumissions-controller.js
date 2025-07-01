@@ -208,9 +208,9 @@ const modifierNote = async (req, res, next) => {
 
 const ajouterNote = async (req, res, next) => {
     const soumissionId = req.params.oId;
-    const { id, notes, role, auteur } = req.body;
+    const { id, texte, role, auteur } = req.body;
 
-    if (!notes || !role || !auteur) {
+    if (!texte || !role || !auteur) {
         return next(new HttpError("Champs requis manquants pour la note.", 400));
     }
 
@@ -235,7 +235,7 @@ const ajouterNote = async (req, res, next) => {
         const nouvelleNote = {
             id: id || require("crypto").randomBytes(6).toString("hex"),
             auteur,
-            texte: notes,
+            texte: texte,
             date: new Date()
         };
 
@@ -325,6 +325,7 @@ const getNotes = async (req, res, next) => {
         return next(new HttpError("Erreur lors de la récupération des notes.", 500));
     }
 };
+
 const deleteNote = async (req, res, next) => {
     const { oId, noteId } = req.params;
     const { role } = req.query;

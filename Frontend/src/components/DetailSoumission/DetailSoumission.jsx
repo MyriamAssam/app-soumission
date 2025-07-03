@@ -122,12 +122,19 @@ const DetailSoumission = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ role: auth.role }),
             });
-            setListeNotes([]);
+
+            // 🔁 Recharge la liste après suppression pour éviter les notes fantômes
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions/find/${soumi._id}`);
+            const data = await res.json();
+            const notes = auth.role === "employé" ? data.soumission.notesEmployes : data.soumission.notesClients;
+
+            setListeNotes(notes || []);
             setMessage({ type: "info", text: t("details.historiqueSupprime") });
         } catch (err) {
             setMessage({ type: "info", text: t("details.erreurSuppressionHistorique") });
         }
     };
+
 
     const handleDelete = async () => {
         try {
@@ -185,12 +192,13 @@ const DetailSoumission = () => {
                     <li key={idx}>
                         <strong>{n.auteur}</strong> ({moment(soumi.date).format("LLL")}) :
                         <p>{n.texte}</p>
-                        {n.auteur === auth.prenom && (
+                        {n.auteurId === auth.user._id && (
                             <>
                                 <button onClick={() => handleEditNote(idx)}>{t("details.boutonModifier")}</button>
                                 <button onClick={() => handleDeleteNote(idx)}>{t("details.boutonSupprimer")}</button>
                             </>
                         )}
+
                     </li>
                 ))}
             </ul>

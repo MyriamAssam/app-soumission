@@ -237,10 +237,12 @@ const ajouterNote = async (req, res, next) => {
         const nouvelleNote = {
             id: id || require("crypto").randomBytes(6).toString("hex"),
             auteur,
+            auteurId: req.userData.userId,  // ✅ ajoute l'id de l'utilisateur
             texte,
             role,
             date: new Date()
         };
+
 
         soumission[champNote].push(nouvelleNote);
 

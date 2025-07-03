@@ -332,6 +332,37 @@ const getNotes = async (req, res, next) => {
         return next(new HttpError("Erreur lors de la récupération des notes.", 500));
     }
 };
+const clearNotes = async (req, res, next) => {
+    const { role } = req.body;
+    const { oId } = req.params;
+
+    if (!role) {
+        return next(new HttpError("Le rôle est requis.", 400));
+    }
+
+    const champNote = role === "employé" ? "notesEmployes" : role === "client" ? "notesClients" : null;
+
+    if (!champNote) {
+        return next(new HttpError("Rôle invalide.", 400));
+    }
+
+    try {
+        const soumission = await SOUMISSIONS.findById(oId);
+        if (!soumission) {
+            return next(new HttpError("Soumission introuvable.", 404));
+        }
+
+        soumission[champNote] = [];
+        await soumission.save();
+
+        return res.status(200).json({ message: "Historique supprimé.", soumission });
+    } catch (err) {
+        console.error("Erreur suppression notes:", err);
+        return next(new HttpError("Erreur serveur lors de la suppression des notes.", 500));
+    }
+};
+
+
 
 const deleteNote = async (req, res, next) => {
     const { oId, noteId } = req.params;
@@ -364,9 +395,35 @@ const deleteNote = async (req, res, next) => {
         return next(new HttpError("Erreur lors de la suppression de la note.", 500));
     }
 };
+const allSoums = await SOUMISSIONS.find();
+
+for (const soum of allSoums) {
+    let updated = false;
+
+    soum.notesClients.forEach(note => {
+        if (!note.auteurId) {
+            note.auteurId = soum.clientId;
+            updated = true;
+        }
+    });
+
+    soum.notesEmployes.forEach(note => {
+        if (!note.auteurId) {
+            note.auteurId = soum.employeurId || soum.clientId;
+            updated = true;
+        }
+    });
+
+    if (updated) {
+        await soum.save();
+    }
+}
+
+console.log("Migration des auteurId terminée.");
 
 // --- EXPORTS ---
 exports.getAllSoumissions = getAllSoumissions;
+exports.clearNotes = clearNotes;
 exports.getSoumissionById = getSoumissionById;
 exports.soumissionUser = getAllSoumissionsEmployeur;
 exports.recherche = findSoumissionsByEmail;

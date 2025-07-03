@@ -191,7 +191,8 @@ const DetailSoumission = () => {
             <ul>
                 {listeNotes.map((n, idx) => (
                     <li key={idx}>
-                        <strong>{n.auteur}</strong> ({moment(soumi.date).format("LLL")}) :
+                        <strong>{n.auteur}</strong> ({moment(n.date).format("LLL")}) :
+
                         <p>{n.texte}</p>
                         {n.auteurId?.toString() === auth.user._id && (
                             <>

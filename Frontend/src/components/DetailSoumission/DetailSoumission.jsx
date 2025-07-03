@@ -94,9 +94,13 @@ const DetailSoumission = () => {
 
             await fetch(url, {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + auth.token  // ✅ Ajoute le token
+                },
                 body: JSON.stringify(body),
             });
+
 
             const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions/find/${soumi._id}`);
             const data = await res.json();

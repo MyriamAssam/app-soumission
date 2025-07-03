@@ -16,13 +16,18 @@ const AllSoumissions = () => {
     useEffect(() => {
         const fetchAllSoumissions = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions`, {
+                    headers: {
+                        "Authorization": "Bearer " + auth.token  // ✅ Ajoute le token
+                    }
+                });
                 const data = await response.json();
                 setSoumissions(data.soumissions || []);
             } catch (err) {
                 console.error("Erreur lors de la récupération des soumissions :", err);
             }
         };
+
         fetchAllSoumissions();
     }, []);
     useEffect(() => {

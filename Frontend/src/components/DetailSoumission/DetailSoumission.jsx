@@ -133,13 +133,17 @@ const DetailSoumission = () => {
         try {
             await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}`, {
                 method: "DELETE",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + auth.token  // ✅ Ajoute le token ici
+                },
             });
             navigate("/soumissions");
         } catch (err) {
             console.error(err);
         }
     };
+
 
     const handleEdit = () => {
         navigate("/add-soumi", {

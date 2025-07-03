@@ -83,10 +83,11 @@ const DetailSoumission = () => {
                 ? { id: noteIdEnCours, texte: note, role: auth.role }
                 : {
                     id: Math.random().toString(36).substr(2, 9),
-                    notes: note,
+                    texte: note, // 🔧 Corrigé ici
                     role: auth.role,
                     auteur: auth.prenom
                 };
+
 
 
             await fetch(url, {

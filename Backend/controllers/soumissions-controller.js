@@ -395,31 +395,7 @@ const deleteNote = async (req, res, next) => {
         return next(new HttpError("Erreur lors de la suppression de la note.", 500));
     }
 };
-const allSoums = await SOUMISSIONS.find();
 
-for (const soum of allSoums) {
-    let updated = false;
-
-    soum.notesClients.forEach(note => {
-        if (!note.auteurId) {
-            note.auteurId = soum.clientId;
-            updated = true;
-        }
-    });
-
-    soum.notesEmployes.forEach(note => {
-        if (!note.auteurId) {
-            note.auteurId = soum.employeurId || soum.clientId;
-            updated = true;
-        }
-    });
-
-    if (updated) {
-        await soum.save();
-    }
-}
-
-console.log("Migration des auteurId terminée.");
 
 // --- EXPORTS ---
 exports.getAllSoumissions = getAllSoumissions;

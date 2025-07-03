@@ -80,14 +80,15 @@ const DetailSoumission = () => {
                 : `${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}/note`;
 
             const body = isEdit
-                ? { texte: note, role: auth.role } // 🔧 supprimé id ici
+                ? { texte: note, role: auth.role }
                 : {
                     id: Math.random().toString(36).substr(2, 9),
                     texte: note,
                     role: auth.role,
-                    auteur: auth.user.prenom
-
+                    auteur: auth.user.prenom,
+                    auteurId: auth.user._id // ✅ ajoute ceci
                 };
+
 
 
 

@@ -214,8 +214,10 @@ const ajouterNote = async (req, res, next) => {
         return next(new HttpError("Champs requis manquants pour la note.", 400));
     }
 
-    const champNote = role === "client" ? "notesClients" :
-        role === "employé" ? "notesEmployes" : null;
+    const roleNormalized = role.toLowerCase();
+    const champNote = roleNormalized === "client" ? "notesClients" :
+        roleNormalized === "employé" ? "notesEmployes" : null;
+
 
     if (!champNote) {
         return next(new HttpError("Rôle invalide (doit être 'client' ou 'employé').", 400));
@@ -227,7 +229,7 @@ const ajouterNote = async (req, res, next) => {
             return next(new HttpError("Soumission introuvable.", 404));
         }
 
-        // Empêcher les doublons (même ID déjà utilisé)
+        // Empêcher les doublons
         if (soumission[champNote].some(n => n.id === id)) {
             return next(new HttpError("Une note avec cet ID existe déjà.", 400));
         }
@@ -235,21 +237,22 @@ const ajouterNote = async (req, res, next) => {
         const nouvelleNote = {
             id: id || require("crypto").randomBytes(6).toString("hex"),
             auteur,
-            texte: texte,
-            role, // <--- add this line
+            texte,
+            role,
             date: new Date()
         };
 
-
         soumission[champNote].push(nouvelleNote);
-        await soumission.save();
 
+        await soumission.save();
         res.status(201).json({ message: "Note ajoutée avec succès.", soumission });
+
     } catch (err) {
-        console.error(err);
-        return next(new HttpError("Erreur lors de l'ajout de la note.", 500));
+        console.error("Erreur lors de l'ajout de la note:", err);
+        return next(new HttpError("Erreur lors de l'ajout de la note: " + err.message, 500));
     }
 };
+
 
 
 

@@ -32,8 +32,7 @@ export const AuthProvider = ({ children }) => {
     if (storedUser && storedToken) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        console.log("USER RESTAURÉ DU LOCALSTORAGE", parsedUser);
-
+        parsedUser.id = parsedUser._id;
 
         setUser(parsedUser);
         setToken(storedToken);
@@ -42,14 +41,12 @@ export const AuthProvider = ({ children }) => {
         setEmail(parsedUser.email);
         setAdresse(parsedUser.adresse);
         setTelephone(parsedUser.telephone);
-        parsedUser.id = parsedUser._id;
-        setUser(parsedUser);
-
       } catch (err) {
         console.error("Erreur parsing user", err);
         localStorage.clear();
       }
     }
+
   }, []);
 
 
@@ -58,11 +55,7 @@ export const AuthProvider = ({ children }) => {
   console.log("Token after login:", token);
   console.log("localStorage user:", localStorage.getItem("user"));
   const login = (userId, token, prenom, email, adresse, telephone, role, specialite = "") => {
-    console.log("User after login:", user);
-    console.log("Token after login:", token);
-    console.log("localStorage user:", localStorage.getItem("user"));
     const userObject = {
-
       _id: userId.toString(),
       prenom,
       email,
@@ -82,7 +75,11 @@ export const AuthProvider = ({ children }) => {
 
     localStorage.setItem("user", JSON.stringify(userObject));
     localStorage.setItem("token", token);
+
+    console.log("✅ User logged in:", userObject);
+    console.log("✅ Token saved:", token);
   };
+
 
 
   const logout = () => {
@@ -96,12 +93,8 @@ export const AuthProvider = ({ children }) => {
 
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    localStorage.removeItem("role");
-    localStorage.removeItem("prenom");
-    localStorage.removeItem("email");
-    localStorage.removeItem("adresse");
-    localStorage.removeItem("telephone");
   };
+
   const updateUser = (updatedFields) => {
     const updatedUser = { ...user, ...updatedFields };
     setUser(updatedUser);
@@ -110,9 +103,22 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, role, prenom, email, adresse, telephone, login, logout, updateUser }}
+      value={{
+        isLoggedIn: !!token, // ✅ ajouté ici
+        user,
+        token,
+        role,
+        prenom,
+        email,
+        adresse,
+        telephone,
+        login,
+        logout,
+        updateUser
+      }}
     >
       {children}
     </AuthContext.Provider>
   );
+
 };

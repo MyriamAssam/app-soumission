@@ -57,7 +57,9 @@ const AddSoumi = () => {
 
             await sendRequest(url, method, JSON.stringify(newSoumi), {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${auth.token}`, // ✅ ajoute ce header
             });
+
 
             navigate("/soumissions?refresh=true");
         } catch (err) {

@@ -193,12 +193,13 @@ const DetailSoumission = () => {
                     <li key={idx}>
                         <strong>{n.auteur}</strong> ({moment(soumi.date).format("LLL")}) :
                         <p>{n.texte}</p>
-                        {n.auteurId === auth.user._id && (
+                        {n.auteurId?.toString() === auth.user._id && (
                             <>
                                 <button onClick={() => handleEditNote(idx)}>{t("details.boutonModifier")}</button>
                                 <button onClick={() => handleDeleteNote(idx)}>{t("details.boutonSupprimer")}</button>
                             </>
                         )}
+
 
                     </li>
                 ))}

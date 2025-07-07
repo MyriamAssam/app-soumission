@@ -293,26 +293,40 @@ const soumissionList = async (req, res, next) => {
 
 const deleteSoumission = async (req, res, next) => {
     const oId = req.params.oId;
+    const userRole = req.userData.role;
+    const userId = req.userData.userId;
 
     let soumission;
     try {
-        soumission = await SOUMISSIONS.findByIdAndDelete(oId);
-
+        soumission = await SOUMISSIONS.findById(oId);
         if (!soumission) {
             return next(new HttpError("Soumission introuvable.", 404));
         }
 
+        // ✅ Vérifie permissions
+        if (userRole === "client") {
+            if (soumission.clientId.toString() !== userId) {
+                return next(new HttpError("Non autorisé à supprimer cette soumission.", 403));
+            }
+        } else if (userRole === "employé") {
+            const user = await require("../models/user").findById(userId);
+            if (!user || soumission.travaux.indexOf(user.specialite) === -1) {
+                return next(new HttpError("Non autorisé à supprimer cette soumission.", 403));
+            }
+        } else {
+            return next(new HttpError("Rôle non autorisé.", 403));
+        }
+
+        // ✅ Supprime après validation
+        await soumission.deleteOne();
+
         res.status(200).json({ message: "La soumission a été supprimée avec succès." });
     } catch (e) {
         console.log(e);
-        return next(
-            new HttpError(
-                "Échec lors de la suppression de la soumission, veuillez réessayer plus tard.",
-                500
-            )
-        );
+        return next(new HttpError("Échec lors de la suppression de la soumission, veuillez réessayer plus tard.", 500));
     }
 };
+
 const getNotes = async (req, res, next) => {
     const { oId } = req.params;
     const { role } = req.query;

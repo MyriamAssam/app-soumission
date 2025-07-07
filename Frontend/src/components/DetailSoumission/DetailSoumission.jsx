@@ -183,7 +183,23 @@ const DetailSoumission = () => {
         return match ? `${match[1]}-${match[2]}-${match[3]}` : number;
     };
 
+    // ... your component code
+
     if (!soumi) return <p>{t("details.aucuneDonnee")}</p>;
+
+    // 🔥 Add your debug log here before returning the JSX
+    console.log("DEBUG EMPLOYÉ:", {
+        authRole: auth.role,
+        specialite: auth.user?.specialite,
+        soumissionTravaux: soumi.travaux
+    });
+
+    return (
+        <div className="container-detail">
+            {/* your entire JSX */}
+        </div>
+    );
+
 
     return (
         <div className="container-detail">
@@ -237,12 +253,17 @@ const DetailSoumission = () => {
             )}
 
             { }
-            {auth.role === "employé" && soumi.travaux?.includes(auth.user.specialite) && (
-                <div className="boutons-actions">
-                    <button className="boutonSupp" onClick={handleDelete}>
-                        <strong>{t("details.boutonSupprimerSoum")}</strong>
-                    </button>
-                </div>
+            {auth.role === "employé" && (
+                <>
+                    <p>DEBUG: {JSON.stringify(auth.user.specialite)} in {JSON.stringify(soumi.travaux)}</p>
+                    {soumi.travaux?.includes(auth.user.specialite) && (
+                        <div className="boutons-actions">
+                            <button className="boutonSupp" onClick={handleDelete}>
+                                <strong>{t("details.boutonSupprimerSoum")}</strong>
+                            </button>
+                        </div>
+                    )}
+                </>
             )}
 
 

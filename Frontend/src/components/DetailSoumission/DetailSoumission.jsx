@@ -194,11 +194,6 @@ const DetailSoumission = () => {
         soumissionTravaux: soumi.travaux
     });
 
-    return (
-        <div className="container-detail">
-            {/* your entire JSX */}
-        </div>
-    );
 
 
     return (

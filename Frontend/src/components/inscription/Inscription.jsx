@@ -71,7 +71,7 @@ export default function Inscription(props) {
         responseData.adresse,
         responseData.telephone,
         responseData.role,
-        responseData.specialite // ✅ pass this from backend response
+
       );
 
       if (responseData.user.role === "client") {

@@ -237,7 +237,7 @@ const DetailSoumission = () => {
             )}
 
             { }
-            {auth.role === "employé" && soumi.travaux.includes(auth.user.specialite) && (
+            {auth.role === "employé" && soumi.travaux?.includes(auth.user.specialite) && (
                 <div className="boutons-actions">
                     <button className="boutonSupp" onClick={handleDelete}>
                         <strong>{t("details.boutonSupprimerSoum")}</strong>

@@ -49,13 +49,14 @@ export default function Login() {
       }
 
       auth.login(
-        responseData._id || responseData.userId,
+        responseData.userId,
         responseData.token,
         responseData.prenom,
         responseData.email,
         responseData.adresse,
         responseData.telephone,
-        responseData.role.toLowerCase()
+        responseData.role,
+        responseData.specialite // ✅ pass this from backend response
       );
 
       if (responseData.userId !== undefined) {

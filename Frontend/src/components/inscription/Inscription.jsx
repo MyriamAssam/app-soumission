@@ -64,13 +64,14 @@ export default function Inscription(props) {
 
 
       auth.login(
-        responseData.user._id,
+        responseData.userId,
         responseData.token,
-        responseData.user.prenom,
-        responseData.user.email,
-        responseData.user.adresse,
-        responseData.user.telephone,
-        responseData.user.role
+        responseData.prenom,
+        responseData.email,
+        responseData.adresse,
+        responseData.telephone,
+        responseData.role,
+        responseData.specialite // ✅ pass this from backend response
       );
 
       if (responseData.user.role === "client") {

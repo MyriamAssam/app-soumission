@@ -56,6 +56,7 @@ export default function Login() {
         responseData.adresse,
         responseData.telephone,
         responseData.role,
+        responseData.specialite
 
       );
 

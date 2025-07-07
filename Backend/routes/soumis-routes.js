@@ -27,6 +27,7 @@ router.get("/", soumissionController.getAllSoumissions);
 router.patch("/:oId/note", soumissionController.ajouterNote);
 router.post("/", checkAuth, soumissionController.addSoumission);
 router.put("/:oId", soumissionController.majSoumission);
-router.delete("/:oId", soumissionController.supprimerSoumission);
+router.delete("/:oId", checkAuth, soumissionController.supprimerSoumission);
+
 
 module.exports = router;

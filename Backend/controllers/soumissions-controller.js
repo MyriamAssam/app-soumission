@@ -234,14 +234,17 @@ const ajouterNote = async (req, res, next) => {
             return next(new HttpError("Une note avec cet ID existe déjà.", 400));
         }
 
+        const noteId = id || require("crypto").randomBytes(6).toString("hex");
         const nouvelleNote = {
-            id: id || require("crypto").randomBytes(6).toString("hex"),
+            id: noteId,
             auteur,
-            auteurId: req.userData.userId,  // ✅ ajoute l'id de l'utilisateur
+            auteurId: req.userData.userId,
             texte,
             role,
             date: new Date()
         };
+
+
 
 
         soumission[champNote].push(nouvelleNote);

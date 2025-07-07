@@ -54,22 +54,31 @@ const DetailSoumission = () => {
 
 
     const handleDeleteNote = async (index) => {
-        const newNotes = [...listeNotes];
-        newNotes.splice(index, 1);
+        const noteToDelete = listeNotes[index];
+        if (!noteToDelete) return;
 
         try {
-            const champNote = auth.role === "employé" ? "notesEmployes" : "notesClients";
-            await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ [champNote]: newNotes }),
+            await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}/notes/${noteToDelete.id || noteToDelete._id}?role=${auth.role}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + auth.token,
+                },
             });
-            setListeNotes(newNotes);
+
+            // Re-fetch notes after deletion
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions/find/${soumi._id}`);
+            const data = await res.json();
+            const notes = auth.role === "employé" ? data.soumission.notesEmployes : data.soumission.notesClients;
+
+            setListeNotes(notes || []);
             setMessage({ type: "info", text: t("details.noteSupprimee") });
         } catch (err) {
+            console.error(err);
             setMessage({ type: "error", text: t("details.erreurSuppression") });
         }
     };
+
 
     const handleSaveNote = async () => {
         try {
@@ -92,6 +101,10 @@ const DetailSoumission = () => {
 
 
 
+            if (!note || note.trim() === "") {
+                setMessage({ type: "error", text: t("details.erreurNoteVide") });
+                return;
+            }
 
             await fetch(url, {
                 method: "PATCH",
@@ -120,9 +133,13 @@ const DetailSoumission = () => {
         try {
             await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions/${soumi._id}/notes/clear`, {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + auth.token
+                },
                 body: JSON.stringify({ role: auth.role }),
             });
+
 
             // 🔁 Recharge la liste après suppression pour éviter les notes fantômes
             const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}soumissions/find/${soumi._id}`);
@@ -190,7 +207,8 @@ const DetailSoumission = () => {
             {listeNotes.length === 0 && <p>{t("details.aucuneNote")}</p>}
             <ul>
                 {listeNotes.map((n, idx) => (
-                    <li key={idx}>
+                    <li key={n.id || idx}>
+
                         <strong>{n.auteur}</strong> ({moment(n.date).format("LLL")}) :
 
                         <p>{n.texte}</p>

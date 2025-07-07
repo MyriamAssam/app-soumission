@@ -185,14 +185,6 @@ const DetailSoumission = () => {
 
     // ... your component code
 
-    if (!soumi) return <p>{t("details.aucuneDonnee")}</p>;
-
-    // 🔥 Add your debug log here before returning the JSX
-    console.log("DEBUG EMPLOYÉ:", {
-        authRole: auth.role,
-        specialite: auth.user?.specialite,
-        soumissionTravaux: soumi.travaux
-    });
 
 
 
@@ -250,7 +242,7 @@ const DetailSoumission = () => {
             { }
             {auth.role === "employé" && (
                 <>
-                    <p>DEBUG: {JSON.stringify(auth.user.specialite)} in {JSON.stringify(soumi.travaux)}</p>
+
                     {soumi.travaux?.includes(auth.user.specialite) && (
                         <div className="boutons-actions">
                             <button className="boutonSupp" onClick={handleDelete}>

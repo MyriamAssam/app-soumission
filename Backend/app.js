@@ -18,7 +18,17 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
-app.options("*", (req, res) => res.sendStatus(200));
+const corsOptions = {
+  origin: ["https://app-soumission.onrender.com"], // ajoute aussi ton localhost si besoin
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+// Répondre correctement aux preflight :
+app.options("*", cors(corsOptions));
+
 
 // Routes
 app.use("/soumis", soumisRoutes);

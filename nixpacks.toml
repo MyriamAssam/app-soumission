@@ -1,0 +1,10 @@
+providers = ["node"]
+
+[phases.setup]
+nixPkgs = ["nodejs_20", "npm"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[start]
+cmd = "node app.js"

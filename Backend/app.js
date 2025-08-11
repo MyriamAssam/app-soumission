@@ -19,15 +19,18 @@ app.use(cors({
 
 app.use(bodyParser.json());
 const corsOptions = {
-  origin: ["https://app-soumission.onrender.com"], // ajoute aussi ton localhost si besoin
+  origin: [
+    "https://app-soumission.onrender.com",   // ton front Render
+    "http://localhost:5173",                 // dev (si Vite)
+    "http://localhost:3000"                  // dev (si CRA)
+  ],
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
+  credentials: true
 };
-
 app.use(cors(corsOptions));
-// Répondre correctement aux preflight :
 app.options("*", cors(corsOptions));
+
 
 
 // Routes

@@ -1,8 +1,9 @@
 {
     "$schema": "https://railway.app/railway.schema.json",
     "build": {
-        "root": "Backend",
-        "buildCommand": "npm install",
+        "buildCommand": "npm ci"
+    },
+    "deploy": {
         "startCommand": "npm start"
     }
 }

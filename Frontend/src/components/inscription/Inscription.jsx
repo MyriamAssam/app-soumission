@@ -63,15 +63,16 @@ export default function Inscription(props) {
       }
 
 
+      const u = responseData.user;
       auth.login(
-        responseData.userId,
+        u.id,
         responseData.token,
-        responseData.prenom,
-        responseData.email,
-        responseData.adresse,
-        responseData.telephone,
-        responseData.role,
-
+        u.prenom,
+        u.email,
+        u.adresse,
+        u.telephone,
+        u.role,
+        u.specialite || ""
       );
 
       if (responseData.user.role === "client") {

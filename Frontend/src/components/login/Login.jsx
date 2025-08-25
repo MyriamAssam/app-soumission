@@ -25,7 +25,7 @@ export default function Login() {
 
     try {
       const response = await fetch(
-        process.env.REACT_APP_BACKEND_URL + "users/login",
+        process.env.REACT_APP_BACKEND_URL + "users/login/",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

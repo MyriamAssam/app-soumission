@@ -46,7 +46,7 @@ export default function Inscription(props) {
     event.target.reset();
 
     try {
-      const response = await fetch(process.env.REACT_APP_BACKEND_URL + "users/register/", {
+      const response = await fetch(process.env.REACT_APP_BACKEND_URL + "users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         mode: "cors",

@@ -7,32 +7,34 @@ const errorHandler = require("./handler/error-handler");
 
 const app = express();
 
-const ALLOWED = new Set([
-  "https://app-soumission.onrender.com",
-  "http://localhost:5173",
-  "http://localhost:3000",
+const ALLOWED_HOSTNAMES = new Set([
+  "app-soumission.onrender.com",
+  "localhost",          // dev
 ]);
 
 app.use((req, res, next) => {
-  const origin = req.headers.origin;
+  const origin = req.headers.origin || "";
+  let allowed = false;
 
-  // Log utile pour voir l’Origin exact
-  if (req.method === "OPTIONS") {
-    console.log("Preflight ->", { origin, url: req.originalUrl, allowed: ALLOWED.has(origin) });
+  try {
+    const u = new URL(origin);
+    // allow https://app-soumission.onrender.com and http(s)://localhost:5173/3000
+    allowed =
+      (u.protocol === "https:" && ALLOWED_HOSTNAMES.has(u.hostname)) ||
+      (u.protocol.startsWith("http") && u.hostname === "localhost");
+  } catch (_) {
+    allowed = false;
   }
 
-  // 🔐 Version robuste : mets true si tu veux restreindre, false si tu veux débloquer pour debug
-  const RESTRICT = true;
+  // DEBUG: see exactly what origin the server receives
+  if (req.method === "OPTIONS") {
+    console.log("Preflight ->", { origin, url: req.originalUrl, allowed });
+  }
 
-  // ✅ soit on restreint aux origins connus
-  // ✅ soit on reflète n'importe quel origin (DEBUG) pour vérifier que CORS est bien appliqué
-  const ok = RESTRICT ? (origin && ALLOWED.has(origin)) : !!origin;
-
-  if (ok) {
+  if (allowed) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Vary", "Origin");
-    // Echo des headers demandés par le navigateur (plus tolérant que liste fixe)
     res.setHeader(
       "Access-Control-Allow-Headers",
       req.headers["access-control-request-headers"] || "Content-Type, Authorization"
@@ -46,6 +48,7 @@ app.use((req, res, next) => {
   if (req.method === "OPTIONS") return res.sendStatus(204);
   next();
 });
+
 
 
 app.use(express.json());

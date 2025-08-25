@@ -1,7 +1,5 @@
-// server.js
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
 
 const usersRoutes = require("./routes/users-routes");
 const soumisRoutes = require("./routes/soumis-routes");
@@ -9,47 +7,33 @@ const errorHandler = require("./handler/error-handler");
 
 const app = express();
 
-const whitelist = [
+const ALLOWED = new Set([
   "https://app-soumission.onrender.com",
   "http://localhost:5173",
   "http://localhost:3000",
-];
+]);
 
-const corsOptions = {
-  origin: (origin, cb) => {
-    if (!origin) return cb(null, true);               // curl / server-to-server
-    if (whitelist.includes(origin)) return cb(null, true);
-    return cb(null, false);                            // <- ne pas throw d’erreur
-  },
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
-
-// IMPORTANT: CORS en tout premier
-app.use((req, res, next) => { res.header("Vary", "Origin"); next(); });
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // gère tous les preflights
-
-// Optionnel: petit log pour debug rapide
+// CORS global + preflight
 app.use((req, res, next) => {
-  if (req.method === "OPTIONS") {
-    console.log("Preflight", req.headers.origin, req.originalUrl);
+  const origin = req.headers.origin;
+  if (origin && ALLOWED.has(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Vary", "Origin");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
   }
+  if (req.method === "OPTIONS") return res.sendStatus(204); // répond au preflight
   next();
 });
 
 app.use(express.json());
 
+// routes
 app.use("/soumis", soumisRoutes);
 app.use("/soumissions", soumisRoutes);
 app.use("/users", usersRoutes);
 
+// 404 + handler
 app.use((req, res, next) => { const e = new Error("Route non trouvée"); e.code = 404; next(e); });
 app.use(errorHandler);
-
-const PORT = process.env.PORT || 3000;
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => app.listen(PORT))
-  .catch(console.error);

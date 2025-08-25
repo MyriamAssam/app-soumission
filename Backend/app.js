@@ -1,5 +1,9 @@
 // app.js
-require("dotenv").config();
+// app.js
+if (process.env.NODE_ENV !== "production") {
+  try { require("dotenv").config(); } catch { }
+}
+
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -12,7 +16,7 @@ const app = express();
 /* -------------------- CORS -------------------- */
 const ALLOWED_HOSTNAMES = new Set([
   "app-soumission.onrender.com", // your Render frontend (HTTPS)
-  "localhost",                    // local dev (any port)
+  "localhost",                    // local dev on any port
 ]);
 
 function setCorsHeaders(req, res) {
@@ -21,21 +25,11 @@ function setCorsHeaders(req, res) {
 
   try {
     const u = new URL(origin);
-    // allow https://app-soumission.onrender.com and http(s)://localhost:*
     allowed =
       (u.protocol === "https:" && ALLOWED_HOSTNAMES.has(u.hostname)) ||
-      u.hostname === "localhost";
+      u.hostname === "localhost"; // http(s)://localhost:*
   } catch (_) {
     allowed = false;
-  }
-
-  // Useful to see what the server decides for preflights
-  if (req.method === "OPTIONS") {
-    console.log("Preflight ->", {
-      origin,
-      url: req.originalUrl,
-      allowed,
-    });
   }
 
   if (allowed) {
@@ -51,21 +45,18 @@ function setCorsHeaders(req, res) {
       "GET,POST,PUT,PATCH,DELETE,OPTIONS"
     );
   }
-
   return allowed;
 }
 
-// Handle ALL preflights first
+// Answer ALL preflights early (200 OK)
 app.options("*", (req, res) => {
-  setCorsHeaders(req, res);
-  return res.status(200).end(); // 200 OK, empty body
+  const allowed = setCorsHeaders(req, res);
+  console.log("Preflight ->", { origin: req.headers.origin, url: req.originalUrl, allowed });
+  res.status(200).end();
 });
 
-// Set CORS on normal requests too
-app.use((req, res, next) => {
-  setCorsHeaders(req, res);
-  next();
-});
+// Normal requests get CORS too
+app.use((req, res, next) => { setCorsHeaders(req, res); next(); });
 
 /* -------------------- Parsers -------------------- */
 app.use(express.json());
@@ -88,7 +79,13 @@ app.use(errorHandler);
 
 /* -------------------- Boot -------------------- */
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI;
+// Accept either name to avoid typos in cloud env
+const MONGO_URI = process.env.MONGO_URI || process.env.MONGODB_URI;
+
+if (!MONGO_URI) {
+  console.error("Missing MONGO_URI (or MONGODB_URI) env var.");
+  process.exit(1);
+}
 
 mongoose
   .connect(MONGO_URI)

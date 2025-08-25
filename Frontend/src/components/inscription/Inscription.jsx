@@ -46,16 +46,13 @@ export default function Inscription(props) {
     event.target.reset();
 
     try {
-      const response = await fetch(
-        process.env.REACT_APP_BACKEND_URL + "users/register", // <- sans le slash final
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          // credentials: "include", // seulement si tu envoies/attends des cookies
-          mode: "cors",
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(process.env.REACT_APP_BACKEND_URL + "users/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        body: JSON.stringify(data),
+      });
+
 
 
       const responseData = await response.json();

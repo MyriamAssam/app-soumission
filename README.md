@@ -1,6 +1,6 @@
 # Portfolio – Myriam Assam
 
-Bienvenue sur mon portfolio de projets réalisés lors de mon stage chez Bâti Québec.
+Bienvenue sur mon portfolio de projets réalisés lors de mon stage chez Bâti Québec et quelques projets d'école (cégep).
 
 ---
 
@@ -30,6 +30,7 @@ Je cherche des opportunités dans le développement ou le soutien technique, id�
 ### 🔹 Site web – Bâti Québec Soumissions
 - Plateforme : React + MongoDB + Postman API
 - Fonction : Création et gestion de soumissions
+- Cliquer sur le lien Render pour voir le resultat et tester
 - Fonctionnalité : Gestion des rôles, formulaire dynamique, i18n (traduction anglais)
 
 🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/app-soumission)
@@ -52,18 +53,36 @@ Je cherche des opportunités dans le développement ou le soutien technique, id�
 
 ---
 
+### 🔹 Site web – JobBang (Projet final a l'école)
+- Plateforme : React + MongoDB + Postman API
+- Fonction : Site de recrutement de stages
+- On peut créer des postes, voir les étudiants qui ont postulés et leur informations, changer le status de la demande
+- CSS pas complet, mais toutes les composantes demandées durant les sprints sont là
+- Cliquer sur le lien Render pour voir le resultat et tester
+- Fait en équipe de 3 
+
+🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/ProjetJob.git)
+
+---
+
+### 🔹 Jeu avec java et XML – Combat
+- Plateforme : Eclipse + Java
+- Fonction : jeu de combat de char, chargé de la page de gestion de changment de couleurs du char et de la balle (seule la balle a fonctionnée)
+- Travail d'équipe, mais chacun avait une page à faire et nous avons pas fait un jeu au complet
+- Voir le read me a l'intérieur du fichier pour plus de détails
+
+🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/ProjetJob.git)
+
+---
+
 ## 📌 Compétences techniques
 
-- **Langages** : JavaScript, Java, PHP, Python, C++
+- **Langages** : JavaScript, Java, PHP, Python, C++, C#
 - **Technologies** : React, Node.js, MongoDB, MySQL, Android Studio
 - **Outils** : Git, GitHub, Postman, VSCode
 
 ---
-
-
 Merci de votre visite ! N'hésitez pas à me contacter pour toute opportunité ou collaboration.
-
-
 
 
 

@@ -8,27 +8,22 @@ const errorHandler = require("./handler/error-handler");
 const app = express();
 
 const ALLOWED_HOSTNAMES = new Set([
-  "app-soumission.onrender.com",
-  "localhost",          // dev
+  "app-soumission.onrender.com", // your Render frontend
+  "localhost",                   // dev (5173/3000)
 ]);
 
+// Robust CORS + noisy logs for preflight
 app.use((req, res, next) => {
   const origin = req.headers.origin || "";
   let allowed = false;
 
   try {
     const u = new URL(origin);
-    // allow https://app-soumission.onrender.com and http(s)://localhost:5173/3000
     allowed =
       (u.protocol === "https:" && ALLOWED_HOSTNAMES.has(u.hostname)) ||
-      (u.protocol.startsWith("http") && u.hostname === "localhost");
+      (u.hostname === "localhost"); // allow http(s)://localhost:*
   } catch (_) {
     allowed = false;
-  }
-
-  // DEBUG: see exactly what origin the server receives
-  if (req.method === "OPTIONS") {
-    console.log("Preflight ->", { origin, url: req.originalUrl, allowed });
   }
 
   if (allowed) {
@@ -45,13 +40,16 @@ app.use((req, res, next) => {
     );
   }
 
-  if (req.method === "OPTIONS") return res.sendStatus(204);
+  if (req.method === "OPTIONS") {
+    console.log("Preflight ->", { origin, url: req.originalUrl, allowed });
+    // use .status(204).end() to be explicit
+    return res.status(204).end();
+  }
   next();
 });
 
-
-
 app.use(express.json());
+
 
 // routes
 app.use("/soumis", soumisRoutes);

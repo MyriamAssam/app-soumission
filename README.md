@@ -58,7 +58,7 @@ Je cherche des opportunités dans le développement ou le soutien technique, id�
 - Fonction : Site de recrutement de stages
 - On peut créer des postes, voir les étudiants qui ont postulés et leur informations, changer le status de la demande
 - CSS pas complet, mais toutes les composantes demandées durant les sprints sont là
-- Cliquer sur le lien Render pour voir le resultat et tester
+- Cliquer sur le lien Render pour voir le resultat 
 - Fait en équipe de 3 
 
 🔗 [Lien vers le dépôt](https://github.com/MyriamAssam/ProjetJob.git)
@@ -67,7 +67,7 @@ Je cherche des opportunités dans le développement ou le soutien technique, id�
 
 ### 🔹 Jeu avec java et XML – Combat
 - Plateforme : Eclipse + Java
-- Fonction : jeu de combat de char, chargé de la page de gestion de changment de couleurs du char et de la balle (seule la balle a fonctionnée)
+- Fonction : jeu de combat de char, chargé de la page de gestion de changement de couleurs du char et de la balle (seule la balle a fonctionnée)
 - Travail d'équipe, mais chacun avait une page à faire et nous avons pas fait un jeu au complet
 - Voir le read me a l'intérieur du fichier pour plus de détails
 
